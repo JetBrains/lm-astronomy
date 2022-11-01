@@ -27,3 +27,8 @@ def get_object_data(record_id: str) -> RecordMetadata:
 @app.get('/atel/{record_id}/object_name')
 def get_object_name(record_id: str) -> str:
     return data[record_id]
+
+
+@app.get('/health_check')
+def health_check():
+    return 'OK'
