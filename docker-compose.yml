@@ -1,6 +1,6 @@
 services:
   api:
-    image: api
+    image: ${IMAGE_PATH:-api}:${IMAGE_VERSION:-latest}
     build:
       context: .
       dockerfile: docker/api/Dockerfile
