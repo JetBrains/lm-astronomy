@@ -1,0 +1,8 @@
+services:
+  api:
+    image: api
+    build:
+      context: .
+      dockerfile: docker/api/Dockerfile
+    ports:
+      - "8000:8000"

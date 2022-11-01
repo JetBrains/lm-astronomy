@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "lm-astronomy"
+version = "0.1.0"
+description = ""
+authors = ["Vladimir Sotnikov <vladimir.sotnikov@jetbrains.com>"]
+readme = "README.md"
+packages = [{include = "lm_astronomy"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = {extras = ["all"], version = "0.85.2"}
+gunicorn = "^20.1.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
