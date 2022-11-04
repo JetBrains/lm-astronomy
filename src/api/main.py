@@ -32,6 +32,6 @@ def get_object_name(record_id: str) -> str:
     return data[record_id]
 
 
-@app.get('/health_check')
+@app.get('/api/health_check')
 def health_check():
     return 'OK'
