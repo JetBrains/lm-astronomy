@@ -12,8 +12,6 @@ class RecordMetadata(BaseModel):
 
 app = FastAPI()
 
-app.mount("/", StaticFiles(directory="static", html=True), name="static")
-
 with open('./data/ffn_atel_closest_output.json', 'r') as f:
     data = json.load(f)
 
@@ -35,3 +33,6 @@ def get_object_name(record_id: str) -> str:
 @app.get('/api/health_check')
 def health_check():
     return 'OK'
+
+
+app.mount("/", StaticFiles(directory="static", html=True), name="static")
