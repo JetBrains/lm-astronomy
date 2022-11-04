@@ -1,6 +1,7 @@
 import json
 
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 
@@ -11,11 +12,13 @@ class RecordMetadata(BaseModel):
 
 app = FastAPI()
 
+app.mount("/", StaticFiles(directory="static", html=True), name="static")
+
 with open('./data/ffn_atel_closest_output.json', 'r') as f:
     data = json.load(f)
 
 
-@app.get('/atel/{record_id}')
+@app.get('/api/atel/{record_id}')
 def get_object_data(record_id: str) -> RecordMetadata:
     metadata = RecordMetadata(
         record_id=record_id,
@@ -24,7 +27,7 @@ def get_object_data(record_id: str) -> RecordMetadata:
     return metadata
 
 
-@app.get('/atel/{record_id}/object_name')
+@app.get('/api/atel/{record_id}/object_name')
 def get_object_name(record_id: str) -> str:
     return data[record_id]
 
