@@ -127,17 +127,17 @@ def get_atel_object_type(record_id: str) -> List[str]:
     return get_atel_data(record_id).object_type
 
 
-@app.get('/api/atel/{record_id}/object_name')
+@app.get('/api/gcn/{record_id}/object_name')
 def get_gcn_object_name(record_id: str) -> str:
     return get_gcn_data(record_id).object_name
 
 
-@app.get('/api/atel/{record_id}/event_type')
+@app.get('/api/gcn/{record_id}/event_type')
 def get_gcn_event_type(record_id: str) -> List[str]:
     return get_gcn_data(record_id).event_type
 
 
-@app.get('/api/atel/{record_id}/object_type')
+@app.get('/api/gcn/{record_id}/object_type')
 def get_gcn_object_type(record_id: str) -> List[str]:
     return get_gcn_data(record_id).object_type
 
