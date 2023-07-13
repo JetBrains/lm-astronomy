@@ -1,4 +1,5 @@
 import json
+import string
 from enum import Enum
 from typing import Optional, List
 
@@ -67,7 +68,7 @@ class ObjectType(str, Enum):
 
 class RecordMetadata(BaseModel):
     record_id: str
-    object_name: str
+    object_name: List[str]
     event_type: List[str]
     object_type: List[str]
 
@@ -76,13 +77,15 @@ class RecordMetadata(BaseModel):
         ri = values.get('record_id')
         if ri is None:
             raise ValueError(f"Enter the message id.")
-        if not (ri.lower() in data_atel or ri.lower() in data_gcn):
+        ri_ci = ri.lower()
+        if not (ri_ci in data_atel or ri_ci in data_gcn):
             raise ValueError(f"The message with id {ri} doesn't exist.")
-        values['record_id'] = ri.lower()
+        values['record_id'] = ri_ci
         return values
 
 
 class FilterParameters(BaseModel):
+    object_name: Optional[str]
     event_type: Optional[EventType]
     object_type: Optional[ObjectType]
 
@@ -113,7 +116,7 @@ def get_gcn_data(record_id: str) -> RecordMetadata:
 
 
 @app.get('/api/atel/{record_id}/object_name')
-def get_atel_object_name(record_id: str) -> str:
+def get_atel_object_name(record_id: str) -> List[str]:
     return get_atel_data(record_id).object_name
 
 
@@ -128,7 +131,7 @@ def get_atel_object_type(record_id: str) -> List[str]:
 
 
 @app.get('/api/gcn/{record_id}/object_name')
-def get_gcn_object_name(record_id: str) -> str:
+def get_gcn_object_name(record_id: str) -> List[str]:
     return get_gcn_data(record_id).object_name
 
 
@@ -152,10 +155,18 @@ def get_filtered_records(params: FilterParameters = Depends()):
     return {"ATel": set.intersection(*map(set, result_atel)), "GCN": set.intersection(*map(set, result_gcn))}
 
 
+def _compare(s1, s2):
+    s1_alphanumeric, s2_alphanumeric = ''.join(e for e in s1 if e.isalnum()).casefold(), \
+        ''.join(e for e in s2 if e.isalnum()).casefold()
+    s1_split, s2_split = set(s1.casefold().split()), set(s2.casefold().split())
+    return s1_alphanumeric == s2_alphanumeric or s1_split.issubset(s2_split) or s2_split.issubset(s1_split)
+
+
 def _search_dataset(entity_name: str, entity: Enum, dataset: dict):
     results = []
     for key in dataset:
-        if entity.value.lower() in dataset[key][entity_name]:
+        val = entity if isinstance(entity, str) else entity.value
+        if any(_compare(val, item) for item in dataset[key][entity_name]):
             results.append(key)
     return results
 
