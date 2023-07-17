@@ -1,5 +1,4 @@
 import json
-import string
 from enum import Enum
 from typing import Optional, List
 
@@ -12,6 +11,13 @@ with open('./data/atel_entities.json', 'r') as f:
 
 with open('./data/gcn_entities.json', 'r') as f:
     data_gcn = json.load(f)
+
+
+class MessengerType(str, Enum):
+    COSMIC_RAYS = "Cosmic Rays"
+    GRAVITATIONAL_WAVES = "Gravitational Waves"
+    NEUTRINOS = "Neutrinos"
+    ELECTROMAGNETIC_RADIATION = "Electromagnetic Radiation"
 
 
 class EventType(str, Enum):
@@ -71,6 +77,7 @@ class RecordMetadata(BaseModel):
     object_name: List[str]
     event_type: List[str]
     object_type: List[str]
+    messenger_type: List[str]
 
     @root_validator(pre=True)
     def check_record_id(cls, values: dict):
@@ -88,6 +95,7 @@ class FilterParameters(BaseModel):
     object_name: Optional[str]
     event_type: Optional[EventType]
     object_type: Optional[ObjectType]
+    messenger_type: Optional[MessengerType]
 
 
 app = FastAPI()
@@ -99,7 +107,8 @@ def get_atel_data(record_id: str) -> RecordMetadata:
         record_id=record_id,
         object_name=data_atel[record_id]['object_name'],
         event_type=data_atel[record_id]['event_type'],
-        object_type=data_atel[record_id]['object_type']
+        object_type=data_atel[record_id]['object_type'],
+        messenger_type=data_atel[record_id]['messenger_type']
     )
     return metadata
 
@@ -110,7 +119,8 @@ def get_gcn_data(record_id: str) -> RecordMetadata:
         record_id=record_id,
         object_name=data_gcn[record_id]['object_name'],
         event_type=data_gcn[record_id]['event_type'],
-        object_type=data_gcn[record_id]['object_type']
+        object_type=data_gcn[record_id]['object_type'],
+        messenger_type=data_gcn[record_id]['messenger_type']
     )
     return metadata
 
@@ -130,6 +140,11 @@ def get_atel_object_type(record_id: str) -> List[str]:
     return get_atel_data(record_id).object_type
 
 
+@app.get('/api/atel/{record_id}/messenger_type')
+def get_atel_messenger_type(record_id: str) -> List[str]:
+    return get_atel_data(record_id).messenger_type
+
+
 @app.get('/api/gcn/{record_id}/object_name')
 def get_gcn_object_name(record_id: str) -> List[str]:
     return get_gcn_data(record_id).object_name
@@ -143,6 +158,11 @@ def get_gcn_event_type(record_id: str) -> List[str]:
 @app.get('/api/gcn/{record_id}/object_type')
 def get_gcn_object_type(record_id: str) -> List[str]:
     return get_gcn_data(record_id).object_type
+
+
+@app.get('/api/gcn/{record_id}/messenger_type')
+def get_gcn_messenger_type(record_id: str) -> List[str]:
+    return get_gcn_data(record_id).messenger_type
 
 
 @app.get('/api/filter/')
@@ -166,7 +186,7 @@ def _search_dataset(entity_name: str, entity: Enum, dataset: dict):
     results = []
     for key in dataset:
         val = entity if isinstance(entity, str) else entity.value
-        if any(_compare(val, item) for item in dataset[key][entity_name]):
+        if entity_name in dataset[key] and any(_compare(val, item) for item in dataset[key][entity_name]):
             results.append(key)
     return results
 
