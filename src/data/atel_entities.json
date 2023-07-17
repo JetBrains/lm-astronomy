@@ -2920,7 +2920,10 @@
       "transient"
     ],
     "object_name": [
-      "2S 1711-339 and A1744-36"
+      [
+        "2S 1711-339",
+        "A1744-36"
+      ]
     ],
     "object_type": [
       "electromagnetic source",
@@ -3146,7 +3149,9 @@
       " GRS 1747-312",
       " RX J1709302-263927",
       " 4U 1711-34 (= 2S 1711-339)",
-      " and 4U 1728-34 (= GX 354-0)"
+      [
+        "4U 1728-34 (= GX 354-0)"
+      ]
     ],
     "object_type": [
       "globular cluster",
@@ -4337,7 +4342,10 @@
   "348": {
     "event_type": [],
     "object_name": [
-      "Supernovae 2004dx and 2004eh"
+      [
+        "Supernovae 2004dx",
+        "2004eh"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -7890,7 +7898,10 @@
       "transient"
     ],
     "object_name": [
-      "Supernovae 2005gn and 2005hb"
+      [
+        "Supernovae 2005gn",
+        "2005hb"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -9411,7 +9422,10 @@
       "transient"
     ],
     "object_name": [
-      "2006aq and 2006ar"
+      [
+        "2006aq",
+        "2006ar"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -9640,7 +9654,10 @@
       "transient"
     ],
     "object_name": [
-      "XTE J1701-362 and XTE J1739-285"
+      [
+        "XTE J1701-362",
+        "XTE J1739-285"
+      ]
     ],
     "object_type": [
       "neutron star"
@@ -10052,7 +10069,11 @@
     "object_name": [
       "Subjects: X-ray",
       " A Comment Description: The reported parameters for the SWIFT observation of May 16",
-      " 01:22 UTC in Atel #811 are wrong The observation lasted 385 seconds and the observed count rate and 05-10 keV source flux are 019 counts/"
+      [
+        "01:22 UTC in Atel #811 are wrong The observation lasted 385 seconds",
+        "the observed count rate",
+        "05-10 keV source flux are 019 counts/"
+      ]
     ],
     "object_type": [],
     "date": "17 May 2006; 15:28 UT"
@@ -10945,7 +10966,10 @@
   "883": {
     "event_type": [],
     "object_name": [
-      "IGR J01528-0326 and IGR J02343+3229"
+      [
+        "IGR J01528-0326",
+        "IGR J02343+3229"
+      ]
     ],
     "object_type": [
       "active galactic nuclei"
@@ -11302,7 +11326,10 @@
   "912": {
     "event_type": [],
     "object_name": [
-      "SNe 2006ip and 2006ir"
+      [
+        "SNe 2006ip",
+        "2006ir"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -11443,7 +11470,10 @@
   "924": {
     "event_type": [],
     "object_name": [
-      "Type Ib SN 2006jo (CBET 680) and Type Ib/c SN 2006lc (CBET 693)"
+      [
+        "Type Ib SN 2006jo (CBET 680)",
+        "Type Ib/c SN 2006lc (CBET 693)"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -12821,7 +12851,10 @@
   "1034": {
     "event_type": [],
     "object_name": [
-      "IGR J15539-6142 and IGR J16500-3307"
+      [
+        "IGR J15539-6142",
+        "IGR J16500-3307"
+      ]
     ],
     "object_type": [
       "active galactic nuclei",
@@ -14514,7 +14547,10 @@
   "1170": {
     "event_type": [],
     "object_name": [
-      "SNF20070803-008 and SNF20070805-004"
+      [
+        "SNF20070803-008",
+        "SNF20070805-004"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -14786,7 +14822,10 @@
       "transient"
     ],
     "object_name": [
-      "SAX J18108-2609 and XTE J1701-462"
+      [
+        "SAX J18108-2609",
+        "XTE J1701-462"
+      ]
     ],
     "object_type": [
       "neutron star"
@@ -15720,7 +15759,10 @@
       "transient"
     ],
     "object_name": [
-      "ROTSE3 J031031+431115 and ROTSE3 J113709+513451"
+      [
+        "ROTSE3 J031031+431115",
+        "ROTSE3 J113709+513451"
+      ]
     ],
     "object_type": [
       "accreting object",
@@ -16455,7 +16497,10 @@
       "outburst"
     ],
     "object_name": [
-      "M31N 2007-12a and M31N 2007-12b"
+      [
+        "M31N 2007-12a",
+        "M31N 2007-12b"
+      ]
     ],
     "object_type": [
       "nova"
@@ -16493,7 +16538,10 @@
       "emission"
     ],
     "object_name": [
-      "The name of the astronomical object is Kong and Di Stefano"
+      [
+        "The name of the astronomical object is Kong",
+        "Di Stefano"
+      ]
     ],
     "object_type": [
       "globular cluster"
@@ -20167,7 +20215,10 @@
       "transient"
     ],
     "object_name": [
-      "SLX 1746-331 and XTEJ1810-189"
+      [
+        "SLX 1746-331",
+        "XTEJ1810-189"
+      ]
     ],
     "object_type": [
       "black hole",
@@ -22909,7 +22960,10 @@
       "outburst"
     ],
     "object_name": [
-      "AO 0235+16 and 3C 4543"
+      [
+        "AO 0235+16",
+        "3C 4543"
+      ]
     ],
     "object_type": [
       "active galactic nuclei",
@@ -22946,7 +23000,10 @@
       "activity episode"
     ],
     "object_name": [
-      "AO 0235+16 and 3C4543"
+      [
+        "AO 0235+16",
+        "3C4543"
+      ]
     ],
     "object_type": [
       "active galactic nuclei",
@@ -23004,7 +23061,10 @@
       "microlensing event"
     ],
     "object_name": [
-      "ANG-08B-M31-04 and ANG-08B-M31-05"
+      [
+        "ANG-08B-M31-04",
+        "ANG-08B-M31-05"
+      ]
     ],
     "object_type": [
       "nova"
@@ -23841,7 +23901,10 @@
   "1925": {
     "event_type": [],
     "object_name": [
-      "Supernovae 2009H and 2009N"
+      [
+        "Supernovae 2009H",
+        "2009N"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -25632,7 +25695,10 @@
       "transient"
     ],
     "object_name": [
-      "PTF09fb and PTF09fr"
+      [
+        "PTF09fb",
+        "PTF09fr"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -26501,7 +26567,10 @@
       "high energy event"
     ],
     "object_name": [
-      "4C 3841 and PKS 0805-07"
+      [
+        "4C 3841",
+        "PKS 0805-07"
+      ]
     ],
     "object_type": [
       "quasar"
@@ -26753,7 +26822,10 @@
       "flare"
     ],
     "object_name": [
-      "3C 4543 and 3C 279"
+      [
+        "3C 4543",
+        "3C 279"
+      ]
     ],
     "object_type": [
       "active galactic nuclei"
@@ -27398,7 +27470,10 @@
       "flare"
     ],
     "object_name": [
-      "0235+164 and 1622-297"
+      [
+        "0235+164",
+        "1622-297"
+      ]
     ],
     "object_type": [
       "active galactic nuclei",
@@ -28001,7 +28076,10 @@
       "transient"
     ],
     "object_name": [
-      "PTF09fox and PTF09foz"
+      [
+        "PTF09fox",
+        "PTF09foz"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -30703,7 +30781,10 @@
       "outburst"
     ],
     "object_name": [
-      "the neutron star transient and atoll source 4U 1608-522"
+      [
+        "the neutron star transient",
+        "atoll source 4U 1608-522"
+      ]
     ],
     "object_type": [
       "neutron star"
@@ -32011,7 +32092,9 @@
     "object_name": [
       "2001 FM129",
       " 2004 FG11",
-      " and 2005 YU55"
+      [
+        "2005 YU55"
+      ]
     ],
     "object_type": [
       "minor body",
@@ -33032,7 +33115,10 @@
       "flare"
     ],
     "object_name": [
-      "Blazars and quasars"
+      [
+        "Blazars",
+        "quasars"
+      ]
     ],
     "object_type": [
       "active galactic nuclei",
@@ -33100,7 +33186,9 @@
     "object_name": [
       "PTF10hdv",
       " PTF10hmv",
-      " and PTF10icb"
+      [
+        "PTF10icb"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -34081,7 +34169,10 @@
   "2736": {
     "event_type": [],
     "object_name": [
-      "PS1-1000306 and PS1-1000307"
+      [
+        "PS1-1000306",
+        "PS1-1000307"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -34585,7 +34676,10 @@
   "2776": {
     "event_type": [],
     "object_name": [
-      "PTF10qjq and PTFqjl"
+      [
+        "PTF10qjq",
+        "PTFqjl"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -34924,7 +35018,10 @@
     ],
     "object_name": [
       "PTF10pjg",
-      " PTF10rin and PTF10raj"
+      [
+        "PTF10rin",
+        "PTF10raj"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -35170,7 +35267,10 @@
   "2822": {
     "event_type": [],
     "object_name": [
-      "2010 MF1 and 2000 HA24"
+      [
+        "2010 MF1",
+        "2000 HA24"
+      ]
     ],
     "object_type": [
       "minor body",
@@ -36584,7 +36684,10 @@
       "outburst"
     ],
     "object_name": [
-      "the transient LMXB and 11 Hz pulsar"
+      [
+        "the transient LMXB",
+        "11 Hz pulsar"
+      ]
     ],
     "object_type": [
       "binary system",
@@ -37643,7 +37746,10 @@
       "transient"
     ],
     "object_name": [
-      "SN 2010io in UGC04543 and SN 2017A in UGC0595"
+      [
+        "SN 2010io in UGC04543",
+        "SN 2017A in UGC0595"
+      ]
     ],
     "object_type": [
       "binary system",
@@ -38466,7 +38572,9 @@
     "object_name": [
       "The names of the observed astronomical objects are CSS101012:004005-063616",
       " CSS101019:022415-155112",
-      " and MLS101112:010719+175909"
+      [
+        "MLS101112:010719+175909"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -42692,7 +42800,10 @@
       "transient"
     ],
     "object_name": [
-      "SN 2011db and SN 2011dc"
+      [
+        "SN 2011db",
+        "SN 2011dc"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -43728,7 +43839,10 @@
       "transient"
     ],
     "object_name": [
-      "PNV J00412307+4106174 and PNV J00420269+4102545"
+      [
+        "PNV J00412307+4106174",
+        "PNV J00420269+4102545"
+      ]
     ],
     "object_type": [
       "nova"
@@ -45695,7 +45809,10 @@
   "3657": {
     "event_type": [],
     "object_name": [
-      "PTF11mfy and PTF11msl"
+      [
+        "PTF11mfy",
+        "PTF11msl"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -47341,7 +47458,10 @@
       "flare"
     ],
     "object_name": [
-      "T Tau N and T Tau S"
+      [
+        "T Tau N",
+        "T Tau S"
+      ]
     ],
     "object_type": [
       "star & stellar system",
@@ -49702,7 +49822,9 @@
     "object_name": [
       "LSQ12axx",
       " LSQ12ayn",
-      " and LSQ12ayu"
+      [
+        "LSQ12ayu"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -50192,7 +50314,10 @@
       "transient"
     ],
     "object_name": [
-      "LSQ12bld and LSQ12bkl"
+      [
+        "LSQ12bld",
+        "LSQ12bkl"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -50933,7 +51058,10 @@
       "outburst"
     ],
     "object_name": [
-      "PTF12cwl and PTF12cxy"
+      [
+        "PTF12cwl",
+        "PTF12cxy"
+      ]
     ],
     "object_type": [
       "nova"
@@ -51652,7 +51780,9 @@
       " Oxford",
       " Columbia",
       " IPAC",
-      " and Berkeley"
+      [
+        "Berkeley"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -51984,7 +52114,10 @@
       "transient"
     ],
     "object_name": [
-      "LSQ12cyt and LSQ12cyz"
+      [
+        "LSQ12cyt",
+        "LSQ12cyz"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -52655,7 +52788,10 @@
       "transient"
     ],
     "object_name": [
-      "PTF12fsf and PTF12fyz"
+      [
+        "PTF12fsf",
+        "PTF12fyz"
+      ]
     ],
     "object_type": [
       "nova"
@@ -53228,7 +53364,10 @@
       "transient"
     ],
     "object_name": [
-      "CSS120618:133350+260807 and PSN J16234592+0947123"
+      [
+        "CSS120618:133350+260807",
+        "PSN J16234592+0947123"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -53782,7 +53921,10 @@
   "4307": {
     "event_type": [],
     "object_name": [
-      "LSQ12ehw and LSQ12eid"
+      [
+        "LSQ12ehw",
+        "LSQ12eid"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -54446,7 +54588,10 @@
       "state transition"
     ],
     "object_name": [
-      "4U 1630-47 and IGR J17091-3624"
+      [
+        "4U 1630-47",
+        "IGR J17091-3624"
+      ]
     ],
     "object_type": [
       "black hole"
@@ -56497,7 +56642,10 @@
       "transient"
     ],
     "object_name": [
-      "LSQ12fse and LSQ12frx"
+      [
+        "LSQ12fse",
+        "LSQ12frx"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -57232,7 +57380,10 @@
       "transient"
     ],
     "object_name": [
-      "LSQ12gkk and LSQ12fxu"
+      [
+        "LSQ12gkk",
+        "LSQ12fxu"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -57290,7 +57441,10 @@
       "transient"
     ],
     "object_name": [
-      "LSQ12ghe and LSQ12gnu"
+      [
+        "LSQ12ghe",
+        "LSQ12gnu"
+      ]
     ],
     "object_type": [
       "galaxy",
@@ -57843,7 +57997,10 @@
       "outburst"
     ],
     "object_name": [
-      "LSQ12hjm and LSQ12hje"
+      [
+        "LSQ12hjm",
+        "LSQ12hje"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -57991,7 +58148,10 @@
       "transient"
     ],
     "object_name": [
-      "LSQ12hlz and LSQ12hkd"
+      [
+        "LSQ12hlz",
+        "LSQ12hkd"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -58528,7 +58688,10 @@
   "4693": {
     "event_type": [],
     "object_name": [
-      "LSQ12hxg and LSQ12hzu"
+      [
+        "LSQ12hxg",
+        "LSQ12hzu"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -59978,7 +60141,10 @@
       "transient"
     ],
     "object_name": [
-      "LSQ12fkq and LSQ12gdd"
+      [
+        "LSQ12fkq",
+        "LSQ12gdd"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -60804,7 +60970,10 @@
       "transient"
     ],
     "object_name": [
-      "OGLE-2013-SN-018 and OGLE-2013-SN-019"
+      [
+        "OGLE-2013-SN-018",
+        "OGLE-2013-SN-019"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -61711,7 +61880,10 @@
       "transient"
     ],
     "object_name": [
-      "PSN J13102131-0710241 and PSN J15425813-1823472"
+      [
+        "PSN J13102131-0710241",
+        "PSN J15425813-1823472"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -61723,7 +61895,10 @@
       "gamma-ray burst"
     ],
     "object_name": [
-      "Fermi J10497+0435 and J11032+1145"
+      [
+        "Fermi J10497+0435",
+        "J11032+1145"
+      ]
     ],
     "object_type": [
       "active galactic nuclei"
@@ -65021,7 +65196,10 @@
   "5214": {
     "event_type": [],
     "object_name": [
-      "LSQ13aze and LSQ13bbv"
+      [
+        "LSQ13aze",
+        "LSQ13bbv"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -65715,7 +65893,9 @@
       " LSQ13bjq",
       " LSQ13bj",
       " LSQ13bka",
-      " and LSQ13bjj"
+      [
+        "LSQ13bjj"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -65752,7 +65932,10 @@
       "transient"
     ],
     "object_name": [
-      "ASASSN-13bz and ASASSN-13ca"
+      [
+        "ASASSN-13bz",
+        "ASASSN-13ca"
+      ]
     ],
     "object_type": [
       "accreting object",
@@ -67431,7 +67614,10 @@
       "activity episode"
     ],
     "object_name": [
-      "3C4543 and B3 1633+38"
+      [
+        "3C4543",
+        "B3 1633+38"
+      ]
     ],
     "object_type": [
       "active galactic nuclei"
@@ -68021,7 +68207,10 @@
   "5459": {
     "event_type": [],
     "object_name": [
-      "LSQ13cnl and OGLE-2013-SN-088"
+      [
+        "LSQ13cnl",
+        "OGLE-2013-SN-088"
+      ]
     ],
     "object_type": [
       "active galactic nuclei",
@@ -69070,7 +69259,10 @@
       "transient"
     ],
     "object_name": [
-      "M31N 2013-10d and M31N 2013-10g"
+      [
+        "M31N 2013-10d",
+        "M31N 2013-10g"
+      ]
     ],
     "object_type": [
       "binary system",
@@ -69346,7 +69538,10 @@
   "5564": {
     "event_type": [],
     "object_name": [
-      "B2 2308+34 and MASTER OT J23484323+2502504"
+      [
+        "B2 2308+34",
+        "MASTER OT J23484323+2502504"
+      ]
     ],
     "object_type": [
       "accreting object",
@@ -69383,7 +69578,10 @@
       "transient"
     ],
     "object_name": [
-      "LSQ13cwo and LSQ13cwp"
+      [
+        "LSQ13cwo",
+        "LSQ13cwp"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -70318,7 +70516,10 @@
       "transient"
     ],
     "object_name": [
-      "LSQ13des and LSQ13div"
+      [
+        "LSQ13des",
+        "LSQ13div"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -71016,7 +71217,10 @@
       "transient"
     ],
     "object_name": [
-      "SNhunt224 and CSS131225:030144-092044"
+      [
+        "SNhunt224",
+        "CSS131225:030144-092044"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -74487,7 +74691,10 @@
   "5985": {
     "event_type": [],
     "object_name": [
-      "DES13C13abhe and DES13C13abht"
+      [
+        "DES13C13abhe",
+        "DES13C13abht"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -76078,7 +76285,10 @@
       "transient"
     ],
     "object_name": [
-      "CSS140425 and ASASSN-14as"
+      [
+        "CSS140425",
+        "ASASSN-14as"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -77868,7 +78078,10 @@
       "transient"
     ],
     "object_name": [
-      "PSN J01505845+2159598 and ASASSN-14co"
+      [
+        "PSN J01505845+2159598",
+        "ASASSN-14co"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -78156,7 +78369,10 @@
       "transient"
     ],
     "object_name": [
-      "M31N 2014 06a? and M31N 2014-06b?"
+      [
+        "M31N 2014 06a?",
+        "M31N 2014-06b?"
+      ]
     ],
     "object_type": [
       "nova"
@@ -79478,7 +79694,10 @@
       "transient"
     ],
     "object_name": [
-      "ASASSN-14ew and ASASSN-14fa"
+      [
+        "ASASSN-14ew",
+        "ASASSN-14fa"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -79830,7 +80049,10 @@
       "transient"
     ],
     "object_name": [
-      "OGLE-2014-SN-053 and OGLE-2014-SN-058"
+      [
+        "OGLE-2014-SN-053",
+        "OGLE-2014-SN-058"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -79927,7 +80149,10 @@
       "transient"
     ],
     "object_name": [
-      "ASASSN-14es and ASASSN-14fj"
+      [
+        "ASASSN-14es",
+        "ASASSN-14fj"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -81155,7 +81380,10 @@
       "transient"
     ],
     "object_name": [
-      "ASASSN-14ih and ASASSN-14ii"
+      [
+        "ASASSN-14ih",
+        "ASASSN-14ii"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -84102,7 +84330,10 @@
       "outburst"
     ],
     "object_name": [
-      "M31N 2014-10a and M31N 2014-11a"
+      [
+        "M31N 2014-10a",
+        "M31N 2014-11a"
+      ]
     ],
     "object_type": [
       "nova"
@@ -84389,7 +84620,10 @@
   "6782": {
     "event_type": [],
     "object_name": [
-      "iPTF14hqg and iPTF14ikn"
+      [
+        "iPTF14hqg",
+        "iPTF14ikn"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -86318,7 +86552,10 @@
       "activity episode"
     ],
     "object_name": [
-      "S5 0716+71 and B3 1633+38"
+      [
+        "S5 0716+71",
+        "B3 1633+38"
+      ]
     ],
     "object_type": [
       "active galactic nuclei"
@@ -87864,7 +88101,10 @@
     "object_name": [
       "Probable nova located at RA(2000) = 00h42m3310s",
       " Dec(2000) = +41d13'0850",
-      " which is 1265 west and 1800 south of the center of M31"
+      [
+        "which is 1265 west",
+        "1800 south of the center of M31"
+      ]
     ],
     "object_type": [
       "nova"
@@ -88452,7 +88692,10 @@
       "transient"
     ],
     "object_name": [
-      "iPTF15ak and iPTF15jg"
+      [
+        "iPTF15ak",
+        "iPTF15jg"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -88638,7 +88881,10 @@
       "transient"
     ],
     "object_name": [
-      "iPTF15ic and iPTF15iy"
+      [
+        "iPTF15ic",
+        "iPTF15iy"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -89970,7 +90216,10 @@
       "transient"
     ],
     "object_name": [
-      "ASASSN-15ez and PSN J08593491"
+      [
+        "ASASSN-15ez",
+        "PSN J08593491"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -91627,7 +91876,10 @@
       "transient"
     ],
     "object_name": [
-      "ASASSN-15go and PSNJ09023787+2556042"
+      [
+        "ASASSN-15go",
+        "PSNJ09023787+2556042"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -91753,7 +92005,10 @@
       "transient"
     ],
     "object_name": [
-      "Gaia15acz and Gaia15aek"
+      [
+        "Gaia15acz",
+        "Gaia15aek"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -91892,7 +92147,10 @@
       "transient"
     ],
     "object_name": [
-      "Gaia15aek and Gaia15adt"
+      [
+        "Gaia15aek",
+        "Gaia15adt"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -92015,7 +92273,10 @@
       "transient"
     ],
     "object_name": [
-      "iPTF15vo and iPTF15agp"
+      [
+        "iPTF15vo",
+        "iPTF15agp"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -92310,7 +92571,10 @@
       "transient"
     ],
     "object_name": [
-      "Gaia15adi and Gaia15ady"
+      [
+        "Gaia15adi",
+        "Gaia15ady"
+      ]
     ],
     "object_type": [],
     "date": "20 Apr 2015; 22:08 UT"
@@ -92655,7 +92919,10 @@
       "transient"
     ],
     "object_name": [
-      "ASASSN-15hy and ASASSN-15hz"
+      [
+        "ASASSN-15hy",
+        "ASASSN-15hz"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -93168,7 +93435,10 @@
       "transient"
     ],
     "object_name": [
-      "ASASSN-15ik and ASASSN-15il"
+      [
+        "ASASSN-15ik",
+        "ASASSN-15il"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -93268,7 +93538,10 @@
       "outburst"
     ],
     "object_name": [
-      "MASTER OT J06181495-3406113 and MASTER OT J10244022-2020223"
+      [
+        "MASTER OT J06181495-3406113",
+        "MASTER OT J10244022-2020223"
+      ]
     ],
     "object_type": [
       "nova",
@@ -94221,7 +94494,10 @@
       "variability"
     ],
     "object_name": [
-      "MASTER OT J00420243+4813084 and MASTER OT J20573986-2013495"
+      [
+        "MASTER OT J00420243+4813084",
+        "MASTER OT J20573986-2013495"
+      ]
     ],
     "object_type": [
       "variable star"
@@ -94618,7 +94894,10 @@
   "7609": {
     "event_type": [],
     "object_name": [
-      "ASASSN-15js and ASASSN-15kk"
+      [
+        "ASASSN-15js",
+        "ASASSN-15kk"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -94697,7 +94976,10 @@
       "outburst"
     ],
     "object_name": [
-      "MASTER OT J23045119-5956496 and MASTER OT J08352562-0805053"
+      [
+        "MASTER OT J23045119-5956496",
+        "MASTER OT J08352562-0805053"
+      ]
     ],
     "object_type": [
       "accreting object"
@@ -95826,7 +96108,10 @@
       "outburst"
     ],
     "object_name": [
-      "J08324444-2149115 and J21201177-8009245"
+      [
+        "J08324444-2149115",
+        "J21201177-8009245"
+      ]
     ],
     "object_type": [
       "variable star"
@@ -96752,7 +97037,10 @@
       "transient"
     ],
     "object_name": [
-      "PS15bep and PS15ber"
+      [
+        "PS15bep",
+        "PS15ber"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -97045,7 +97333,10 @@
       "transient"
     ],
     "object_name": [
-      "ASASSN-15ml and ASASSN-15mm"
+      [
+        "ASASSN-15ml",
+        "ASASSN-15mm"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -97153,7 +97444,10 @@
       "transient"
     ],
     "object_name": [
-      "ASASSN-15mr and ASASSN-15ms"
+      [
+        "ASASSN-15mr",
+        "ASASSN-15ms"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -97268,7 +97562,10 @@
       "transient"
     ],
     "object_name": [
-      "ASASSN-15mj and PSNJ22460504-1059484"
+      [
+        "ASASSN-15mj",
+        "PSNJ22460504-1059484"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -100123,7 +100420,10 @@
       "outburst"
     ],
     "object_name": [
-      "GX 304-1 and A 0535+26"
+      [
+        "GX 304-1",
+        "A 0535+26"
+      ]
     ],
     "object_type": [
       "binary system",
@@ -100433,7 +100733,10 @@
       "transient"
     ],
     "object_name": [
-      "iPTF15cma and iPTF15cpp"
+      [
+        "iPTF15cma",
+        "iPTF15cpp"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -100475,7 +100778,10 @@
   "8084": {
     "event_type": [],
     "object_name": [
-      "DES15E2ni and DES15C2eap"
+      [
+        "DES15E2ni",
+        "DES15C2eap"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -100485,7 +100791,10 @@
   "8085": {
     "event_type": [],
     "object_name": [
-      "LSQ15bbb and LSQ15bbj"
+      [
+        "LSQ15bbb",
+        "LSQ15bbj"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -101214,7 +101523,10 @@
       "emission"
     ],
     "object_name": [
-      "M31N 2015-09c and M31N 2015-10a"
+      [
+        "M31N 2015-09c",
+        "M31N 2015-10a"
+      ]
     ],
     "object_type": [
       "nova"
@@ -101306,7 +101618,10 @@
       "transient"
     ],
     "object_name": [
-      "ASASSN-15qy and ASASSN-15qz"
+      [
+        "ASASSN-15qy",
+        "ASASSN-15qz"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -102101,7 +102416,10 @@
       "gamma-ray burst"
     ],
     "object_name": [
-      "B3 0908+416B and NGC 1275"
+      [
+        "B3 0908+416B",
+        "NGC 1275"
+      ]
     ],
     "object_type": [
       "active galactic nuclei",
@@ -102993,7 +103311,10 @@
       "transient"
     ],
     "object_name": [
-      "PSN J01072038+3223598 and PSN J10081137+5150409"
+      [
+        "PSN J01072038+3223598",
+        "PSN J10081137+5150409"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -103111,7 +103432,10 @@
   "8301": {
     "event_type": [],
     "object_name": [
-      "PS15cwx and PS15cwo"
+      [
+        "PS15cwx",
+        "PS15cwo"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -103672,7 +103996,10 @@
       "outburst"
     ],
     "object_name": [
-      "MASTER OT J12412438-4602081 and MASTER OT J18585254+2313535"
+      [
+        "MASTER OT J12412438-4602081",
+        "MASTER OT J18585254+2313535"
+      ]
     ],
     "object_type": [
       "nova"
@@ -104557,7 +104884,10 @@
       "transient"
     ],
     "object_name": [
-      "PS15dme and PS15djw"
+      [
+        "PS15dme",
+        "PS15djw"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -104797,7 +105127,10 @@
       "transient"
     ],
     "object_name": [
-      "ASASSN-15ug and ASASSN-15uh"
+      [
+        "ASASSN-15ug",
+        "ASASSN-15uh"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -107496,7 +107829,10 @@
       "transient"
     ],
     "object_name": [
-      "Gaia16abl and Gaia16abn"
+      [
+        "Gaia16abl",
+        "Gaia16abn"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -107975,7 +108311,10 @@
   "8696": {
     "event_type": [],
     "object_name": [
-      "PMN J1740-0811 and 87GB 1927242+090329"
+      [
+        "PMN J1740-0811",
+        "87GB 1927242+090329"
+      ]
     ],
     "object_type": [
       "active galactic nuclei"
@@ -109143,7 +109482,10 @@
       "transient"
     ],
     "object_name": [
-      "AT 2016ard and AT 2016aps"
+      [
+        "AT 2016ard",
+        "AT 2016aps"
+      ]
     ],
     "object_type": [
       "stellar evolution stage"
@@ -109804,7 +110146,10 @@
   "8844": {
     "event_type": [],
     "object_name": [
-      "ATLAS16ahj and ATLAS16agv"
+      [
+        "ATLAS16ahj",
+        "ATLAS16agv"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -110532,7 +110877,10 @@
   "8902": {
     "event_type": [],
     "object_name": [
-      "SN2016blj and SN2016blm"
+      [
+        "SN2016blj",
+        "SN2016blm"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -110764,7 +111112,10 @@
       "state transition"
     ],
     "object_name": [
-      "GRS 1915+105 and SS 433"
+      [
+        "GRS 1915+105",
+        "SS 433"
+      ]
     ],
     "object_type": [
       "binary system",
@@ -111284,7 +111635,10 @@
   "8963": {
     "event_type": [],
     "object_name": [
-      "SN2016bmi and SN2016blt"
+      [
+        "SN2016bmi",
+        "SN2016blt"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -111494,7 +111848,10 @@
       "transient"
     ],
     "object_name": [
-      "Gaia16ali and Gaia16alj"
+      [
+        "Gaia16ali",
+        "Gaia16alj"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -111558,7 +111915,10 @@
       "transient"
     ],
     "object_name": [
-      "AT2016brw and AT2016brv"
+      [
+        "AT2016brw",
+        "AT2016brv"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -112468,7 +112828,10 @@
       "transient"
     ],
     "object_name": [
-      "ASASSN-16fc and Gaia16aou"
+      [
+        "ASASSN-16fc",
+        "Gaia16aou"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -114899,7 +115262,10 @@
       "transient"
     ],
     "object_name": [
-      "Gaia16atw and Gaia16aui"
+      [
+        "Gaia16atw",
+        "Gaia16aui"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -116237,7 +116603,10 @@
       "transient"
     ],
     "object_name": [
-      "KSN 2016D and KSN 2016E"
+      [
+        "KSN 2016D",
+        "KSN 2016E"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -116940,7 +117309,10 @@
   "9421": {
     "event_type": [],
     "object_name": [
-      "SN 2016fbo and SN 2016fca"
+      [
+        "SN 2016fbo",
+        "SN 2016fca"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -118056,7 +118428,10 @@
       "outburst"
     ],
     "object_name": [
-      "4U 0115+63 and GRO J1008-57"
+      [
+        "4U 0115+63",
+        "GRO J1008-57"
+      ]
     ],
     "object_type": [
       "binary system",
@@ -118467,7 +118842,10 @@
   "9546": {
     "event_type": [],
     "object_name": [
-      "SN2007co and SN1994ae"
+      [
+        "SN2007co",
+        "SN1994ae"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -119872,7 +120250,10 @@
       "transient"
     ],
     "object_name": [
-      "M31N 2016-10d and M31N 2016-10b"
+      [
+        "M31N 2016-10d",
+        "M31N 2016-10b"
+      ]
     ],
     "object_type": [
       "nova"
@@ -120726,7 +121107,10 @@
       "variability"
     ],
     "object_name": [
-      "MASTER OT J06210035-5851205 and MASTER OT J18205343-3946093"
+      [
+        "MASTER OT J06210035-5851205",
+        "MASTER OT J18205343-3946093"
+      ]
     ],
     "object_type": [
       "accreting object"
@@ -120946,7 +121330,10 @@
       "variability"
     ],
     "object_name": [
-      "MASTER OT J07370436+2500545 and MASTER OT J18383685-2917524"
+      [
+        "MASTER OT J07370436+2500545",
+        "MASTER OT J18383685-2917524"
+      ]
     ],
     "object_type": [
       "variable star"
@@ -121221,7 +121608,10 @@
       "transient"
     ],
     "object_name": [
-      "SN2016iaf and SN2016iew"
+      [
+        "SN2016iaf",
+        "SN2016iew"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -121509,7 +121899,10 @@
       "transient"
     ],
     "object_name": [
-      "M81N 2016-11b and M81N 2016-11c"
+      [
+        "M81N 2016-11b",
+        "M81N 2016-11c"
+      ]
     ],
     "object_type": [
       "nova"
@@ -121635,7 +122028,10 @@
       "transient"
     ],
     "object_name": [
-      "MASTER OT J20263617-4407227 and MASTER OT J20434962-3207422"
+      [
+        "MASTER OT J20263617-4407227",
+        "MASTER OT J20434962-3207422"
+      ]
     ],
     "object_type": [
       "accreting object",
@@ -122055,7 +122451,10 @@
       "transient"
     ],
     "object_name": [
-      "SN 2016ieq/Gaia16buy and SN 2016isg/ASASSN-16oo"
+      [
+        "SN 2016ieq/Gaia16buy",
+        "SN 2016isg/ASASSN-16oo"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -123956,7 +124355,10 @@
   "9992": {
     "event_type": [],
     "object_name": [
-      "SN 2017lf and SN 2017ms"
+      [
+        "SN 2017lf",
+        "SN 2017ms"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -125522,7 +125924,10 @@
   "10119": {
     "event_type": [],
     "object_name": [
-      "ASASSN-17cu/AT 2017bgp and ASASSN-17cv/AT 2017bgt"
+      [
+        "ASASSN-17cu/AT 2017bgp",
+        "ASASSN-17cv/AT 2017bgt"
+      ]
     ],
     "object_type": [
       "active galactic nuclei",
@@ -126062,7 +126467,10 @@
   "10165": {
     "event_type": [],
     "object_name": [
-      "AT2017bzb and AT2017bzc"
+      [
+        "AT2017bzb",
+        "AT2017bzc"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -126411,7 +126819,10 @@
       "transient"
     ],
     "object_name": [
-      "SN2017cao and SN2017cat"
+      [
+        "SN2017cao",
+        "SN2017cat"
+      ]
     ],
     "object_type": [],
     "date": "21 Mar 2017; 21:31 UT"
@@ -126633,7 +127044,10 @@
       "transient"
     ],
     "object_name": [
-      "Gaia17atd and Gaia17ate"
+      [
+        "Gaia17atd",
+        "Gaia17ate"
+      ]
     ],
     "object_type": [],
     "date": "26 Mar 2017; 00:04 UT"
@@ -126727,7 +127141,10 @@
       "transient"
     ],
     "object_name": [
-      "AT2017cki and AT2017ckj"
+      [
+        "AT2017cki",
+        "AT2017ckj"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -126838,7 +127255,10 @@
       "transient"
     ],
     "object_name": [
-      "Gaia 17ath and Gaia 17atn"
+      [
+        "Gaia 17ath",
+        "Gaia 17atn"
+      ]
     ],
     "object_type": [],
     "date": "30 Mar 2017; 23:18 UT"
@@ -127033,7 +127453,10 @@
       "transient"
     ],
     "object_name": [
-      "Gaia17aub and Gaia17awk"
+      [
+        "Gaia17aub",
+        "Gaia17awk"
+      ]
     ],
     "object_type": [],
     "date": "5 Apr 2017; 02:57 UT"
@@ -127516,7 +127939,10 @@
   "10283": {
     "event_type": [],
     "object_name": [
-      "AT2017dau and AT2017des"
+      [
+        "AT2017dau",
+        "AT2017des"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -127698,7 +128124,10 @@
       "transient"
     ],
     "object_name": [
-      "ASASSN-17fe and ASASSN-17fd"
+      [
+        "ASASSN-17fe",
+        "ASASSN-17fd"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -128121,7 +128550,10 @@
       "transient"
     ],
     "object_name": [
-      "Gaia17bci (2017dit) and Gaia17bat (2017dei)"
+      [
+        "Gaia17bci (2017dit)",
+        "Gaia17bat (2017dei)"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -130210,7 +130642,10 @@
       "transient"
     ],
     "object_name": [
-      "ASASSN-17ho and ASASSN-17hq"
+      [
+        "ASASSN-17ho",
+        "ASASSN-17hq"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -131224,7 +131659,10 @@
       "transient"
     ],
     "object_name": [
-      "ASASSN-17it and ASASSN-17jl"
+      [
+        "ASASSN-17it",
+        "ASASSN-17jl"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -131568,7 +132006,10 @@
       "transient"
     ],
     "object_name": [
-      "M31N 2017-07a and M31N 2017-07d"
+      [
+        "M31N 2017-07a",
+        "M31N 2017-07d"
+      ]
     ],
     "object_type": [
       "nova"
@@ -131583,7 +132024,9 @@
       "AT2017fqo",
       " AT2017frj",
       " AT2017frl",
-      " and AT2017fro"
+      [
+        "AT2017fro"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -131811,7 +132254,10 @@
   "10639": {
     "event_type": [],
     "object_name": [
-      "AT 2017fzw and AT 2017gah"
+      [
+        "AT 2017fzw",
+        "AT 2017gah"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -132354,7 +132800,10 @@
       "transient"
     ],
     "object_name": [
-      "SN 2017giq and MASTER OT J03374497+7231590"
+      [
+        "SN 2017giq",
+        "MASTER OT J03374497+7231590"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -133494,7 +133943,10 @@
       "transient"
     ],
     "object_name": [
-      "50 new on-going and recently finished transients discovered since Jan 2017"
+      [
+        "50 new on-going",
+        "recently finished transients discovered since Jan 2017"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -135946,7 +136398,9 @@
       "ASASSN-17ox",
       " ASASSN-17oy",
       " ASASSN-17pa",
-      " and AT2017hsl"
+      [
+        "AT2017hsl"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -136236,7 +136690,10 @@
       "transient"
     ],
     "object_name": [
-      "M31N 2017-11a and M31N 2017-11c"
+      [
+        "M31N 2017-11a",
+        "M31N 2017-11c"
+      ]
     ],
     "object_type": [
       "nova"
@@ -136915,7 +137372,10 @@
       "transient"
     ],
     "object_name": [
-      "Gaia17dcx and Gaia17ddg"
+      [
+        "Gaia17dcx",
+        "Gaia17ddg"
+      ]
     ],
     "object_type": [
       "accreting object",
@@ -137642,7 +138102,10 @@
       "transient"
     ],
     "object_name": [
-      "SN2017izz and SN2017jdb"
+      [
+        "SN2017izz",
+        "SN2017jdb"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -138121,7 +138584,10 @@
       "transient"
     ],
     "object_name": [
-      "DES17C1ffz and DES17C2fnw"
+      [
+        "DES17C1ffz",
+        "DES17C2fnw"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -138275,7 +138741,10 @@
   "11164": {
     "event_type": [],
     "object_name": [
-      "SN2017jzp and SN2018bf"
+      [
+        "SN2017jzp",
+        "SN2018bf"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -138919,7 +139388,10 @@
       "high energy event"
     ],
     "object_name": [
-      "Markarian 421 and 3C 279"
+      [
+        "Markarian 421",
+        "3C 279"
+      ]
     ],
     "object_type": [
       "active galactic nuclei"
@@ -139562,7 +140034,10 @@
       "transient"
     ],
     "object_name": [
-      "SN 2018pc and SN 2018pn"
+      [
+        "SN 2018pc",
+        "SN 2018pn"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -139671,7 +140146,10 @@
       "transient"
     ],
     "object_name": [
-      "AT2018og and AT2018nw"
+      [
+        "AT2018og",
+        "AT2018nw"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -139900,7 +140378,10 @@
       "transient"
     ],
     "object_name": [
-      "SN 2018ie and SN 2018if"
+      [
+        "SN 2018ie",
+        "SN 2018if"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -140004,7 +140485,10 @@
     "object_name": [
       "ASAS-SN18ck",
       " ASAS-SN18cp",
-      " ASAS-SN18cq and ASASSN-18cj"
+      [
+        "ASAS-SN18cq",
+        "ASASSN-18cj"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -140823,7 +141307,10 @@
       "transient"
     ],
     "object_name": [
-      "SN 2017yj and SN 2018yc"
+      [
+        "SN 2017yj",
+        "SN 2018yc"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -141238,7 +141725,10 @@
       "variability"
     ],
     "object_name": [
-      "MASTER OT J03483811-2749134 and MASTER OT J04351014-4641389"
+      [
+        "MASTER OT J03483811-2749134",
+        "MASTER OT J04351014-4641389"
+      ]
     ],
     "object_type": [
       "accreting object",
@@ -141251,7 +141741,10 @@
   "11408": {
     "event_type": [],
     "object_name": [
-      "Supernovae AT2018aej and AT2018aei"
+      [
+        "Supernovae AT2018aej",
+        "AT2018aei"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -141967,7 +142460,10 @@
   "11466": {
     "event_type": [],
     "object_name": [
-      "ASASSN-18fw and ASASSN-18ga"
+      [
+        "ASASSN-18fw",
+        "ASASSN-18ga"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -142933,7 +143429,10 @@
       "transient"
     ],
     "object_name": [
-      "ASASSN-18hu/AT2018atn and ASASN-18hz/AT2018aur"
+      [
+        "ASASSN-18hu/AT2018atn",
+        "ASASN-18hz/AT2018aur"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -146491,7 +146990,10 @@
       "transient"
     ],
     "object_name": [
-      "ASASSN-18ll and ASASSN-18od"
+      [
+        "ASASSN-18ll",
+        "ASASSN-18od"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -147953,7 +148455,10 @@
       "transient"
     ],
     "object_name": [
-      "SN 2018ekt and SN 2018exb"
+      [
+        "SN 2018ekt",
+        "SN 2018exb"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -149093,7 +149598,10 @@
       "transient"
     ],
     "object_name": [
-      "AT2018gep and AT2018ggy"
+      [
+        "AT2018gep",
+        "AT2018ggy"
+      ]
     ],
     "object_type": [
       "star & stellar system",
@@ -149765,7 +150273,10 @@
   "12101": {
     "event_type": [],
     "object_name": [
-      "ASASSN-18xk and ASASSN-18xl"
+      [
+        "ASASSN-18xk",
+        "ASASSN-18xl"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -150999,7 +151510,10 @@
   "12202": {
     "event_type": [],
     "object_name": [
-      "ASASSN-18zk and ZTF18acbvgqw"
+      [
+        "ASASSN-18zk",
+        "ZTF18acbvgqw"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -153495,7 +154009,10 @@
       "transient"
     ],
     "object_name": [
-      "SN2019tv and SN2019ru"
+      [
+        "SN2019tv",
+        "SN2019ru"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -153658,7 +154175,10 @@
       "outburst"
     ],
     "object_name": [
-      "H1417-624 and GX 339-4"
+      [
+        "H1417-624",
+        "GX 339-4"
+      ]
     ],
     "object_type": [
       "black hole",
@@ -154220,7 +154740,10 @@
       "transient"
     ],
     "object_name": [
-      "MASTER OT J1402160-5332288 and ZTF19aadoocn/SN 2019xa"
+      [
+        "MASTER OT J1402160-5332288",
+        "ZTF19aadoocn/SN 2019xa"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -155268,7 +155791,10 @@
     "object_name": [
       "AT2019bea",
       " AT2019bmj",
-      " AT2019bas and AT2019blp"
+      [
+        "AT2019bas",
+        "AT2019blp"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -155702,7 +156228,10 @@
       "transient"
     ],
     "object_name": [
-      "SN 2019bph and SN 2019bsp"
+      [
+        "SN 2019bph",
+        "SN 2019bsp"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -157297,7 +157826,10 @@
   "12714": {
     "event_type": [],
     "object_name": [
-      "ASASSN-19ku and SN 2019ehk"
+      [
+        "ASASSN-19ku",
+        "SN 2019ehk"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -158280,7 +158812,10 @@
   "12792": {
     "event_type": [],
     "object_name": [
-      "ASASSN-19nb (SN 2019fmr) and ASASSN-19nd (SN 2019fpc)"
+      [
+        "ASASSN-19nb (SN 2019fmr)",
+        "ASASSN-19nd (SN 2019fpc)"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -158962,7 +159497,10 @@
   "12847": {
     "event_type": [],
     "object_name": [
-      "MGAB-V248 and MGAB-V249"
+      [
+        "MGAB-V248",
+        "MGAB-V249"
+      ]
     ],
     "object_type": [
       "binary system",
@@ -160873,7 +161411,10 @@
       "variability"
     ],
     "object_name": [
-      "MASTER OT J20154438-0631125 and MASTER OT J20381300-2448137"
+      [
+        "MASTER OT J20154438-0631125",
+        "MASTER OT J20381300-2448137"
+      ]
     ],
     "object_type": [
       "variable star"
@@ -161452,7 +161993,10 @@
   "13048": {
     "event_type": [],
     "object_name": [
-      "MGAB-V248 and MGAB-V249"
+      [
+        "MGAB-V248",
+        "MGAB-V249"
+      ]
     ],
     "object_type": [
       "binary system",
@@ -164399,7 +164943,10 @@
       "transient"
     ],
     "object_name": [
-      "AT2019ugu and AT2019ugv"
+      [
+        "AT2019ugu",
+        "AT2019ugv"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -167881,7 +168428,10 @@
       "outburst"
     ],
     "object_name": [
-      "4U 1630-47 and XTE J1701-407"
+      [
+        "4U 1630-47",
+        "XTE J1701-407"
+      ]
     ],
     "object_type": [
       "binary system",
@@ -168496,7 +169046,10 @@
       "transient"
     ],
     "object_name": [
-      "AT2020eqc and AT2020fhj"
+      [
+        "AT2020eqc",
+        "AT2020fhj"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -169231,7 +169784,10 @@
       "variability"
     ],
     "object_name": [
-      "MASTER OT J00363419+4122431 and MASTER OT J09052480-6655459"
+      [
+        "MASTER OT J00363419+4122431",
+        "MASTER OT J09052480-6655459"
+      ]
     ],
     "object_type": [
       "magnetar",
@@ -172118,7 +172674,10 @@
       "transient"
     ],
     "object_name": [
-      "PKS 0447-439 and PKS 1406-076"
+      [
+        "PKS 0447-439",
+        "PKS 1406-076"
+      ]
     ],
     "object_type": [
       "active galactic nuclei"
@@ -173675,7 +174234,10 @@
       "activity episode"
     ],
     "object_name": [
-      "SN 2020tjb and SN 2020rvf"
+      [
+        "SN 2020tjb",
+        "SN 2020rvf"
+      ]
     ],
     "object_type": [
       "accreting object",
@@ -173798,7 +174360,10 @@
       "transient"
     ],
     "object_name": [
-      "FRB200919 and FRB200914"
+      [
+        "FRB200919",
+        "FRB200914"
+      ]
     ],
     "object_type": [
       "repeater"
@@ -173850,7 +174415,10 @@
       "fast radio burst"
     ],
     "object_name": [
-      "FRBs 200914 and 200919"
+      [
+        "FRBs 200914",
+        "200919"
+      ]
     ],
     "object_type": [],
     "date": "27 Sep 2020; 12:17 UT"
@@ -175312,7 +175880,10 @@
       "transient"
     ],
     "object_name": [
-      "SN2020yyg and SN 2020yvv"
+      [
+        "SN2020yyg",
+        "SN 2020yvv"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -177489,7 +178060,10 @@
       "tidal disruption event"
     ],
     "object_name": [
-      "AT2020ksf and AT2020zso"
+      [
+        "AT2020ksf",
+        "AT2020zso"
+      ]
     ],
     "object_type": [],
     "date": "20 Jan 2021; 18:20 UT"
@@ -178346,7 +178920,10 @@
       "flare"
     ],
     "object_name": [
-      "OP 313 and 4C +0102"
+      [
+        "OP 313",
+        "4C +0102"
+      ]
     ],
     "object_type": [
       "active galactic nuclei"
@@ -180716,7 +181293,10 @@
   "14596": {
     "event_type": [],
     "object_name": [
-      "AT2021klg and AT2021klq"
+      [
+        "AT2021klg",
+        "AT2021klq"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -181155,7 +181735,10 @@
   "14631": {
     "event_type": [],
     "object_name": [
-      "NuEm-210515A and NuEm-210515B"
+      [
+        "NuEm-210515A",
+        "NuEm-210515B"
+      ]
     ],
     "object_type": [],
     "date": "16 May 2021; 07:54 UT"
@@ -181188,7 +181771,10 @@
       "high energy event"
     ],
     "object_name": [
-      "PKS 0514-459 and TXS 1700+685"
+      [
+        "PKS 0514-459",
+        "TXS 1700+685"
+      ]
     ],
     "object_type": [
       "active galactic nuclei"
@@ -183625,7 +184211,10 @@
       "transient"
     ],
     "object_name": [
-      "ZTF21abqfxnf and ZTF21abnvlnf"
+      [
+        "ZTF21abqfxnf",
+        "ZTF21abnvlnf"
+      ]
     ],
     "object_type": [
       "supernova"
@@ -185758,7 +186347,10 @@
       "transient"
     ],
     "object_name": [
-      "Gaia21esm and Gaia21eqn"
+      [
+        "Gaia21esm",
+        "Gaia21eqn"
+      ]
     ],
     "object_type": [
       "nova"
