@@ -1,10 +1,13 @@
 import json
 from enum import Enum
 from typing import Optional, List
+import re
 
 from fastapi import FastAPI, Depends
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, root_validator
+import astropy.units as u
+from astropy.coordinates import Angle, SkyCoord
 
 with open('./data/atel_entities.json', 'r') as f:
     data_atel = json.load(f)
@@ -92,7 +95,8 @@ class RecordMetadata(BaseModel):
 
 
 class FilterParameters(BaseModel):
-    object_name: Optional[str]
+    object_name_or_coordinates: Optional[str]
+    radius: int = 3
     event_type: Optional[EventType]
     object_type: Optional[ObjectType]
     messenger_type: Optional[MessengerType]
@@ -170,8 +174,12 @@ def get_filtered_records(params: FilterParameters = Depends()):
     result_atel, result_gcn = [], []
     for param_name, param_val in vars(params).items():
         if param_val:
-            result_atel.append(_search_dataset(param_name, param_val, data_atel))
-            result_gcn.append(_search_dataset(param_name, param_val, data_gcn))
+            if param_name not in ["object_name_or_coordinates", "radius"]:
+                result_atel.append(_search_dataset(param_name, param_val, data_atel))
+                result_gcn.append(_search_dataset(param_name, param_val, data_gcn))
+            elif param_name == "object_name_or_coordinates":
+                result_atel.append(_search_by_object_name_or_coordinates(param_val, params.radius, data_atel))
+                result_gcn.append(_search_by_object_name_or_coordinates(param_val, params.radius, data_gcn))
     return {"ATel": set.intersection(*map(set, result_atel)), "GCN": set.intersection(*map(set, result_gcn))}
 
 
@@ -189,6 +197,49 @@ def _search_dataset(entity_name: str, entity: Enum, dataset: dict):
         if entity_name in dataset[key] and any(_compare(val, item) for item in dataset[key][entity_name]):
             results.append(key)
     return results
+
+
+def _search_by_object_name_or_coordinates(entity: Enum, angle: int, dataset: dict):
+    result = _search_dataset("object_name", entity, dataset)
+
+    if len(result) == 0:
+        try:
+            sky_coord = SkyCoord(entity, frame='icrs', unit=(u.hour, u.deg))
+        except:
+            return []
+        result = _get_coordinates_within_radius(_get_coordinates_list(data_atel), sky_coord, angle)
+    return result
+
+
+def _get_coordinates_list(dataset: dict):
+    coordinates = {
+        key: {"coordinates": dataset[key]['coordinates'], "coordinate_system": dataset[key]['coordinate_system']}
+        for key in dataset if dataset[key]['coordinates']}
+    coords_list = {}
+
+    for key in coordinates:
+        coordinate_frame = "icrs"
+        if coordinates[key]['coordinate_system']:
+            if coordinates[key]['coordinate_system'].lower() == "galactic":
+                coordinate_frame = 'galactic'
+            elif coordinates[key]['coordinate_system'].lower() == "ecliptic":
+                coordinate_frame = 'geocentrictrueecliptic'
+        elems = coordinates[key]['coordinates']
+        for el in elems:
+            try:
+                if len(el.split(' ')) > 2:
+                    sc = SkyCoord(el, frame=coordinate_frame, unit=(u.hour, u.deg))
+                else:
+                    sc = SkyCoord(el, frame=coordinate_frame, unit=(u.deg, u.deg))
+                coords_list[key] = sc
+            except:
+                pass
+    return coords_list
+
+
+def _get_coordinates_within_radius(coords_list: dict, center: SkyCoord, radius: int):
+    sky_radius = Angle(radius, 'deg')
+    return [key for key in coords_list if center.separation(coords_list[key]) <= sky_radius]
 
 
 @app.get('/api/health_check')
