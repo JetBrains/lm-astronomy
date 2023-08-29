@@ -1,7 +1,6 @@
 import json
 import logging
 import requests
-from tqdm import tqdm
 
 
 def resolve_suffix(idx: int) -> str:
@@ -25,25 +24,24 @@ def load_gcn(idx: str) -> str:
 
 
 def fetch_all():
-    # Load the existing gcn entities from json file
-    with open("./data/gcn_dataset.json", 'r') as f:
+    with open("./data/gcn/dataset.json", 'r') as f:
         gcn_records = json.load(f)
-    latest_id = max(map(lambda x: int(x.split(".")[0].replace("neg", "-")), gcn_records.keys()))  # Fetch the message with the highest index  as latest
+    latest_id = max(map(lambda x: int(x.split(".")[0].replace("neg", "-")), gcn_records.keys()))
 
     new_records = {}
-    idx = latest_id + 1  # Start from the next index
+    idx = latest_id + 1
     while True:
         suffix = resolve_suffix(idx)
         print(suffix)
         record = load_gcn(suffix)
-        if record is None:  # If there is no record or unsuccessful fetch, quit
+        if record is None:
             logging.warning(f'Missing circular: {suffix}')
             break
         else:
             new_records[suffix] = record
             idx += 1
 
-    with open('./data/gcn_dataset.json', 'w') as fp:  # Update the json with both old and new records
+    with open('./data/gcn/dataset.json', 'w') as fp:
         json.dump({**gcn_records, **new_records}, fp, indent=2)
 
 
