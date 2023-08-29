@@ -90,17 +90,18 @@ class ATelCrawler:
             self.write_to_json(rec)
 
     def write_to_csv(self, rec):
-        with open('./data/atel_dataset.csv', 'a+') as f:
+        with open('./data/atel/dataset.csv', 'a+') as f:
             writer = csv.DictWriter(f, fieldnames=self.headers())
             writer.writeheader()
             writer.writerow(rec)
 
     def write_to_json(self, rec):
-        with open("./data/atel_dataset.json", 'r') as f:
+        with open("./data/atel/dataset.json", 'r') as f:
             dataset = json.load(f)
         dataset.update({rec["id"]: rec["description"]})
-        with open("./data/atel_dataset.json", 'w') as f:
+        with open("./data/atel/dataset.json", 'w') as f:
             json.dump(dataset, f, indent=2)
+
 
 if __name__ == '__main__':
     ATelCrawler().crawl()
