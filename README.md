@@ -51,7 +51,9 @@ curl -X 'GET' \
 ```
 
 You can input coordinates using the Equatorial coordinate system, which relies on two measurements: right ascension and
-declination. These coordinates can be expressed in either decimal degrees or the sexagesimal format. For more examples see [NASA'S HEASARC](https://heasarc.gsfc.nasa.gov/Tools/name_or_coordinates_help.html)
+declination. These coordinates can be expressed in either decimal degrees or the sexagesimal format. The coordinates
+should be written without commas and explicit units. For more examples
+see [NASA'S HEASARC](https://heasarc.gsfc.nasa.gov/Tools/name_or_coordinates_help.html) (first 3 examples)
 
 - To get the object type of specific ATel message, use:
 
