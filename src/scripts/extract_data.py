@@ -7,6 +7,7 @@ import re
 import csv
 from ffn_inference import get_ranged_completions
 from gen_embeddings import get_embeddings, ModelType
+from gen_completions import get_completions
 from utils import Entity, Dataset, create_indices, update_json_file
 
 
@@ -52,6 +53,37 @@ def get_date(dataset_name, keys):
     return date
 
 
+def process_group(s, groups):
+    if len(s) > 1:
+        s = [j for sub in s for j in sub]  # flatten input list
+    s = np.unique(s)
+    res = []
+    for si in s:
+        for group in groups:
+            if group in si:
+                res.append(si)
+    return res
+
+
+def prepare_groups(entity_name, dataset_name, indices_path):
+    keys = create_indices(dataset_name, indices_path)
+    with open("./data/prompts.json", "r") as f:
+        groups = json.load(f)["group"][entity_name]
+    with open(f"./data/{dataset_name}/{entity_name}/grouped_completions.json", "r") as f:
+        tmp = json.load(f)
+        data = {key: tmp[key] for key in keys}
+    for key in keys:
+        data[key] = process_group(data[key], groups)
+    return data
+
+
+def get_grouped_entities(entity_name, dataset_name, indices_path):
+    get_completions(dataset_name=dataset_name, engine="gpt-4-0613", shots_num=1, indices_path=indices_path,
+                    entity_name=entity_name)
+    data = prepare_groups(entity_name, dataset_name, indices_path)
+    return data
+
+
 def dump_ffn_input_completions(entity_name, dataset_name, data, keys):
     entity_folder = f"./data/{dataset_name}/{entity_name}"
     os.makedirs(entity_folder, exist_ok=True)
@@ -66,8 +98,11 @@ def get_ffn_ranged_entities(dataset_name, data, indices_path):
         dump_ffn_input_completions(entity_name, dataset_name, data, keys)
         get_embeddings(dataset_name, ModelType.ADA, entity_name, indices_path)
         get_ranged_completions(dataset_name, entity_name, indices_path)
-        with open(f"./data/{dataset_name}/{entity_name}/ranked_completions.json", 'r') as f:
-            ranged_entities[entity_name] = json.load(f)
+        if entity_name == Entity.EVENT_TYPE or entity_name == Entity.OBJECT_TYPE:
+            ranged_entities[entity_name] = get_grouped_entities(entity_name, dataset_name, indices_path)
+        else:
+            with open(f"./data/{dataset_name}/{entity_name}/ranked_completions.json", 'r') as f:
+                ranged_entities[entity_name] = json.load(f)
     return {key: {entity_name.value: ranged_entities[entity_name][key] for entity_name in Entity} for key in keys}
 
 
@@ -76,10 +111,12 @@ def get_extractable_entities(dataset_name, data, indices_path):
     keys = create_indices(dataset_name, indices_path)
     date = get_date(dataset_name, keys)
     for k in keys:
-        entities[k] = {"messenger_type": data[k][0]['messenger_type'] if isinstance(data[k][0]['messenger_type'], str) else [data[k][0]['messenger_type']],
-                       "coordinates": remove_characters(data[k][0]['coordinates']),
-                       "coordinate_system": data[k][0]['coordinate_system'],
-                       "date": date[k]}
+        entities[k] = {
+            "messenger_type": data[k][0]['messenger_type'] if isinstance(data[k][0]['messenger_type'], str) else [
+                data[k][0]['messenger_type']],
+            "coordinates": remove_characters(data[k][0]['coordinates']),
+            "coordinate_system": data[k][0]['coordinate_system'],
+            "date": date[k]}
     return entities
 
 
@@ -93,7 +130,7 @@ def extract_data(dataset_name, indices_path=None):
     for key in extractable_entities:
         extractable_entities[key].update(ffn_ranged_entities.get(key, {}))
 
-    update_json_file(f'./data/{dataset_name}/entities_tmp.json',
+    update_json_file(f'./data/{dataset_name}/entities.json',
                      extractable_entities
                      )
 
