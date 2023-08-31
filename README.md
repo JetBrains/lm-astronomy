@@ -16,7 +16,7 @@ The API allows you to search and filter the messages by the following entities:
 Both `object_type` and `event_type` are enums, which are predefined and can be accessed on the API documentation.
 
 `object_name_or_coordinates` allows you to search either by the name of the object or by the event ID. You may also use
-coordinates in a format compatible with `astropy.coordinates.SkyCoord.` If you provide coordinates, you can also specify
+coordinates in a format compatible with `astropy.coordinates.SkyCoord`. If you provide coordinates, you can also specify
 a radius to search for messages that mention coordinates within that radius.
 
 `messenger_type` refers to the type of messenger. There are 4 types you can filter
@@ -30,26 +30,35 @@ To use this API locally, run:
 docker compose build && docker compose up
 ```
 
-## API Endpoints
+## API Endpoints Examples
 
 Here are some examples of how to make requests to the API endpoints:
 
 - To filter by `event_type` and `object_type`, use:
 
 ```
-/api/filter/?event_type=High Energy Event&object_type=Galaxy
+curl -X 'GET' \
+  'https://lm-astronomy.labs.jb.gg/api/filter/?radius=3&event_type=High%20Energy%20Event&object_type=Supernova' \
+  -H 'accept: application/json'
 ```
 
 - To search within a radius of given coordinates, use:
 
 ```
-/api/filter/?object_name_or_coordinates=266.76-28.89&radius=3
+curl -X 'GET' \
+  'https://lm-astronomy.labs.jb.gg/api/filter/?object_name_or_coordinates=266.76%20-28.89&radius=5' \
+  -H 'accept: application/json'
 ```
+
+You can input coordinates using the Equatorial coordinate system, which relies on two measurements: right ascension and
+declination. These coordinates can be expressed in either decimal degrees or the sexagesimal format. For more examples see [NASA'S HEASARC](https://heasarc.gsfc.nasa.gov/Tools/name_or_coordinates_help.html)
 
 - To get the object type of specific ATel message, use:
 
 ```
-/api/atel/1203/object_type
+curl -X 'GET' \
+  'https://lm-astronomy.labs.jb.gg/api/atel/14778/object_type' \
+  -H 'accept: application/json'
 ```
 
 # Entity Extraction Pipeline
