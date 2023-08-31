@@ -94,13 +94,11 @@ pip install -r scripts/requirements.txt
 pip install -r api/requirements.txt
 ```
 
-## API Usage
-
 ## Pipeline Usage
 
 ### 1. Crawlers (`atel_crawler.py` and `gcn_crawler.py`)
 
-These scripts update the ATel and GCN datasets stored in `./data/{dataset_name}/dataset.json`. Run using the following
+These scripts update the ATel and GCN datasets stored in `data/{dataset_name}/dataset.json`. Run using the following
 commands:
 
 ```
@@ -118,7 +116,7 @@ Use this script to generate embeddings for given messages.
 python3 scripts/gen_embeddings.py -d {dataset_name} -e text-similarity-davinci-001 -i {indices_path}
 ```
 
-Results will be written in the `./data/{dataset_name}/` folder.
+Results will be written in the `data/{dataset_name}/` folder.
 
 2. For generating embeddings for entities, run:
 
@@ -126,7 +124,10 @@ Results will be written in the `./data/{dataset_name}/` folder.
 python3 scripts/gen_embeddings.py -d {dataset_name} -e text-embedding-ada-002 -en {entity_name} -i {indices_path}
 ```
 
-Results will be written in the `./data/{dataset_name}/{entity}/` folder.
+Results will be written in the `data/{dataset_name}/{entity_name}/` folder.
+Folder `data/weights/` contains weights of a
+fine-tuned [pearsonkyle/gpt2-exomachina](https://huggingface.co/pearsonkyle/gpt2-exomachina) which can be used for
+generating embeddings/
 
 ### 3. Generate Completions using OpenAI API (`gen_completions.py`)
 
@@ -138,7 +139,7 @@ using:
 python3 scripts/gen_completions.py --dataset {dataset_name} -e gpt-4-0613 -i {indices_path}
 ```
 
-Results will be written in the `./data/{dataset_name}/function_completions.json` file.
+Results will be written in the `data/{dataset_name}/function_completions.json` file.
 
 ### 4. Entity Extractor (`extract_data.py`)
 
@@ -151,7 +152,7 @@ extracted using the openai API or directly from the text. Run using:
 python3 scripts/extract_data.py -d {dataset_name} -i {indices_path}
 ```
 
-Results will be added to the `./data/{dataset_name}/entities.json` file.
+Results will be added to the `data/{dataset_name}/entities.json` file.
 Note, that for the data to be extracted, embeddings and completions for given dataset messages should already be
 computed using `gen_embeddings.py` and `gen_completions.py`
 
@@ -168,14 +169,15 @@ the pre-determined ones.
 ### 5. FFN Inference (`ffn_inference.py`)
 
 This script ranks embeddings for `object_name_or_event_ID`, `event_type` and `object_type` using the trained
-feed-forward network [[1]](#1). Run using:
+feed-forward network [[1]](#1). Directories in `data/ffn/` contain feed-forward network weights and are named
+accordingly to their output dimensions. Run using:
 
 ```
 python3 scripts/ffn_inference.py -d {dataset_name} -en {entity_name} -i {indices_path}
 ```
 
 **Note:** In each script, `-i` specifies the file with indices. If it is not provided, indices will be calculated as the
-difference between indices in the `./data/{dataset_name}/dataset.json` and `./data/{dataset_name}/entities.json` files.
+difference between indices in the `data/{dataset_name}/dataset.json` and `data/{dataset_name}/entities.json` files.
 
 ## References
 
