@@ -1,7 +1,6 @@
 import json
 from enum import Enum
 from typing import Optional, List
-import re
 
 from fastapi import FastAPI, Depends
 from fastapi.staticfiles import StaticFiles
@@ -9,10 +8,10 @@ from pydantic import BaseModel, root_validator
 import astropy.units as u
 from astropy.coordinates import Angle, SkyCoord
 
-with open('./data/atel_entities.json', 'r') as f:
+with open('./data/atel/entities.json', 'r') as f:
     data_atel = json.load(f)
 
-with open('./data/gcn_entities.json', 'r') as f:
+with open('./data/gcn/entities.json', 'r') as f:
     data_gcn = json.load(f)
 
 

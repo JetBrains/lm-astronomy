@@ -1,0 +1,101 @@
+{
+  "group": {
+    "event_type": [
+      "High Energy Event",
+      "Gamma-ray Burst",
+      "Tidal Disruption Event",
+      "Low Energy Event",
+      "Solar Event",
+      "Microlensing Event",
+      "Pulsation",
+      "Fast Radio Burst",
+      "Activity Episode",
+      "Flare",
+      "Transient",
+      "Outburst",
+      "Accretion",
+      "Afterglow",
+      "Brightening",
+      "Variability",
+      "Dimming and Decline",
+      "Dipping and Eclipsing",
+      "Emission",
+      "Absorption",
+      "Core Collapse",
+      "State Transition",
+      "Glitch",
+      "Eruption"
+    ],
+    "object_type": [
+      "Accreting Object",
+      "Active Galactic Nuclei",
+      "Black Hole",
+      "Neutron Star",
+      "Nova",
+      "Supernova",
+      "Star & Stellar System",
+      "Variable Star",
+      "Exoplanet",
+      "Stellar Evolution Stage",
+      "Minor Body",
+      "Binary System",
+      "Pulsar",
+      "Interstellar Medium",
+      "Galaxy",
+      "Quasar",
+      "Globular Cluster",
+      "Near-earth object",
+      "Magnetar",
+      "Repeater",
+      "Circumstellar Disk",
+      "Electromagnetic Source"
+    ]
+  },
+  "prompt": {
+      "determine_object_type": "You are given several labels and groups corresponding to different astronomical object types. Your task is to tell which group does every label describing object type belongs to based on physical and syntactic properties. If a label doesn't correspond to any of these groups, or it is an event type then omit it. For example, LABELS: ['Transient', 'Gamma-ray Burst', 'young stellar object', 'microquasar'] GROUPS: {0}, OUTPUT: ['Stellar Evolution Stage', 'Quasar'] - because transient and burst are examples of event types, not object types.\nRULES you must follow:\n- One value from LABELS may belong to several values from GROUP. For example, [Black Hole Binary] -> [Black Hole, Binary System]\n- Output should only contain values from the GROUPS. Do not merge values from GROUPS into one value.\n- Place LABEL in a GROUP if you could make this decision only with this limited context. Do not refer to your knowledge. For example, do NOT place 'X-ray Transient' in 'Black Hole' because you know (additional context) that these events are often associated with accreting objects such as black holes or neutron stars. Or do NOT place GRB in Repeater GROUP unless SGR is mentioned.\n- If a value from LABELS is clearly an event type, not astronomical object type, then skip it. E.g transients and bursts (gamma-ray burst, fast radio burst) should be skipped.\nLABELS: {1}\nGROUPS: {0}\nOUTPUT:",
+      "determine_event_type": "You are given several labels and groups corresponding to different astronomical event types. Your task is to tell which group does every label describing event type belongs to. If a label doesn't correspond to any of these groups, or given labels are examples of astronomical objects then omit it. For example, LABELS: ['Transient', 'Rapid Burster', 'Outburst', 'black hole merger', 'pulsar'] GROUPS: {0}, OUTPUT: ['Transients', 'Outbursts'] - because pulsar and black hole are examples of astronomical objects, not event types.\n- Unless explicitly mentioned, do not place supernova in core-collapse group, as it is an optical transient.\n- If an emission doesn't have an explicitly stated energy level, then it simply belongs to a Emission group. Otherwise, place it in High or Low energy group.\n- Output should only contain values from the GROUPS. Do not merge values from GROUPS into one value.\nLABELS: {1}\nGROUPS: {0}\nOUTPUT:"
+  },
+  "function": [
+    {
+      "name": "extract_entities",
+      "description": "Add the physical properties of an observed event mentioned in astronomical message to the database.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "messenger_type": {
+            "type": "string",
+            "description": "Possible messenger types observed in text: ['electromagnetic radiation','gravitational waves', 'neutrinos', 'cosmic rays']. Electromagnetic radiation may be mentioned in texts as radio waves, microwaves, infrared, (visible) light, ultraviolet, X-rays, and gamma rays. Output list of observed types, e.g ['electromagnetic radiation', 'gravitational waves']. In case it is not mentioned - null."
+          },
+          "coordinates": {
+            "type": "string",
+            "description": "Explicitly stated coordinates of the observed events in the given text. Coordinates may be entered in the Equatorial, Galactic, and Ecliptic coordinate systems. The output should be an array of coordinates in format readable by SkyCoord, e.g Input: RA=4h16m06s.10, Dec=-5o40'32''.4; Output: ['4 16 06.10, -5 40 32.4']. In case it is not mentioned - null."
+          },
+          "object_name_or_event_ID": {
+            "type": "string",
+            "description": "The names of all the mentioned astronomical objects and/or IDs of astronomical events. Do not mention references to other ATels and GCN messages, names of telescopes, observatories or other irrelevant names."
+          },
+          "object_type": {
+            "type": "string",
+            "description": "The types of all mentioned astronomical objects (e.g.  planetary systems, star clusters, asteroids, moons, planets)."
+          },
+          "event_type": {
+            "type": "string",
+            "description": "Emissions, absorptions, or reflections of electromagnetic radiation observed in a text (e.g. Accretion, FRB, GRB, TDE). It is different from messenger_type, which mentions the type of emission."
+          },
+          "coordinate_system": {
+            "type": "string",
+            "description": "The Coordinate Systems used in text. In case it is not mentioned - null. Possible Systems - [J2000, B1950, Galactic, Ecliptic, Equinox]"
+          }
+        },
+        "required": [
+          "messenger_type",
+          "coordinates",
+          "object_name_or_event_ID",
+          "object_type",
+          "event_type",
+          "coordinate_system"
+        ]
+      }
+    }
+  ]
+}
