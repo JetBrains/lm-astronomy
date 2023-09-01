@@ -1,4 +1,5 @@
 # lm-astronomy API
+[![research JetBrains project](https://jb.gg/badges/research.svg)]
 
 This API is designed to facilitate the search and cross-referencing of GCN Circulars and the Astronomer's Telegram (
 ATel) messages. Currently, our database has preprocessed 15,009 ATel and 31,125 GCN messages. For any additional
