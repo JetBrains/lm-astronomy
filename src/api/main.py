@@ -4,6 +4,7 @@ from typing import Optional, List
 
 from fastapi import FastAPI, Depends
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, root_validator
 import astropy.units as u
 from astropy.coordinates import Angle, SkyCoord
@@ -102,6 +103,18 @@ class FilterParameters(BaseModel):
 
 
 app = FastAPI()
+origins = [
+    "http://localhost:3000"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 
 @app.get('/api/atel/{record_id}')

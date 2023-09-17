@@ -1,0 +1,59 @@
+
+.astromap {
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: right;
+}
+
+.astromap a {
+    display: block;
+    color: var(--shaded_text);
+
+}
+
+.astromap a:hover {
+    color: white;
+}
+.input-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    color: #333;
+    width: 100%;
+    padding: 0.8125em 0.65em;
+    border-bottom: 1px solid rgba(51,51,51,1);
+}
+.input-field {
+    flex-grow: 1;
+    background: transparent;
+    border: none;
+    color: var(--highlight);
+    font-size: 1.25em;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 400;
+    letter-spacing: 0.0625em;
+    text-transform: uppercase;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    transition: border 0.3s ease;
+}
+
+.input-field:focus {
+    outline: none;
+    font-size: 1.25em;
+    border: 1px solid var(--highlight);
+}
+
+.input-field::placeholder {
+    color: rgba(255,255,255,1);
+    line-height: 0.75em;
+    opacity: 0.5;
+}
+
+.input-field:focus::placeholder {
+    opacity: 0;
+}
