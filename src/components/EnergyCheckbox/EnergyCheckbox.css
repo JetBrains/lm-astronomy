@@ -1,0 +1,38 @@
+.energyCheckboxContainer {
+    display: flex;
+    /*justify-content: space-between;*/
+    width: 100%;
+}
+
+
+.energyCheckbox.active {
+    filter: brightness(70%);
+}
+.energyCheckboxLabel {
+    color: #aaa;
+    text-align: center;
+    /*line-height: 50px;*/
+    user-select: none;
+    font-size: 0.5em;
+}
+
+
+
+.energyCheckbox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: 2px;
+    height: 2em;
+}
+
+.energyCheckboxLabel, .energyCheckboxDescription {
+    display: block;
+    text-align: center;
+}
+
+.energyCheckboxDescription {
+    font-size: 0.3em;
+    color: #aaaaaa;
+}

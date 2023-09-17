@@ -1,0 +1,38 @@
+.messengerContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 65%;
+}
+
+.messengersLabel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--shaded_text);
+    font-size: 1.25em;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 400;
+    letter-spacing: 0.0625em;
+    text-transform: uppercase;
+
+}
+.messengerButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    border: 1px solid var(--shaded_text);
+    color: var(--shaded_text);
+    cursor: pointer;
+    font-family: serif;
+    font-size: 1.25em;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.messengerButton.active {
+    background-color: var(--highlight);
+    color: black;
+    border-color: var(--highlight);
+}

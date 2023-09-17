@@ -1,0 +1,41 @@
+.search-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* изменено с left на space-between */
+    align-items: center;
+    width: 100%;
+    height: 4.85em;
+    padding: 0 0.8em;
+    letter-spacing: 1em;
+    background-color: var(--highlight);
+    transition: filter 0.3s ease;
+}
+
+.search-button:hover {
+    filter: brightness(110%);
+    cursor: pointer;
+}
+
+.search-button:active {
+    filter: brightness(80%);
+}
+.search-text {
+    color: rgba(0,0,0,1);
+    font-size: 1.5em;
+    line-height: 0.75em;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 400;
+    letter-spacing: 1em;
+    text-transform: uppercase;
+}
+
+.search-icon {
+    width: 2.5em;
+    height: 2.5em;
+    margin-right: 10px;
+}
+
+.icons-container {
+    display: flex;
+    align-items: center;
+}

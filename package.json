@@ -1,0 +1,46 @@
+{
+  "name": "lm-astronomy",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "celestial": "0.0.0",
+    "d3": "^7.8.5",
+    "d3-celestial": "^0.7.35",
+    "d3-celestial-with-svg": "^0.8.0",
+    "d3-geo-projection": "^4.0.0",
+    "pretty-checkbox": "^3.0.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.15.0",
+    "react-scripts": "5.0.1",
+    "react-select": "^5.7.4",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "../../Downloads/lm-astronomy/node_modules/.bin/react-scripts start",
+    "build": "../../Downloads/lm-astronomy/node_modules/.bin/react-scripts build",
+    "test": "../../Downloads/lm-astronomy/node_modules/.bin/react-scripts test",
+    "eject": "../../Downloads/lm-astronomy/node_modules/.bin/react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

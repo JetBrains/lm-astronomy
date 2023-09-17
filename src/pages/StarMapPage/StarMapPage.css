@@ -1,0 +1,70 @@
+p {
+    color: #fff;
+}
+
+.getCoords {
+    background-color: var(--highlight);
+    width: 80px;
+    height: 80px;
+    border:0;
+    font-size: 1em;
+    position: absolute;
+    left: 40px;
+    top: 5%;
+}
+
+.getCoords span {
+    font-size: 0.6em;
+}
+
+.coords, .coords_flow,
+.coords_selected,
+.angular,
+.angular_slider,
+.info
+{
+    display: block;
+    color: var(--shaded_text);
+    position: absolute;
+    left: 40px;
+    font-size: 0.5em;
+}
+
+
+
+.coords_selected {top: 125px;}
+.coords_flow {top: 170px;}
+
+.angular_slider {
+    top: 220px;
+}
+.angular { top: 250px;}
+
+
+.info {
+    top: 300px;
+    width: 200px;
+    height: 300px;
+    overflow: scroll;
+    font-size: 0.5em;
+}
+.angular_input {
+    background-color: black;
+    border: 0;
+    text-decoration: underline;
+    color: var(--highlight);
+    width: 2em;
+}
+
+.angular_input:focus {
+    outline: none;
+    background-color: var(--shaded_text);
+    color: black;
+    text-decoration: none;
+}
+#celestial-map {
+    /*width: 90%;*/
+    /*height: 90%;*/
+    margin: 0 auto;
+
+}
