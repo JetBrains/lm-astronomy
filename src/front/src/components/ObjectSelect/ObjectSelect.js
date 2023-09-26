@@ -3,33 +3,32 @@ import Select from 'react-select';
 import './ObjectSelect.css';
 
 const objectList = [
-    "Supernova",
-    "Nova",
-    "Blazar",
-    "cataclysmic variable",
-    "black hole",
-    "neutron star",
-    "Quasar",
-    "Agn",
-    "Pulsar",
-    "Binary",
-    "Star",
-    "Magnetar",
-    "Repeater",
-    "stellar object",
-    "Asteroid",
-    "Star",
-    "bl lac object",
-    "globular cluster",
-    "Galaxy",
-    "near-earth object",
-    "System",
-    "Counterpart",
-    "Comet"
+      "Accreting Object",
+      "Active Galactic Nuclei",
+      "Black Hole",
+      "Neutron Star",
+      "Nova",
+      "Supernova",
+      "Star & Stellar System",
+      "Variable Star",
+      "Exoplanet",
+      "Stellar Evolution Stage",
+      "Minor Body",
+      "Binary System",
+      "Pulsar",
+      "Interstellar Medium",
+      "Galaxy",
+      "Quasar",
+      "Globular Cluster",
+      "Near-earth object",
+      "Magnetar",
+      "Repeater",
+      "Circumstellar Disk",
+      "Electromagnetic Source"
 ];
 
 const options = objectList.map(item => ({
-    value: item.toLowerCase().replace(/\s+/g, '-'), // Преобразование строки в формат "snake-case" для значения
+    value: item,
     label: item
 }));
 

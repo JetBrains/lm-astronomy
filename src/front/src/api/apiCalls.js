@@ -1,22 +1,12 @@
 export function searchAPI(transientName, physicalPhenomena, messengerType) {
     // Определите базовый URL и заголовки
-    const baseURL = 'https://lm-astronomy.labs.jb.gg/api/filter/';
+    const baseURL = 'https://lm-astronomy.labs.jb.gg/api/search/'; // TODO: move to .env
     const headers = {
         'accept': 'application/json'
     };
-
-    // Постройте URL на основе входных данных
-    let url;
-    if (transientName && !physicalPhenomena && !messengerType) {
-        // Если предоставлено только имя или координаты
-        url = `${baseURL}?object_name_or_coordinates=${encodeURIComponent(transientName)}&radius=5`;
-    } else if (physicalPhenomena && messengerType) {
-        // Если предоставлены тип события и тип объекта
-        url = `${baseURL}?radius=3&event_type=${encodeURIComponent(messengerType)}&object_type=${encodeURIComponent(physicalPhenomena)}`;
-    } else {
-        // Если предоставлены все три параметра
-        url = `${baseURL}?object_name_or_coordinates=${encodeURIComponent(transientName)}&radius=3&event_type=${encodeURIComponent(messengerType)}&object_type=${encodeURIComponent(physicalPhenomena)}`;
-    }
+    // if transientName is empty string, replace it with null
+    transientName = transientName || null;
+    let url = `${baseURL}?transient_name=${transientName}&physical_phenomena=${physicalPhenomena}&messenger_type=${messengerType}`;
 
     // Выполните запрос
     fetch(url, { headers })

@@ -1,13 +1,14 @@
 import json
+import logging
 from enum import Enum
 from typing import Optional, List
 
-from fastapi import FastAPI, Depends
-from fastapi.staticfiles import StaticFiles
-from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, root_validator
 import astropy.units as u
 from astropy.coordinates import Angle, SkyCoord
+from fastapi import FastAPI, Depends
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from pydantic import BaseModel
 
 with open('data/atel/entities.json', 'r') as f:
     data_atel = json.load(f)
@@ -82,17 +83,6 @@ class RecordMetadata(BaseModel):
     object_type: List[str]
     messenger_type: List[str]
 
-    @root_validator(pre=True)
-    def check_record_id(cls, values: dict):
-        ri = values.get('record_id')
-        if ri is None:
-            raise ValueError(f"Enter the message id.")
-        ri_ci = ri.lower()
-        if not (ri_ci in data_atel or ri_ci in data_gcn):
-            raise ValueError(f"The message with id {ri} doesn't exist.")
-        values['record_id'] = ri_ci
-        return values
-
 
 class FilterParameters(BaseModel):
     object_name_or_coordinates: Optional[str]
@@ -111,11 +101,16 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 
 
 @app.get('/api/atel/{record_id}')
 def get_atel_data(record_id: str) -> RecordMetadata:
+    if record_id not in data_atel:
+        raise ValueError(f"The ATel message with id {record_id} doesn't exist.")
     metadata = RecordMetadata(
         record_id=record_id,
         object_name=data_atel[record_id]['object_name'],
@@ -128,6 +123,8 @@ def get_atel_data(record_id: str) -> RecordMetadata:
 
 @app.get('/api/gcn/{record_id}')
 def get_gcn_data(record_id: str) -> RecordMetadata:
+    if record_id not in data_gcn:
+        raise ValueError(f"The GCN message with id {record_id} doesn't exist.")
     metadata = RecordMetadata(
         record_id=record_id,
         object_name=data_gcn[record_id]['object_name'],
@@ -138,50 +135,11 @@ def get_gcn_data(record_id: str) -> RecordMetadata:
     return metadata
 
 
-@app.get('/api/atel/{record_id}/object_name')
-def get_atel_object_name(record_id: str) -> List[str]:
-    return get_atel_data(record_id).object_name
-
-
-@app.get('/api/atel/{record_id}/event_type')
-def get_atel_event_type(record_id: str) -> List[str]:
-    return get_atel_data(record_id).event_type
-
-
-@app.get('/api/atel/{record_id}/object_type')
-def get_atel_object_type(record_id: str) -> List[str]:
-    return get_atel_data(record_id).object_type
-
-
-@app.get('/api/atel/{record_id}/messenger_type')
-def get_atel_messenger_type(record_id: str) -> List[str]:
-    return get_atel_data(record_id).messenger_type
-
-
-@app.get('/api/gcn/{record_id}/object_name')
-def get_gcn_object_name(record_id: str) -> List[str]:
-    return get_gcn_data(record_id).object_name
-
-
-@app.get('/api/gcn/{record_id}/event_type')
-def get_gcn_event_type(record_id: str) -> List[str]:
-    return get_gcn_data(record_id).event_type
-
-
-@app.get('/api/gcn/{record_id}/object_type')
-def get_gcn_object_type(record_id: str) -> List[str]:
-    return get_gcn_data(record_id).object_type
-
-
-@app.get('/api/gcn/{record_id}/messenger_type')
-def get_gcn_messenger_type(record_id: str) -> List[str]:
-    return get_gcn_data(record_id).messenger_type
-
-
-@app.get('/api/filter/')
+@app.get('/api/search/')
 def get_filtered_records(params: FilterParameters = Depends()):
     result_atel, result_gcn = [], []
     for param_name, param_val in vars(params).items():
+        logging.info(f'{param_name=}, {param_val=}')
         if param_val:
             if param_name not in ["object_name_or_coordinates", "radius"]:
                 result_atel.append(_search_dataset(param_name, param_val, data_atel))
@@ -189,6 +147,7 @@ def get_filtered_records(params: FilterParameters = Depends()):
             elif param_name == "object_name_or_coordinates":
                 result_atel.append(_search_by_object_name_or_coordinates(param_val, params.radius, data_atel))
                 result_gcn.append(_search_by_object_name_or_coordinates(param_val, params.radius, data_gcn))
+    logging.info(f'{[len(item) for item in result_atel]=}, {[len(item) for item in result_gcn]=}', )
     return {"ATel": set.intersection(*map(set, result_atel)), "GCN": set.intersection(*map(set, result_gcn))}
 
 
@@ -216,6 +175,7 @@ def _search_by_object_name_or_coordinates(entity: Enum, angle: int, dataset: dic
             sky_coord = SkyCoord(entity, frame='icrs', unit=(u.hour, u.deg))
         except:
             return []
+        # TODO: precompute coordinates list on startup
         result = _get_coordinates_within_radius(_get_coordinates_list(data_atel), sky_coord, angle)
     return result
 
