@@ -8,10 +8,3 @@ services:
       dockerfile: docker/api/Dockerfile
     ports:
       - "8000:8000"
-
-  frontend:
-    build:
-      context: .
-      dockerfile: docker/front/Dockerfile
-    ports:
-      - "80:3000"
