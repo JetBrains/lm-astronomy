@@ -1,29 +1,53 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './SearchPanel.css';
+import { MessageContext } from '../Contexts/MessageContext';
+import { useNavigate } from 'react-router-dom';
 import ObjectSelect from '../ObjectSelect/ObjectSelect';
 import MessengerType from '../MessengerType/MessengerType';
-import { useNavigate, useLocation } from 'react-router-dom';
 import SearchButton from "../SearchButton/SearchButton";
 import {searchAPI} from "../../api/apiCalls";
+import TransientInput from '../TransientInput/TransientInput';
+import CoordinatesContext from '../Contexts/CoordinatesContext';
+import { parseAndCleanCoordinates } from '../parseCoordinatesUtility';
+
+
 
 function SearchPanel() {
+    const {
+        coordinates,
+        transient,
+        setTransient,
+        selectedMessenger,
+        setSelectedMessenger,
+        selectedObject,
+        setSelectedObject,
+        setCoordinates
+    } = useContext(CoordinatesContext);
+    const [isLoading, setIsLoading] = useState(false);
+    const isDisabled = !transient && !selectedObject && !selectedMessenger && (!coordinates || (coordinates[0] === null && coordinates[1] === null && coordinates[2] === null));
+    const { setMessageIds } = useContext(MessageContext);
     const navigate = useNavigate();
-    const location = useLocation();
-    const [inputValue, setInputValue] = useState('');
-    const [selectedMessenger, setSelectedMessenger] = useState(null);
-    const [selectedObject, setSelectedObject] = useState(null); // Добавлено
-
     const handleSearch = () => {
-        const transientName = inputValue;
-        const physicalPhenomena = selectedObject;
-        const messengerType = selectedMessenger;
-        const frequency = null; // Пока что null, так как у вас нет компонента для частоты
+        if (!transient && !selectedObject && !selectedMessenger && (!coordinates || (coordinates[0] === null && coordinates[1] === null && coordinates[2] === null))) {
+            console.log("Поиск не выполнен: все поля пусты");
+            return;
+        }
+        setIsLoading(true);
+            searchAPI(transient, selectedObject, selectedMessenger, coordinates)
+                .then((data) => {
+                    if (data && data.ATel && data.GCN) {
+                        setMessageIds({ ATel: data.ATel, GCN: data.GCN });
 
-        searchAPI(transientName, physicalPhenomena, messengerType, frequency);
-    };
-
-    const handleIconClick = () => {
-        navigate('/starmap');
+                    } else {
+                        console.log("Неправильный формат данных:", data);
+                    }
+                    navigate("/message");
+                    setIsLoading(false);
+                })
+                .catch((error) => {
+                    console.log(error)
+                    setIsLoading(false);
+                })
     };
 
     const handleObjectChange = (selectedObjectValue) => {
@@ -33,33 +57,70 @@ function SearchPanel() {
     const handleMessengerChange = (selectedMessengerType) => {
         setSelectedMessenger(selectedMessengerType);
     };
+    const parseCoordinates = (inputString) => {
+        const regex = /RA:\s*(-?\d+(\.\d+)?)\s*,?\s*DEC:\s*(-?\d+(\.\d+)?)\s*,?\s*ANG:\s*(\d+(\.\d+)?)/;
+        const match = regex.exec(inputString);
+
+        if (match) {
+            const ra = parseFloat(match[1]);
+            const dec = parseFloat(match[3]);
+            const ang = parseFloat(match[5]);
+
+            return [ra, dec, ang];
+        }
+
+        return [null, null, null];
+    };
+
+
+
+
+    const handleTransientChange = (e) => {
+        const inputString = e.target.value;
+        setTransient(inputString);
+    };
+
+
+    const handleTransientBlur = (e) => {
+        const inputString = e.target.value;
+        const { ra, dec, ang, text } = parseAndCleanCoordinates(inputString);
+        if (ra !== null && dec !== null && ang !== null) {
+            setCoordinates([ra, dec, ang]);
+        }
+        setTransient(text);  // Если вы хотите обновить transient с очищенным текстом
+    };
+
 
     useEffect(() => {
-        const params = new URLSearchParams(location.search);
-        const coords = params.get('coords');
-        if (coords) {
-            setInputValue(coords.replace(';', ' '));
+        if (coordinates && coordinates[0] !== 0 && coordinates[1] !== 0) {
+            const coordsString = `RA:${coordinates[0]} DEC:${coordinates[1]} ANG:${coordinates[2]}`;
+
+            const regex = /RA\s*[:]*\s*(-?\d+(\.\d+)?)[\s,]*|DEC\s*[:]*\s*(-?\d+(\.\d+)?)[\s,]*|ANG\s*[:]*\s*(-?\d+(\.\d+)?)[\s,]*/gi;
+            let cleanedTransient = transient.replace(regex, '').replace(/,{2,}/g, ',').trim();
+
+            // Удаляем концевые запятые и пробелы после очистки
+            cleanedTransient = cleanedTransient.replace(/^[\s,]+|[\s,]+$/g, '');
+
+            const newTransient = cleanedTransient ? `${cleanedTransient}, ${coordsString}` : coordsString;
+            setTransient(newTransient);
         }
-    }, [location.search]);
+    }, [coordinates]);
+
+
 
     return (
         <div className="search-panel">
-            <div className="input-group">
-                <input id="name" className="input-field" value={inputValue} placeholder="Transient name or coordinates" onChange={e => setInputValue(e.target.value)} />
-                <div onClick={handleIconClick}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
-                         className="bi bi-map" viewBox="0 0 16 16">
-                        <path d="M15.817.113A.5.5 0 0 1 16 .5v14a.5.5 0 0 1-.402.49l-5 1a.502.502 0 0 1-.196 0L5.5 15.01l-4.902.98A.5.5 0 0 1 0 15.5v-14a.5.5 0 0 1 .402-.49l5-1a.5.5 0 0 1 .196 0L10.5.99l4.902-.98a.5.5 0 0 1 .415.103zM10 1.91l-4-.8v12.98l4 .8V1.91zm1 12.98 4-.8V1.11l-4 .8v12.98zm-6-.8V1.11l-4 .8v12.98l4-.8z"/>
-                    </svg>
-                </div>
-            </div>
+            <TransientInput
+                onTransientChange={handleTransientChange}
+                onBlur={handleTransientBlur}
+            />
             <div className="input-group">
                 <ObjectSelect onObjectChange={handleObjectChange} />
             </div>
             <div className="input-group">
                 <MessengerType onMessengerChange={handleMessengerChange} />
             </div>
-            <SearchButton onSearch={handleSearch} />
+            <SearchButton onSearch={handleSearch} isLoading={isLoading} isDisabled={isDisabled} />
         </div>
     );
 }
