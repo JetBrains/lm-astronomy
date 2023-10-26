@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>D3-Celestial Alternative Stars</title>
+  <script type="text/javascript" src="../lib/d3.min.js"></script>
+  <script type="text/javascript" src="../lib/d3.geo.projection.min.js"></script>
+  <script type="text/javascript" src="../celestial.js"></script>
+  <link rel="stylesheet" href="../celestial.css">
+  <style type="text/css">
+  .btn { display: inline-block; font: bold 14pt "Lucida Console", Consolas, monospace; margin: 0 6px; padding: 2px 6px; border: 2px solid #000; border-radius: 3px; background: rgba(204, 204, 255, 0.6); cursor: pointer }
+</style>
+
+</head>
+<body>
+  <div style="overflow:hidden;margin:0 auto;"><div id="celestial-map"></div></div>
+  <div id="celestial-form"></div>
+
+  <div class="btn" id="btnColor">Show Grayscale</div>
+  <script type="text/javascript">
+
+// Some prettifying styles
+var config = {
+  projection: "orthographic",
+  //interactive: false,
+  background: { fill: "#000000", stroke: "#000000", opacity: 1, width: 4 },
+  datapath: "https://ofrohn.github.io/data/",
+  stars: { show: false },
+  dsos: { show: false },
+  mw: { style: { fill: "#ffffff", opacity: "0.05" } },
+  constellations: { names: false, lines: false },
+  lines: { 
+    graticule: { show: true, stroke:"#9999cc", width: 1.0, opacity:.3 },
+    equatorial: { show: true, stroke:"#aaaaaa", width: 1.5, opacity:.4 },  
+    ecliptic: { show: true, stroke:"#66cc66", width: 1.5, opacity:.4 }  
+  }
+};
+
+var planets = {sol: "#ff0", lun:"#fff", mer:"#e2e2e2", ven:"#f5f5f0", mar:"#efd1af", jup:"#e6e1df", sat:"#eddebc"};
+
+// Asterisms canvas style properties for lines and text
+var limitMagnitude = 6,
+    radius = 1.2,
+    grayscale = false,
+    starColor = d3.scale.linear()
+     .domain([-1.5, 0, limitMagnitude+1])
+     .range(['white', 'white', 'black']),
+     dt = new Date();  
+
+
+Celestial.add({
+  type:"json",
+  file:"https://ofrohn.github.io/data/stars." + limitMagnitude + ".json",
+
+  callback: function(error, json) {
+
+    if (error) return console.warn(error);
+    // Load the geoJSON file and transform to correct coordinate system, if necessary
+    var stars = Celestial.getData(json, config.transform);
+
+    // Add to celestiasl objects container in d3
+    Celestial.container.selectAll(".astars")
+       .data(stars.features)
+       .enter().append("path")
+       .attr("class", "astar");    
+    // Trigger redraw to display changes
+    Celestial.redraw();
+  },
+
+  redraw: function() {
+    Celestial.context.globalAlpha = 1;
+    // Default color for grayscale
+    var indexColor = "#fff", 
+        planet;
+    
+    // Select the added objects by class name as given previously
+    Celestial.container.selectAll(".astar").each(function(d) {
+      // If point is visible (this doesn't work automatically for points)
+      if (Celestial.clip(d.geometry.coordinates)) {
+        // get point coordinates
+        var pt = Celestial.mapProjection(d.geometry.coordinates);
+
+        // draw on canvas
+        // if not grayscale get the stars color from its b-v index
+        if (grayscale === false) indexColor = Celestial.starColor(d); 
+        // Set color range to the stars color 
+        starColor.range([indexColor, indexColor, 'black']);
+        // Set object color
+        Celestial.context.fillStyle = starColor(d.properties.mag);
+        // Start the drawing path
+        Celestial.context.beginPath();
+        // Thats a circle in html5 canvas
+        Celestial.context.arc(pt[0], pt[1], radius, 0, 2 * Math.PI);
+        // Finish the drawing path
+        Celestial.context.closePath();
+        // Fill the object path with the prevoiusly set fill color
+        Celestial.context.fill();
+
+      }
+      
+    });
+    if (!Celestial.origin) return;
+    var o = Celestial.origin(dt).spherical();
+    for (var key in planets) {
+      var planet = Celestial.getPlanet(key, dt);
+      if (!Celestial.clip(planet.ephemeris.pos)) continue;
+      var pt = Celestial.mapProjection(planet.ephemeris.pos);
+      if (key === "lun") {
+        Celestial.symbol().type("crescent").size(110).age(planet.ephemeris.age).position(pt)(Celestial.context);
+      } else {
+        if (key === "sol") radius = 2;
+        else radius = 1.2 - (planet.ephemeris.mag + 5) / 10;
+        Celestial.context.fillStyle = (grayscale === false) ? planets[key] : "#eee";
+        // Start the drawing path
+        Celestial.context.beginPath();
+        // draw circle on canvas
+        Celestial.context.arc(pt[0], pt[1], radius*2, 0, 2 * Math.PI);
+        // Finish the drawing path
+        Celestial.context.closePath();
+        // Fill the object path with the prevoiusly set fill color
+        Celestial.context.fill();
+      }
+    }
+  }
+});
+
+d3.select("#btnColor").on("click", function(d) {
+  grayscale = !grayscale;
+  this.innerHTML =  grayscale === true ? "Show Colors" : "Show Grayscale";
+  Celestial.redraw();
+});
+
+Celestial.display(config);
+Celestial.date(dt);
+  </script>
+
+  <footer id="d3-celestial-footer">
+    <p><a href="https://github.com/ofrohn/d3-celestial"><b>D3-Celestial</b></a> released under <a href="http://opensource.org/licenses/BSD-3-Clause">BSD license</a>. Copyright 2015-20 <a href="http://armchairastronautics.blogspot.com/" rel="author">Olaf Frohn</a>.</p>
+  </footer>
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');ga('create', 'UA-105720254-1', 'auto');ga('send', 'pageview');</script>
+</body>
+</html>

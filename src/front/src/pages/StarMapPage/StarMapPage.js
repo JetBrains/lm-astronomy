@@ -2,9 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import d3Celestial from 'd3-celestial';
 import { useNavigate } from 'react-router-dom';
 import './StarMapPage.css';
-import celestialConfig from './celestialConfig';
+import celestialConfig from './celestialConfig'
+import CoordinatesContext from '../../components/Contexts/CoordinatesContext';
 
 function StarMap() {
+    const { setCoordinates } = React.useContext(CoordinatesContext);
     const navigate = useNavigate();
     const [circleWidth, setCircleWidth] = useState(30);
     const mapRef = useRef(null);
@@ -12,8 +14,16 @@ function StarMap() {
     const [cursorCoords, setCursorCoords] = useState([0, 0]);
     const [selectedCoords, setSelectedCoords] = useState([0, 0]);
 
+
     const handleBackClick = () => {
-        navigate(`/?coords=ra:${Math.round(selectedCoords[0] * 100) / 100},dec:${Math.round(selectedCoords[1] * 100) / 100},ang:${Math.round(circleWidth * 100) / 100}°`);
+        setCoordinates(
+            [
+                Math.round(selectedCoords[0] * 100) / 100,
+                Math.round(selectedCoords[1] * 100) / 100,
+                Math.round(circleWidth * 100) / 100
+            ]);
+        navigate(`/`);
+
     };
 
     const handleCircleWidthChange = (e) => {
