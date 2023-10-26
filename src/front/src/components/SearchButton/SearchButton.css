@@ -11,6 +11,7 @@
     transition: filter 0.3s ease;
 }
 
+
 .search-button:hover {
     filter: brightness(110%);
     cursor: pointer;
@@ -19,6 +20,12 @@
 .search-button:active {
     filter: brightness(80%);
 }
+
+.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
 .search-text {
     color: rgba(0,0,0,1);
     font-size: 1.5em;
@@ -39,3 +46,19 @@
     display: flex;
     align-items: center;
 }
+
+@keyframes rotatePupil {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.pupil-spinning {
+    transform-origin: 42px 42px;
+    animation: rotatePupil 2s linear infinite;
+}
+
+
