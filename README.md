@@ -1,31 +1,22 @@
 # lm-astronomy API
+
 [![research JetBrains project](https://jb.gg/badges/research.svg)](https://confluence.jetbrains.com/display/ALL/JetBrains+on+GitHub)
 
-This API is designed to facilitate the search and cross-referencing of GCN Circulars and the Astronomer's Telegram (
-ATel) messages. Currently, our database has preprocessed 15,009 ATel and 31,125 GCN messages. For any additional
-messages, you can use our provided pipeline to process them.
+The `lm-astronomy` API is designed to facilitate the searching and cross-referencing of GCN Circulars and the Astronomer's Telegram (ATel) messages. Currently, our dataset includes 15k ATel and 31k GCN messages. In case you wish to further extend the dataset, we provide a pipeline for preprocessing additional messages.
 
 ## Features
 
-The API allows you to search and filter the messages by the following entities:
+Using the API, you can search, and filter the messages using the following parameters:
 
-- object_type
-- event_type
-- object_name_or_coordinates
-- messenger_type
-
-Both `object_type` and `event_type` are enums, which are predefined and can be accessed on the API documentation.
-
-`object_name_or_coordinates` allows you to search either by the name of the object or by the event ID. You may also use
-coordinates in a format compatible with `astropy.coordinates.SkyCoord`. If you provide coordinates, you can also specify
-a radius to search for messages that mention coordinates within that radius.
-
-`messenger_type` refers to the type of messenger. There are 4 types you can filter
-by: `electromagnetic radiation`, `gravitational waves`, `neutrinos`, and `cosmic rays`.
+- `object_type`: This references a predetermined set of object types. Please consult the API documentation for a complete list.
+- `event_type`: References a specific set of event types predefined in the system. You can find the complete list in the API documentation.
+- `object_name`: This allows you to search by the particular name of the astronomical object.
+- `coordinates`: You can supply the coordinates of the area of interest to find messages regarding events that occured in that region. The coordinates should be provided in ICRS format. If you provide the coordinates, you must also specify a radius (`radius`) to search for messages that mention coordinates within that radius.
+- `messenger_type`: This pertains to the type of messenger associated with the event. Here, you can filter by four types: `electromagnetic radiation`, `gravitational waves`, `neutrinos`, and `cosmic rays`.
 
 ## Local Setup
 
-To use this API locally, run:
+To run this API locally, use:
 
 ```
 docker compose build && docker compose up
@@ -33,30 +24,28 @@ docker compose build && docker compose up
 
 ## API Endpoints Examples
 
-Here are some examples of how to make requests to the API endpoints:
+The following are examples of how to make requests to the API endpoints:
 
-- To filter by `event_type` and `object_type`, use:
-
-```
-curl -X 'GET' \
-  'https://lm-astronomy.labs.jb.gg/api/filter/?radius=3&event_type=High%20Energy%20Event&object_type=Supernova' \
-  -H 'accept: application/json'
-```
-
-- To search within a radius of given coordinates, use:
+- To filter by both `event_type` and `object_type`:
 
 ```
 curl -X 'GET' \
-  'https://lm-astronomy.labs.jb.gg/api/filter/?coordinates=266.76%20-28.89&radius=5' \
+  'https://lm-astronomy.labs.jb.gg/api/search/?radius=3&event_type=High%20Energy%20Event&object_type=Supernova' \
   -H 'accept: application/json'
 ```
 
-You can input coordinates using the Equatorial coordinate system, which relies on two measurements: right ascension and
-declination. These coordinates can be expressed in either decimal degrees or the sexagesimal format. The coordinates
-should be written without commas and explicit units. For more examples
-see [NASA'S HEASARC](https://heasarc.gsfc.nasa.gov/Tools/name_or_coordinates_help.html) (first 3 examples)
+- To search within a given radius of specific coordinates:
 
-- To get the metadata of specific ATel message, use:
+```
+curl -X 'GET' \
+  'https://lm-astronomy.labs.jb.gg/api/search/?coordinates=266.76%20-28.89&radius=5' \
+  -H 'accept: application/json'
+```
+
+You can provide coordinates using the Equatorial coordinate system, expressed either in decimal degrees or sexagesimal format. The coordinates should be without commas and explicit units. To see an example, you can consult [NASA'S HEASARC](https://heasarc.gsfc.nasa.gov/Tools/name_or_coordinates_help.html) (the first three examples).
+**Please note**: To make a request using object coordinates, you must also provide a radius parameter.
+
+- To get metadata for a specific ATel message:
 
 ```
 curl -X 'GET' \
