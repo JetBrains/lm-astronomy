@@ -26,15 +26,17 @@ function StarMap() {
 
     };
 
+
+
     const handleCircleWidthChange = (e) => {
         const value = e.target.value;
-        setCircleWidth(Math.pow(10, value));
+        setCircleWidth(Math.round(Math.pow(10, value)));
     };
 
     const handleTextInputChange = (e) => {
         const value = parseFloat(e.target.value);
         if (!isNaN(value)) {
-            setCircleWidth(value);
+            setCircleWidth(Math.round(value));
         }
     };
 
@@ -82,18 +84,6 @@ function StarMap() {
                     }
                 }]
             };
-            const handleCircleWidthChange = (e) => {
-                const value = e.target.value;
-                setCircleWidth(Math.pow(10, value));
-            };
-
-            const handleTextInputChange = (e) => {
-                const value = parseFloat(e.target.value);
-                if (!isNaN(value)) {
-                    setCircleWidth(value);
-                }
-            };
-            const sliderValue = Math.log10(circleWidth);
 
             celestialRef.current.container.selectAll(".circle").remove();
             celestialRef.current.clear();
@@ -119,6 +109,7 @@ function StarMap() {
             });
             celestialRef.current.redraw();
         };
+
 
         if (mapRef.current) {
             mapRef.current.addEventListener("mousemove", handleMouseMove);
