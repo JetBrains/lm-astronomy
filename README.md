@@ -47,7 +47,7 @@ curl -X 'GET' \
 
 ```
 curl -X 'GET' \
-  'https://lm-astronomy.labs.jb.gg/api/filter/?object_name_or_coordinates=266.76%20-28.89&radius=5' \
+  'https://lm-astronomy.labs.jb.gg/api/filter/?coordinates=266.76%20-28.89&radius=5' \
   -H 'accept: application/json'
 ```
 
@@ -56,11 +56,11 @@ declination. These coordinates can be expressed in either decimal degrees or the
 should be written without commas and explicit units. For more examples
 see [NASA'S HEASARC](https://heasarc.gsfc.nasa.gov/Tools/name_or_coordinates_help.html) (first 3 examples)
 
-- To get the object type of specific ATel message, use:
+- To get the metadata of specific ATel message, use:
 
 ```
 curl -X 'GET' \
-  'https://lm-astronomy.labs.jb.gg/api/atel/14778/object_type' \
+  'https://lm-astronomy.labs.jb.gg/api/atel/14778' \
   -H 'accept: application/json'
 ```
 
