@@ -1,97 +1,17 @@
-import json
 import logging
 from enum import Enum
-from typing import Optional, List
 
 import astropy.units as u
 from astropy.coordinates import Angle, SkyCoord
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel
 
-with open('data/atel/entities.json', 'r') as f:
-    data_atel = json.load(f)
+from api.dataloader import RecordMetadata, FilterParameters, get_atel_dataset, get_gcn_dataset, _compare, \
+    match_object_name
 
-with open('data/gcn/entities.json', 'r') as f:
-    data_gcn = json.load(f)
-
-
-class MessengerType(str, Enum):
-    COSMIC_RAYS = "Cosmic Rays"
-    GRAVITATIONAL_WAVES = "Gravitational Waves"
-    NEUTRINOS = "Neutrinos"
-    ELECTROMAGNETIC_RADIATION = "Electromagnetic Radiation"
-
-
-class EventType(str, Enum):
-    HIGH_ENERGY_EVENT = 'High Energy Event'
-    GAMMA_RAY_BURST = 'Gamma-Ray Burst'
-    TIDAL_DISRUPTION_EVENT = 'Tidal Disruption Event'
-    LOW_ENERGY_EVENT = 'Low Energy Event'
-    SOLAR_EVENT = 'Solar Event'
-    MICROLENSING_EVENT = 'Microlensing Event'
-    PULSATION = 'Pulsation'
-    FAST_RADIO_BURST = 'Fast Radio Burst'
-    ACTIVITY_EPISODE = 'Activity Episode'
-    FLARE = 'Flare'
-    TRANSIENT = 'Transient'
-    OUTBURST = 'Outburst'
-    ACCRETION = 'Accretion'
-    AFTERGLOW = 'Afterglow'
-    BRIGHTENING = 'Brightening'
-    VARIABILITY = 'Variability'
-    DIMMING_AND_DECLINE = 'Dimming and Decline'
-    DIPPING_AND_ECLIPSING = 'Dipping and Eclipsing'
-    EMISSION = 'Emission'
-    ABSORPTION = 'Absorption'
-    CORE_COLLAPSE = 'Core Collapse'
-    STATE_TRANSITION = 'State Transition'
-    GLITCH = 'Glitch'
-    ERUPTION = 'Eruption'
-
-
-class ObjectType(str, Enum):
-    ACCRETING_OBJECT = 'Accreting Object'
-    ACTIVE_GALACTIC_NUCLEI = 'Active Galactic Nuclei'
-    BLACK_HOLE = 'Black Hole'
-    NEUTRON_STAR = 'Neutron Star'
-    NOVA = 'Nova'
-    SUPERNOVA = 'Supernova'
-    STAR_AND_STELLAR_SYSTEM = 'Star & Stellar System'
-    VARIABLE_STAR = 'Variable Star'
-    EXOPLANET = 'Exoplanet'
-    STELLAR_EVOLUTION_STAGE = 'Stellar Evolution Stage'
-    MINOR_BODY = 'Minor Body'
-    BINARY_SYSTEM = 'Binary System'
-    PULSAR = 'Pulsar'
-    INTERSTELLAR_MEDIUM = 'Interstellar Medium'
-    GALAXY = 'Galaxy'
-    QUASAR = 'Quasar'
-    GLOBULAR_CLUSTER = 'Globular Cluster'
-    NEAR_EARTH_OBJECT = 'Near-earth object'
-    MAGNETAR = 'Magnetar'
-    REPEATER = 'Repeater'
-    CIRCUMSTELLAR_DISK = 'Circumstellar Disk'
-    ELECTROMAGNETIC_SOURCE = 'Electromagnetic Source'
-
-
-class RecordMetadata(BaseModel):
-    record_id: str
-    object_name: List[str]
-    event_type: List[str]
-    object_type: List[str]
-    messenger_type: List[str]
-
-
-class FilterParameters(BaseModel):
-    object_name_or_coordinates: Optional[str]
-    radius: int = 3
-    event_type: Optional[EventType]
-    object_type: Optional[ObjectType]
-    messenger_type: Optional[MessengerType]
-
-
+data_atel = get_atel_dataset()
+data_gcn = get_gcn_dataset()
 app = FastAPI()
 
 app.add_middleware(
@@ -106,56 +26,63 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 
-
 @app.get('/api/atel/{record_id}')
 def get_atel_data(record_id: str) -> RecordMetadata:
     if record_id not in data_atel:
-        raise ValueError(f"The ATel message with id {record_id} doesn't exist.")
-    metadata = RecordMetadata(
-        record_id=record_id,
-        object_name=data_atel[record_id]['object_name'],
-        event_type=data_atel[record_id]['event_type'],
-        object_type=data_atel[record_id]['object_type'],
-        messenger_type=data_atel[record_id]['messenger_type']
-    )
-    return metadata
+        raise HTTPException(status_code=404, detail=f"The ATel message with id {record_id} doesn't exist.")
+    return data_atel[record_id]
 
 
 @app.get('/api/gcn/{record_id}')
 def get_gcn_data(record_id: str) -> RecordMetadata:
     if record_id not in data_gcn:
-        raise ValueError(f"The GCN message with id {record_id} doesn't exist.")
-    metadata = RecordMetadata(
-        record_id=record_id,
-        object_name=data_gcn[record_id]['object_name'],
-        event_type=data_gcn[record_id]['event_type'],
-        object_type=data_gcn[record_id]['object_type'],
-        messenger_type=data_gcn[record_id]['messenger_type']
-    )
-    return metadata
+        raise HTTPException(status_code=404, detail=f"The GCN message with id {record_id} doesn't exist.")
+    return data_gcn[record_id]
 
 
 @app.get('/api/search/')
 def get_filtered_records(params: FilterParameters = Depends()):
-    result_atel, result_gcn = [], []
-    for param_name, param_val in vars(params).items():
-        logging.info(f'{param_name=}, {param_val=}')
-        if param_val:
-            if param_name not in ["object_name_or_coordinates", "radius"]:
-                result_atel.append(_search_dataset(param_name, param_val, data_atel))
-                result_gcn.append(_search_dataset(param_name, param_val, data_gcn))
-            elif param_name == "object_name_or_coordinates":
-                result_atel.append(_search_by_object_name_or_coordinates(param_val, params.radius, data_atel))
-                result_gcn.append(_search_by_object_name_or_coordinates(param_val, params.radius, data_gcn))
-    logging.info(f'{[len(item) for item in result_atel]=}, {[len(item) for item in result_gcn]=}', )
-    return {"ATel": set.intersection(*map(set, result_atel)), "GCN": set.intersection(*map(set, result_gcn))}
-
-
-def _compare(s1, s2):
-    s1_alphanumeric, s2_alphanumeric = ''.join(e for e in s1 if e.isalnum()).casefold(), \
-        ''.join(e for e in s2 if e.isalnum()).casefold()
-    s1_split, s2_split = set(s1.casefold().split()), set(s2.casefold().split())
-    return s1_alphanumeric == s2_alphanumeric or s1_split.issubset(s2_split) or s2_split.issubset(s1_split)
+    results_atel = data_atel
+    results_gcn = data_gcn
+    if params.object_name:
+        items_before = len(results_atel) + len(results_gcn)
+        results_atel = match_object_name(params.object_name, results_atel)
+        results_gcn = match_object_name(params.object_name, results_gcn)
+        logger.info(f"object_name: filtered {items_before} items to {len(results_atel) + len(results_gcn)}")
+    if params.event_type:
+        items_before = len(results_atel) + len(results_gcn)
+        results_atel = {key: value for key, value in results_atel.items()
+                        if params.event_type.lower() in results_atel[key].event_type}
+        results_gcn = {key: value for key, value in results_gcn.items()
+                       if params.event_type.lower() in results_gcn[key].event_type}
+        logger.info(f"event_type: filtered {items_before} items to {len(results_atel) + len(results_gcn)}")
+    if params.object_type:
+        items_before = len(results_atel) + len(results_gcn)
+        results_atel = {key: value for key, value in results_atel.items()
+                        if params.object_type.lower() in results_atel[key].object_type}
+        results_gcn = {key: value for key, value in results_gcn.items()
+                       if params.object_type.lower() in results_gcn[key].object_type}
+        logger.info(f"object_type: filtered {items_before} items to {len(results_atel) + len(results_gcn)}")
+    if params.messenger_type:
+        items_before = len(results_atel) + len(results_gcn)
+        results_atel = {key: value for key, value in results_atel.items()
+                        if params.messenger_type.lower() in results_atel[key].messenger_type}
+        results_gcn = {key: value for key, value in results_gcn.items()
+                       if params.messenger_type.lower() in results_gcn[key].messenger_type}
+        logger.info(f"messenger_type: filtered {items_before} items to {len(results_atel) + len(results_gcn)}")
+    if params.coordinates:
+        if not params.radius:
+            raise HTTPException(status_code=400, detail="Radius is required when searching by coordinates.")
+        try:
+            sky_coord = SkyCoord(params.coordinates, frame='icrs', unit=(u.hour, u.deg))
+        except:
+            raise HTTPException(status_code=400,
+                                detail=f"Invalid coordinates: {params.coordinates}. Please, use ICRS format.")
+        items_before = len(results_atel) + len(results_gcn)
+        results_atel = _search_by_coordinates(sky_coord, params.radius, results_atel)
+        results_gcn = _search_by_coordinates(sky_coord, params.radius, results_gcn)
+        logger.info(f"coordinates: filtered {items_before} items to {len(results_atel) + len(results_gcn)}")
+    return {'atel': results_atel, 'gcn': results_gcn}
 
 
 def _search_dataset(entity_name: str, entity: Enum, dataset: dict):
@@ -167,23 +94,17 @@ def _search_dataset(entity_name: str, entity: Enum, dataset: dict):
     return results
 
 
-def _search_by_object_name_or_coordinates(entity: Enum, angle: int, dataset: dict):
-    result = _search_dataset("object_name", entity, dataset)
-
-    if len(result) == 0:
-        try:
-            sky_coord = SkyCoord(entity, frame='icrs', unit=(u.hour, u.deg))
-        except:
-            return []
-        # TODO: precompute coordinates list on startup
-        result = _get_coordinates_within_radius(_get_coordinates_list(data_atel), sky_coord, angle)
+def _search_by_coordinates(sky_coord: SkyCoord, angle: int, dataset: dict):
+    # TODO: precompute coordinates list on startup
+    result_keys = _get_coordinates_within_radius(_get_coordinates_list(dataset), sky_coord, angle)
+    result = {key: dataset[key] for key in result_keys}
     return result
 
 
-def _get_coordinates_list(dataset: dict):
+def _get_coordinates_list(dataset: dict[str, RecordMetadata]):
     coordinates = {
-        key: {"coordinates": dataset[key]['coordinates'], "coordinate_system": dataset[key]['coordinate_system']}
-        for key in dataset if dataset[key]['coordinates']}
+        key: {"coordinates": dataset[key].coordinates, "coordinate_system": dataset[key].coordinate_system}
+        for key in dataset if dataset[key].coordinates}
     coords_list = {}
 
     for key in coordinates:
