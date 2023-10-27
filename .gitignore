@@ -2,3 +2,4 @@
 .idea
 /node_modules
 materials
+src/front/node_modules/.cache/
