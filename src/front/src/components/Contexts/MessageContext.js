@@ -4,8 +4,8 @@ export const MessageContext = createContext();
 
 export const MessageProvider = ({ children }) => {
     const [messageIds, setMessageIds] = useState({
-        ATel: [],
-        GCN: []
+        atel: [],
+        gcn: []
     });
 
     return (

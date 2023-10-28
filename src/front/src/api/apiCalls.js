@@ -1,28 +1,16 @@
-import { parseAndCleanCoordinates } from '../components/parseCoordinatesUtility.js';
+import { fetchAtelMessage, fetchGCNMessage } from '../components/fetchesFromAtelGCN';
+import { useContext } from 'react';
+import { MessageContext } from '../components/Contexts/MessageContext';
 
-export function searchAPI(transientName, physicalPhenomena, messengerType) {
+export function searchAPI(objectName, ra, dec, ang, physicalPhenomena, messengerType, setMessageIds) {
     const baseURL = 'https://lm-astronomy.labs.jb.gg/api/search/';
     const headers = {
         'accept': 'application/json'
     };
 
-    const coordinates = parseAndCleanCoordinates(transientName);
+    const coordinatesString = (ra !== null && dec !== null) ? `${ra} ${dec}` : ''; // Изменен этот момент
 
     function constructURL(base, params) {
-        let coordinatesString = '';
-        if (params.ra !== null && params.dec !== null) {
-            coordinatesString = `${params.ra} ${params.dec}`;
-        }
-        if (params.transient_name) {
-            coordinatesString = `${coordinatesString} ${params.transient_name}`.trim();
-        }
-
-        // Replace the old parameters with the new format
-        delete params.ra;
-        delete params.dec;
-        delete params.transient_name;
-        params.object_name_or_coordinates = coordinatesString;
-
         // Map through parameters and set to null if not provided
         const filteredParams = Object.entries(params)
             .map(([key, value]) => [key, value || null])
@@ -39,12 +27,11 @@ export function searchAPI(transientName, physicalPhenomena, messengerType) {
     }
 
     let url = constructURL(baseURL, {
-        transient_name: coordinates.text,
+        object_name: objectName,
         object_type: physicalPhenomena,
         messenger_type: messengerType,
-        radius: coordinates.ang,
-        ra: coordinates.ra,
-        dec: coordinates.dec
+        radius: ang,
+        coordinates: coordinatesString
     });
 
     console.log(url);  // Debug: Log the constructed URL.
@@ -57,8 +44,24 @@ export function searchAPI(transientName, physicalPhenomena, messengerType) {
             }
             return response.json();
         })
-        .then(data => {
+        .then(async data => {
             console.log(data);  // Debug: Log the received data.
-            return data;
+
+            const atelDataPromises = Object.keys(data.atel || {}).map(id => fetchAtelMessage(id));
+            const gcnDataPromises = Object.keys(data.gcn || {}).map(id => fetchGCNMessage(id));
+
+
+            const atelMessages = await Promise.all(atelDataPromises);
+            const gcnMessages = await Promise.all(gcnDataPromises);
+
+            const result = {
+                atel: atelMessages,
+                gcn: gcnMessages
+            };
+
+            // Обновите контекст с новыми данными
+            setMessageIds(result);
+
+            return result;
         });
 }
