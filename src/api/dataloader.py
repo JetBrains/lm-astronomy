@@ -66,11 +66,11 @@ class ObjectType(str, Enum):
 
 class RecordMetadata(BaseModel):
     record_id: str
-    object_name: list[str] = []
-    event_type: list[str] = []
-    object_type: list[str] = []
-    messenger_type: list[str] = []
-    coordinates: list[str] = []
+    object_name: Optional[list[str]] = []
+    event_type: Optional[list[str]] = []
+    object_type: Optional[list[str]] = []
+    messenger_type: Optional[list[str]] = []
+    coordinates: Optional[list[str]] = []
     coordinate_system: Optional[str]
     date: Optional[str]  # TODO: parse date
 
