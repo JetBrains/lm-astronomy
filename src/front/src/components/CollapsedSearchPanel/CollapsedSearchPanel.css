@@ -1,0 +1,32 @@
+.collapsed_search_container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.founded-objects {
+    flex: 1;
+    font-size: 24px;
+    background-color: black;
+    padding: 30px;
+    color: var(--highlight);
+}
+
+.back_to_search {
+    width: 4.85em;
+    height: 4.85em;
+    background-color: var(--highlight);
+    border: none;
+    cursor: pointer;
+    outline: none;
+    /*padding: 0 0.8em;*/
+
+}
+
+.search-icon {
+    width: 2.5em;
+    height: 2.5em;
+    background-color: var(--highlight);
+}
+
+

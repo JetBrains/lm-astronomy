@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './SearchPanel.css';
 import { MessageContext } from '../Contexts/MessageContext';
 import { useNavigate } from 'react-router-dom';
@@ -9,11 +9,6 @@ import {searchAPI} from "../../api/apiCalls";
 import TransientInput from '../TransientInput/TransientInput';
 import CoordinatesContext from '../Contexts/CoordinatesContext';
 import { parseAndCleanCoordinates } from '../parseCoordinatesUtility';
-import TransientInput from '../TransientInput/TransientInput';
-import CoordinatesContext from '../Contexts/CoordinatesContext';
-import { parseAndCleanCoordinates } from '../parseCoordinatesUtility';
-
-
 
 function SearchPanel() {
     const {
@@ -30,21 +25,17 @@ function SearchPanel() {
     const isDisabled = !transient && !selectedObject && !selectedMessenger && (!coordinates || (coordinates[0] === null && coordinates[1] === null && coordinates[2] === null));
     const { setMessageIds } = useContext(MessageContext);
     const navigate = useNavigate();
-    const location = useLocation();
-    const [inputValue, setInputValue] = useState('');
-    const [selectedMessenger, setSelectedMessenger] = useState(null);
-    const [selectedObject, setSelectedObject] = useState(null); // Добавлено
-
     const handleSearch = () => {
         if (!transient && !selectedObject && !selectedMessenger && (!coordinates || (coordinates[0] === null && coordinates[1] === null && coordinates[2] === null))) {
             console.log("Search not performed: all fields are empty");
             return;
         }
+        const { text, ra, dec, ang } = parseAndCleanCoordinates(transient);
         setIsLoading(true);
-        searchAPI(transient, selectedObject, selectedMessenger, coordinates)
+        searchAPI(text, ra, dec, ang, selectedObject, selectedMessenger)
             .then((data) => {
-                if (data && data.ATel && data.GCN) {
-                    setMessageIds({ ATel: data.ATel, GCN: data.GCN });
+                if (data && data.atel && data.gcn) {
+                    setMessageIds({ ATel: data.atel, GCN: data.gcn });
 
                 } else {
                     console.log("Incorrect data format:", data);
@@ -56,16 +47,6 @@ function SearchPanel() {
                 console.log(error)
                 setIsLoading(false);
             })
-                    } else {
-                        console.log("Неправильный формат данных:", data);
-                    }
-                    navigate("/message");
-                    setIsLoading(false);
-                })
-                .catch((error) => {
-                    console.log(error)
-                    setIsLoading(false);
-                })
     };
 
     const handleObjectChange = (selectedObjectValue) => {
@@ -75,50 +56,6 @@ function SearchPanel() {
     const handleMessengerChange = (selectedMessengerType) => {
         setSelectedMessenger(selectedMessengerType);
     };
-    const parseCoordinates = (inputString) => {
-        const regex = /RA:\s*(-?\d+(\.\d+)?)\s*,?\s*DEC:\s*(-?\d+(\.\d+)?)\s*,?\s*ANG:\s*(\d+(\.\d+)?)/;
-        const match = regex.exec(inputString);
-
-        if (match) {
-            const ra = parseFloat(match[1]);
-            const dec = parseFloat(match[3]);
-            const ang = parseFloat(match[5]);
-
-            return [ra, dec, ang];
-        }
-
-        return [null, null, null];
-    };
-
-    const handleTransientChange = (e) => {
-        const inputString = e.target.value;
-        setTransient(inputString);
-    };
-
-    const handleTransientBlur = (e) => {
-        const inputString = e.target.value;
-        const { ra, dec, ang, text } = parseAndCleanCoordinates(inputString);
-        if (ra !== null && dec !== null && ang !== null) {
-            setCoordinates([ra, dec, ang]);
-        }
-        setTransient(text);  // If you want to update the transient with cleaned text
-    };
-    const parseCoordinates = (inputString) => {
-        const regex = /RA:\s*(-?\d+(\.\d+)?)\s*,?\s*DEC:\s*(-?\d+(\.\d+)?)\s*,?\s*ANG:\s*(\d+(\.\d+)?)/;
-        const match = regex.exec(inputString);
-
-        if (match) {
-            const ra = parseFloat(match[1]);
-            const dec = parseFloat(match[3]);
-            const ang = parseFloat(match[5]);
-
-            return [ra, dec, ang];
-        }
-
-        return [null, null, null];
-    };
-
-
 
 
     const handleTransientChange = (e) => {
@@ -126,17 +63,13 @@ function SearchPanel() {
         setTransient(inputString);
     };
 
-
     const handleTransientBlur = (e) => {
-        const inputString = e.target.value;
-        const { ra, dec, ang, text } = parseAndCleanCoordinates(inputString);
+        const { ra, dec, ang, text } = parseAndCleanCoordinates(e.target.value);
         if (ra !== null && dec !== null && ang !== null) {
             setCoordinates([ra, dec, ang]);
         }
-        setTransient(text);  // Если вы хотите обновить transient с очищенным текстом
+        setTransient(text);
     };
-
-
     useEffect(() => {
         if (coordinates && coordinates[0] !== 0 && coordinates[1] !== 0 && coordinates[2] !== 30) {
             const coordsString = `RA:${coordinates[0]} DEC:${coordinates[1]} ANG:${coordinates[2]}`;
@@ -149,22 +82,8 @@ function SearchPanel() {
 
             const newTransient = cleanedTransient ? `${cleanedTransient}, ${coordsString}` : coordsString;
             setTransient(newTransient);
-        if (coordinates && coordinates[0] !== 0 && coordinates[1] !== 0) {
-            const coordsString = `RA:${coordinates[0]} DEC:${coordinates[1]} ANG:${coordinates[2]}`;
-
-            const regex = /RA\s*[:]*\s*(-?\d+(\.\d+)?)[\s,]*|DEC\s*[:]*\s*(-?\d+(\.\d+)?)[\s,]*|ANG\s*[:]*\s*(-?\d+(\.\d+)?)[\s,]*/gi;
-            let cleanedTransient = transient.replace(regex, '').replace(/,{2,}/g, ',').trim();
-
-            // Удаляем концевые запятые и пробелы после очистки
-            cleanedTransient = cleanedTransient.replace(/^[\s,]+|[\s,]+$/g, '');
-
-            const newTransient = cleanedTransient ? `${cleanedTransient}, ${coordsString}` : coordsString;
-            setTransient(newTransient);
         }
     }, [coordinates]);
-
-
-
 
     return (
         <div className="search-panel">
