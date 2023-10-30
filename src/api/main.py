@@ -7,8 +7,10 @@ from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
+from api.atel import ATelRecord, load_record
 from api.dataloader import RecordMetadata, FilterParameters, get_atel_dataset, get_gcn_dataset, _compare, \
     match_object_name
+from api.gcn import load_gcn_record, GCNRecord
 
 data_atel = get_atel_dataset()
 data_gcn = get_gcn_dataset()
@@ -27,17 +29,39 @@ logger.setLevel(logging.INFO)
 
 
 @app.get('/api/atel/{record_id}')
+@app.get('/api/atel/{record_id}/metadata')
 def get_atel_data(record_id: str) -> RecordMetadata:
     if record_id not in data_atel:
         raise HTTPException(status_code=404, detail=f"The ATel message with id {record_id} doesn't exist.")
     return data_atel[record_id]
 
 
+@app.get('/api/atel/{record_id}/message')
+async def get_atel_message(record_id: str) -> ATelRecord:
+    if record_id not in data_atel:
+        raise HTTPException(status_code=404, detail=f"The ATel message with id {record_id} doesn't exist.")
+    atel_record = await load_record(record_id)
+    if atel_record is None:
+        raise HTTPException(status_code=404, detail=f"The ATel message with id {record_id} doesn't exist.")
+    return atel_record
+
+
 @app.get('/api/gcn/{record_id}')
+@app.get('/api/gcn/{record_id}/metadata')
 def get_gcn_data(record_id: str) -> RecordMetadata:
     if record_id not in data_gcn:
         raise HTTPException(status_code=404, detail=f"The GCN message with id {record_id} doesn't exist.")
     return data_gcn[record_id]
+
+
+@app.get('/api/gcn/{record_id}/message')
+async def get_gcn_message(record_id: str) -> GCNRecord:
+    if record_id not in data_gcn:
+        raise HTTPException(status_code=404, detail=f"The GCN message with id {record_id} doesn't exist.")
+    gcn_record = await load_gcn_record(record_id)
+    if gcn_record is None:
+        raise HTTPException(status_code=404, detail=f"The GCN message with id {record_id} doesn't exist.")
+    return gcn_record
 
 
 @app.get('/api/search/')
