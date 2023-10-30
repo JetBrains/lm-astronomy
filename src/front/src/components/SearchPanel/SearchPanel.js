@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import ObjectSelect from '../ObjectSelect/ObjectSelect';
 import MessengerType from '../MessengerType/MessengerType';
 import SearchButton from "../SearchButton/SearchButton";
-import {searchAPI} from "../../api/apiCalls";
+import {searchAPI} from "../../api/apiServices";
 import TransientInput from '../TransientInput/TransientInput';
 import CoordinatesContext from '../Contexts/CoordinatesContext';
 import { parseAndCleanCoordinates } from '../parseCoordinatesUtility';
@@ -23,7 +23,7 @@ function SearchPanel() {
     } = useContext(CoordinatesContext);
     const [isLoading, setIsLoading] = useState(false);
     const isDisabled = !transient && !selectedObject && !selectedMessenger && (!coordinates || (coordinates[0] === null && coordinates[1] === null && coordinates[2] === null));
-    const { setMessageIds } = useContext(MessageContext);
+    const { setMessagesData } = useContext(MessageContext);
     const navigate = useNavigate();
     const handleSearch = () => {
         if (!transient && !selectedObject && !selectedMessenger && (!coordinates || (coordinates[0] === null && coordinates[1] === null && coordinates[2] === null))) {
@@ -32,10 +32,11 @@ function SearchPanel() {
         }
         const { text, ra, dec, ang } = parseAndCleanCoordinates(transient);
         setIsLoading(true);
-        searchAPI(text, ra, dec, ang, selectedObject, selectedMessenger)
+        searchAPI(text, ra, dec, ang, selectedObject, selectedMessenger, setMessagesData)
             .then((data) => {
                 if (data && data.atel && data.gcn) {
-                    setMessageIds({ ATel: data.atel, GCN: data.gcn });
+                    // console.log(data.atel);
+                    setMessagesData({ atel: data.atel, gcn: data.gcn });
 
                 } else {
                     console.log("Incorrect data format:", data);

@@ -14,7 +14,9 @@ body {
 
 :root {
     --highlight: #ebc455;
+    --highlight-rgb: 235, 196, 85;
     --shaded_text: #808080;
+    --separator: #2a2828;
 }
 /*.font-base {*/
 /*    font-family: 'JetBrains Mono', monospace;*/
