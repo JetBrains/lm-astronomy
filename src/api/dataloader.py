@@ -2,7 +2,11 @@ import json
 from enum import Enum
 from typing import Optional
 
+from astropy import units as u
+from astropy.coordinates import SkyCoord
+
 from pydantic import BaseModel
+from scipy.spatial import KDTree
 
 
 class MessengerType(str, Enum):
@@ -121,3 +125,42 @@ def match_object_name(object_name: str,
                 break
     return matches
 
+
+def _get_coordinates_list(dataset: dict[str, RecordMetadata]):
+    coordinates = {
+        key: {"coordinates": dataset[key].coordinates, "coordinate_system": dataset[key].coordinate_system}
+        for key in dataset if dataset[key].coordinates}
+    coords_list = {}
+
+    for key in coordinates:
+        coordinate_frame = "icrs"
+        if coordinates[key]['coordinate_system']:
+            if coordinates[key]['coordinate_system'].lower() == "galactic":
+                coordinate_frame = 'galactic'
+            elif coordinates[key]['coordinate_system'].lower() == "ecliptic":
+                coordinate_frame = 'geocentrictrueecliptic'
+        elems = coordinates[key]['coordinates']
+        for el in elems:
+            try:
+                if len(el.split(' ')) > 2:
+                    sc = SkyCoord(el, frame=coordinate_frame, unit=(u.hour, u.deg))
+                else:
+                    sc = SkyCoord(el, frame=coordinate_frame, unit=(u.deg, u.deg))
+                coords_list[key] = sc
+            except:
+                pass
+    coords = [[coord.icrs.ra.deg, coord.icrs.dec.deg] for coord in coords_list.values()]
+    tree = KDTree(coords)
+    return coords_list, tree
+
+
+def _search_by_coordinates(tree, dataset_coords: dict, sky_coord: SkyCoord, angle: int, dataset: dict):
+    result_keys = _get_coordinates_within_radius(tree, dataset_coords, sky_coord, angle)
+    result = {key: dataset[key] for key in result_keys}
+    return result
+
+
+def _get_coordinates_within_radius(tree: KDTree, coords_list: dict, center: SkyCoord, radius: int):
+    indices = tree.query_ball_point([center.icrs.ra.deg, center.icrs.dec.deg], radius)
+    coords_keys = list(coords_list.keys())
+    return [coords_keys[i] for i in indices]
