@@ -8,29 +8,17 @@
     function MessagePage() {
         const { messagesData, currentPage, setCurrentPage, totalPages } = useContext(MessageContext);
         const [activeMessageId, setActiveMessageId] = useState(
-            messagesData.atel && messagesData.atel.length > 0 ? messagesData.atel[0].id : null
+            messagesData && messagesData.length > 0 ? messagesData[0].record_id : null
         );
-        const activeMessage = messagesData.atel && messagesData.atel.find(msg => msg.id === activeMessageId);
+        const activeMessage = messagesData && messagesData.find(msg => msg.record_id === activeMessageId);
 
-
-        // const navigate = useNavigate();
-
-        // useEffect(() => {
-        //     if (!messagesData.atel && !messagesData.gcn) {
-        //         const timeoutId = setTimeout(() => {
-        //             navigate("/not-found");
-        //         }, 5000);
-        //
-        //         return () => clearTimeout(timeoutId);
-        //     }
-        // }, [messagesData]);
 
         const handleCardClick = (id) => {
             setActiveMessageId(id);
             // Здесь можно вызывать функцию для перезагрузки контента в main колонке, когда она будет готова
         };
 
-        function extractChannelID(channelTitle) {
+        function extractChannelID(channelTitle = '') {
             // Убираем начальные и конечные пробелы и знаки препинания
             let trimmedTitle = channelTitle.trim().replace(/^[^A-Za-z0-9]*|[^A-Za-z0-9]*$/g, '');
 
@@ -38,11 +26,13 @@
             let matched = trimmedTitle.match(/ATel #\d+/);
 
             return matched ? matched[0] : 'Unknown';
+            return channelTitle;
         }
 
-        function trimChannelIdFromTitle(title) {
+        function trimChannelIdFromTitle(title='') {
             let trimmedTitle = title.trim().replace(/^ATel \d+:\s*/, '');
             return trimmedTitle.trim();
+            return title;
         }
 
         function formatDate(inputDate) {
@@ -93,11 +83,11 @@
                     <div className="columns">
                     <div className="sidemenu">
                         <ul className="cards-list">
-                            {messagesData.atel && messagesData.atel.map((msg) => (
+                            {messagesData && messagesData.map((msg) => (
                                 <li
-                                    key={msg.id}
-                                    className={`card-item ${msg.id === activeMessageId ? 'active-card' : ''}`}
-                                    onClick={() => handleCardClick(msg.id)}
+                                    key={msg.record_id}
+                                    className={`card-item ${msg.record_id === activeMessageId ? 'active-card' : ''}`}
+                                    onClick={() => handleCardClick(msg.record_id)}
                                 >
                                     <div className="card-header">
                                     <div className="card-date">{formatDate(msg.date)}</div>
@@ -123,6 +113,18 @@
                             {activeMessage && (
                                 <>
                                     <h2 className="main-card-title">{trimChannelIdFromTitle(activeMessage.title)}</h2>
+                                    <div>
+                                        <strong>Object Name:</strong> {activeMessage.object_name.join(', ')}
+                                    </div>
+                                    <div>
+                                        <strong>Event Type:</strong> {activeMessage.event_type.join(', ')}
+                                    </div>
+                                    <div>
+                                        <strong>Messenger Type:</strong> {activeMessage.messenger_type.join(', ')}
+                                    </div>
+                                    <div>
+                                        <strong>Object Type:</strong> {activeMessage.object_type.join(', ')}
+                                    </div>
                                     <p>{activeMessage.description}</p>
                                     <p>{activeMessage.creator}</p>
                                 </>
