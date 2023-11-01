@@ -34,9 +34,9 @@ function SearchPanel() {
         setIsLoading(true);
         searchAPI(text, ra, dec, ang, selectedObject, selectedMessenger, setMessagesData)
             .then((data) => {
-                if (data && data.atel && data.gcn) {
+                if (data) {
                     // console.log(data.atel);
-                    setMessagesData({ atel: data.atel, gcn: data.gcn });
+                    setMessagesData(data);
 
                 } else {
                     console.log("Incorrect data format:", data);
