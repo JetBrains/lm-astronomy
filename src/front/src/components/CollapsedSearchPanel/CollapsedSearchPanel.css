@@ -2,6 +2,7 @@
     display: flex;
     align-items: center;
     cursor: pointer;
+    border-bottom: 1px solid var(--separator);
 }
 
 .founded-objects {
@@ -13,8 +14,8 @@
 }
 
 .back_to_search {
-    width: 4.85em;
-    height: 4.85em;
+    width: 3.85em;
+    height: 3.85em;
     background-color: var(--highlight);
     border: none;
     cursor: pointer;

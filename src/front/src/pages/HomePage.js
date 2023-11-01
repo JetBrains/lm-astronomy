@@ -1,8 +1,6 @@
 import React from 'react';
 import Header from '../components/Header/Header';
 import SearchPanel from '../components/SearchPanel/SearchPanel';
-import SearchButton from '../components/SearchButton/SearchButton';
-import { searchAPI } from '../api/apiCalls';
 import './index.css';
 
 function HomePage() {

@@ -1,3 +1,76 @@
 #root {
     color: white;
 }
+
+.columns {
+    display: flex;
+    width: 100%;
+}
+.sidemenu {
+    flex: 1;
+    margin-right: 20px;
+    font-size: 0.5em;
+    font-weight: normal;
+    width:35%;
+}
+
+.main {
+    flex: 2;
+    width:65%;
+}
+
+
+.cards-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    border-right: 1px solid var(--separator);
+}
+
+.card-item {
+    /*margin-bottom: 10px;*/
+    padding: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-bottom: 1px solid var(--separator);
+}
+.card-header {
+    display: flex;
+    width: 100%;
+}
+
+.card-item:hover {
+    background-color: rgba(var(--highlight-rgb), 0.2);
+    color: #ffffff;
+    /*transition: color 0.3s ease;*/
+}
+
+.card-item:active {
+    background-color: rgba(var(--highlight-rgb), 0.3);
+    /*color: #000;*/
+    /*transition: color 0.3s ease;*/
+}
+.card-item.active-card:active {
+    background-color: rgba(var(--highlight-rgb), 0.9);
+    color: black;
+}
+
+.card-item.active-card {
+    background-color: rgba(var(--highlight-rgb), 0.9);
+    color: black;
+}
+
+.card-date, .card-title, .card-id {
+    margin-bottom: 10px;
+}
+.card-date {
+    flex: 2;
+}
+.card-id {
+    font-weight: bold;
+    text-align: right;
+    flex: 1;
+}
+.card-date, .card-id {
+    font-size: 0.8em;
+}
