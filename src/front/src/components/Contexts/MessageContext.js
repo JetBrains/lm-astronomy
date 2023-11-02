@@ -9,7 +9,14 @@ export const MessageProvider = ({ children }) => {
     const [totalPages, setTotalPages] = useState(1);
 
     return (
-        <MessageContext.Provider value={{ messagesData, setMessagesData, currentPage, setCurrentPage, totalPages, setTotalPages }}>
+        <MessageContext.Provider value={{
+            messagesData,
+            setMessagesData,
+            currentPage,
+            setCurrentPage,
+            totalPages,
+            setTotalPages,
+        }}>
             {children}
         </MessageContext.Provider>
     );
