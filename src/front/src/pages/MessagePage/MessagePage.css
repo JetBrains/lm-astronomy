@@ -74,3 +74,68 @@
 .card-date, .card-id {
     font-size: 0.8em;
 }
+
+.card-date {
+    flex: 2;
+}
+.card-id {
+    font-weight: bold;
+    text-align: right;
+    flex: 1;
+}
+.card-date, .card-id {
+    font-size: 0.8em;
+}
+
+.main-card-header {
+    padding-top: 20px;
+    display: flex;
+    width: 100%;
+}
+
+.main-card-title {
+    font-size: 1em;
+    margin-bottom: 10px;
+}
+
+.main-card-message {
+    font-size: 0.6em;
+    font-weight: lighter;
+}
+
+
+.main-card-creator {
+    font-size: 0.6em;
+}
+.main-card-id {
+    font-weight: bold;
+    text-align: right;
+    flex: 1;
+}
+.main-card-date, .main-card-id {
+    font-size: 0.5em;
+}
+
+.tagList {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    list-style-type: none;
+    padding: 20px 0 0;
+}
+.tagList li {
+    font-weight: lighter;
+    color: black;
+    background-color: var(--highlight);
+    border: solid 1px black;
+    padding: 5px 10px;
+    font-size: 0.6em;
+}
+.main-card-message a {
+    color: var(--highlight);
+    text-decoration: none;
+}
+
+.main-card-message a:hover {
+    color: white;
+}
