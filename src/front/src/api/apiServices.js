@@ -14,7 +14,7 @@ export const fetchPublishers = async (publisher, id) => {
 }
 function constructURL(base, params) {
     const filteredParams = Object.entries(params)
-        .filter(([key, value]) => value !== null && value !== undefined);
+        .filter(([key, value]) => value !== null && value !== undefined && value !== '')
 
     const queryString = new URLSearchParams(filteredParams).toString().replace(/\+/g, '%20');
     return `${base}?${queryString}`;
@@ -79,8 +79,10 @@ export function searchAPI(objectName, ra, dec, ang, physicalPhenomena, messenger
         coordinates: coordinatesString,
         page: page
     });
+    console.log(url)
 
     return fetch(url, { headers: HEADERS })
+
         .then(response => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
@@ -102,8 +104,10 @@ export function searchAPI(objectName, ra, dec, ang, physicalPhenomena, messenger
 
             const atelMessages = mergeDataWithMessages(atelData.flat(), atel);
             const gcnMessages = mergeDataWithMessages(gcnData.flat(), gcn);
-            console.log(arrayMixer(atelMessages, gcnMessages));
+            // console.log(arrayMixer(atelMessages, gcnMessages));
             return arrayMixer(atelMessages, gcnMessages);
+
+
         });
 }
 
