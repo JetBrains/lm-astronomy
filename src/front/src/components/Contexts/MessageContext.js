@@ -4,9 +4,9 @@ export const MessageContext = createContext();
 
 export const MessageProvider = ({ children }) => {
     const [messagesData, setMessagesData] = useState([]);
-    // console.log(messagesData);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const [totalMessages, setTotalMessages] = useState(0);
 
     return (
         <MessageContext.Provider value={{
@@ -16,6 +16,9 @@ export const MessageProvider = ({ children }) => {
             setCurrentPage,
             totalPages,
             setTotalPages,
+            totalMessages,
+            setTotalMessages
+
         }}>
             {children}
         </MessageContext.Provider>
