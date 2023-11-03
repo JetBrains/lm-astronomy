@@ -141,10 +141,10 @@ function MessagePage() {
                         </ul>
                         <div className="pagination">
                             <button onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
-                                    disabled={currentPage === 1}>&#8678;</button>
-                            <span>{currentPage} из {totalPages}</span>
+                                    disabled={currentPage === 1}>prev</button>
+                            <span> {currentPage} of {totalPages} </span>
                             <button onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
-                                    disabled={currentPage === totalPages}>&#8680;</button>
+                                    disabled={currentPage === totalPages}>next</button>
                         </div>
                     </div>
                     <div className="main">
@@ -164,7 +164,7 @@ function MessagePage() {
                                 <p className={"main-card-creator"}>{activeMessage.creator}</p>
                             </>
                         ) : (
-                            <p>No message selected</p>
+                            <p>No messages</p>
                         )}
                     </div>
                 </div>
