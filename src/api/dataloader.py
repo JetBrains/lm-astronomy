@@ -112,7 +112,7 @@ def _compare(s1, s2):
 
 def match_object_name(object_name: str,
                       records: dict[str, RecordMetadata],
-                      add_nulls: bool = True) -> dict[str, RecordMetadata]:
+                      add_nulls: bool = False) -> dict[str, RecordMetadata]:
     matches = {}
     for record_id, record in records.items():
         if not record.object_name:
