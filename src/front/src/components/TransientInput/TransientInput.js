@@ -2,10 +2,11 @@ import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './TransientInput.css';
 import CoordinatesContext from '../Contexts/CoordinatesContext';
+import SearchParamsContext from '../Contexts/SearchParamsContext';
 
 function TransientInput({ onTransientChange, onBlur }) {
     const navigate = useNavigate();
-    const { transient, setTransient, setCoordinates } = useContext(CoordinatesContext);
+    const { transientName, setTransientName, setCoordinates } = useContext(SearchParamsContext);
 
     const handleIconClick = () => {
         navigate('/starmap');
@@ -13,7 +14,7 @@ function TransientInput({ onTransientChange, onBlur }) {
 
     const handleChange = (e) => {
         const value = e.target.value;
-        setTransient(value);
+        setTransientName(value);
     };
 
     const parseCoordinates = (inputString) => {
@@ -35,7 +36,7 @@ function TransientInput({ onTransientChange, onBlur }) {
 
     const handleTransientChange = (event) => {
         const coords = event.target.value;
-        setTransient(coords);
+        setTransientName(coords);
     };
 
 
@@ -54,7 +55,7 @@ function TransientInput({ onTransientChange, onBlur }) {
             <input
                 id="name"
                 className="input-field"
-                value={transient || ""}
+                value={transientName || ""}
                 placeholder="Transient name or coordinates"
                 onChange={handleTransientChange}
                 onBlur={handleTransientBlur}
