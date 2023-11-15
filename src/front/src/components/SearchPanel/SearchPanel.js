@@ -7,36 +7,52 @@ import MessengerType from '../MessengerType/MessengerType';
 import SearchButton from "../SearchButton/SearchButton";
 import {searchAPI} from "../../api/apiServices";
 import TransientInput from '../TransientInput/TransientInput';
-import CoordinatesContext from '../Contexts/CoordinatesContext';
+import SearchParamsContext from '../Contexts/SearchParamsContext';
 import { parseAndCleanCoordinates } from '../parseCoordinatesUtility';
 
 function SearchPanel() {
     const {
-        coordinates,
-        transient,
-        setTransient,
+        transientName,
+        setTransientName,
+        ra,
+        setRa,
+        dec,
+        setDec,
+        ang,
+        setAng,
         selectedMessenger,
         setSelectedMessenger,
         selectedObject,
         setSelectedObject,
         setCoordinates
-    } = useContext(CoordinatesContext);
+    } = useContext(SearchParamsContext);
+
+    // const coordinates = null;
+    // const transient = null;
+    // const setTransient = null;
+    //  const    selectedMessenger= null;
+    //  const    setSelectedMessenger= null;
+    //  const    selectedObject= null;
+    // const     setSelectedObject= null;
+    //  const    setCoordinates = null;
+
+    // const {  } = useContext(SearchParamsContext);
     const [isLoading, setIsLoading] = useState(false);
-    const isDisabled = !transient && !selectedObject && !selectedMessenger && (!coordinates || (coordinates[0] === null && coordinates[1] === null && coordinates[2] === null));
-    const { setMessagesData } = useContext(MessageContext);
+    const isDisabled = !transientName && !selectedObject && !selectedMessenger && (!ra && dec && ang || (ra === null && dec === null && ang === null));
+    // const { setMessagesData } = useContext(MessageContext);
     const navigate = useNavigate();
     const handleSearch = () => {
-        if (!transient && !selectedObject && !selectedMessenger && (!coordinates || (coordinates[0] === null && coordinates[1] === null && coordinates[2] === null))) {
+        if (!transientName && !selectedObject && !selectedMessenger && (!ra && dec && ang || (ra === null && dec === null && ang === null))) {
             console.log("Search not performed: all fields are empty");
             return;
         }
-        const { text, ra, dec, ang } = parseAndCleanCoordinates(transient);
+        const { text, ra, dec, ang } = parseAndCleanCoordinates(transientName);
         setIsLoading(true);
-        searchAPI(text, ra, dec, ang, selectedObject, selectedMessenger, setMessagesData)
+        searchAPI(text, ra, dec, ang, selectedObject, selectedMessenger)
             .then((data) => {
                 if (data) {
                     // console.log(data.atel);
-                    setMessagesData(data);
+                    // setMessagesData(data);
 
                 } else {
                     console.log("Incorrect data format:", data);
@@ -61,30 +77,32 @@ function SearchPanel() {
 
     const handleTransientChange = (e) => {
         const inputString = e.target.value;
-        setTransient(inputString);
+        setTransientName(inputString);
     };
 
     const handleTransientBlur = (e) => {
         const { ra, dec, ang, text } = parseAndCleanCoordinates(e.target.value);
         if (ra !== null && dec !== null && ang !== null) {
-            setCoordinates([ra, dec, ang]);
+            setRa(ra);
+            setDec(dec);
+            setAng(ang);
         }
-        setTransient(text);
+        setTransientName(text);
     };
     useEffect(() => {
-        if (coordinates && coordinates[0] !== 0 && coordinates[1] !== 0 && coordinates[2] !== 30) {
-            const coordsString = `RA:${coordinates[0]} DEC:${coordinates[1]} ANG:${coordinates[2]}`;
+        if (ra && dec && ang || (ra !== 0 && dec !== 0 && ang !== 30)) {
+            const coordsString = `RA:${ra} DEC:${dec} ANG:${ang}`;
 
             const regex = /RA\s*[:]*\s*(-?\d+(\.\d+)?)[\s,]*|DEC\s*[:]*\s*(-?\d+(\.\d+)?)[\s,]*|ANG\s*[:]*\s*(-?\d+(\.\d+)?)[\s,]*/gi;
-            let cleanedTransient = transient.replace(regex, '').replace(/,{2,}/g, ',').trim();
+            let cleanedTransient = transientName.replace(regex, '').replace(/,{2,}/g, ',').trim();
 
             // Remove trailing commas and spaces after cleaning
             cleanedTransient = cleanedTransient.replace(/^[\s,]+|[\s,]+$/g, '');
 
             const newTransient = cleanedTransient ? `${cleanedTransient}, ${coordsString}` : coordsString;
-            setTransient(newTransient);
+            setTransientName(newTransient);
         }
-    }, [coordinates]);
+    }, [ra, dec, ang]);
 
     return (
         <div className="search-panel">
@@ -92,13 +110,13 @@ function SearchPanel() {
                 onTransientChange={handleTransientChange}
                 onBlur={handleTransientBlur}
             />
-            <div className="input-group">
-                <ObjectSelect onObjectChange={handleObjectChange} />
-            </div>
-            <div className="input-group">
-                <MessengerType onMessengerChange={handleMessengerChange} />
-            </div>
-            <SearchButton onSearch={handleSearch} isLoading={isLoading} isDisabled={isDisabled} />
+            {/*<div className="input-group">*/}
+            {/*    <ObjectSelect onObjectChange={handleObjectChange} />*/}
+            {/*</div>*/}
+            {/*<div className="input-group">*/}
+            {/*    <MessengerType onMessengerChange={handleMessengerChange} />*/}
+            {/*</div>*/}
+            {/*<SearchButton onSearch={handleSearch} isLoading={isLoading} isDisabled={isDisabled} />*/}
         </div>
     );
 }

@@ -1,21 +1,16 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './TransientInput.css';
-import CoordinatesContext from '../Contexts/CoordinatesContext';
 import SearchParamsContext from '../Contexts/SearchParamsContext';
 
 function TransientInput({ onTransientChange, onBlur }) {
     const navigate = useNavigate();
-    const { transientName, setTransientName, setCoordinates } = useContext(SearchParamsContext);
+    const { transientName, setTransientName, ra, setRa, dec, setDec, ang, setAng } = useContext(SearchParamsContext);
 
     const handleIconClick = () => {
         navigate('/starmap');
     };
 
-    const handleChange = (e) => {
-        const value = e.target.value;
-        setTransientName(value);
-    };
 
     const parseCoordinates = (inputString) => {
         const regex = /RA:\s*(-?\d+(\.\d+)?)\s*DEC:\s*(-?\d+(\.\d+)?)\s*ANG:\s*(\d+(\.\d+)?)/g;
@@ -44,7 +39,10 @@ function TransientInput({ onTransientChange, onBlur }) {
         const inputString = e.target.value;
         const [ra, dec, ang] = parseCoordinates(inputString);
         if (ra !== null && dec !== null && ang !== null) {
-            setCoordinates([ra, dec, ang]);
+            setTransientName(ra +' '+ dec + ' '+ ang);
+            setRa(ra);
+            setDec(dec);
+            setAng(ang);
         }
     };
 
