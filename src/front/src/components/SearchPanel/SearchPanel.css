@@ -1,21 +1,5 @@
 
-.astromap {
-    width: 30%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: right;
-}
 
-.astromap a {
-    display: block;
-    color: var(--shaded_text);
-
-}
-
-.astromap a:hover {
-    color: white;
-}
 .input-group {
     display: flex;
     flex-direction: row;

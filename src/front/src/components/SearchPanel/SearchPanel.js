@@ -7,6 +7,8 @@ import MessengerType from '../MessengerType/MessengerType';
 import SearchButton from "../SearchButton/SearchButton";
 import {searchAPI} from "../../api/apiServices";
 import TransientInput from '../TransientInput/TransientInput';
+import CoordinatesInput from '../CoordinatesInput/CoordinatesInput';
+import AstromapIcon from '../AstromapIcon/AstromapIcon';
 import SearchParamsContext from '../Contexts/SearchParamsContext';
 import { parseAndCleanCoordinates } from '../parseCoordinatesUtility';
 
@@ -27,14 +29,6 @@ function SearchPanel() {
         setCoordinates
     } = useContext(SearchParamsContext);
 
-    // const coordinates = null;
-    // const transient = null;
-    // const setTransient = null;
-    //  const    selectedMessenger= null;
-    //  const    setSelectedMessenger= null;
-    //  const    selectedObject= null;
-    // const     setSelectedObject= null;
-    //  const    setCoordinates = null;
 
     // const {  } = useContext(SearchParamsContext);
     const [isLoading, setIsLoading] = useState(false);
@@ -75,10 +69,10 @@ function SearchPanel() {
     };
 
 
-    const handleTransientChange = (e) => {
-        const inputString = e.target.value;
-        setTransientName(inputString);
-    };
+    // const handleTransientChange = (e) => {
+    //     const inputString = e.target.value;
+    //     setTransientName(inputString);
+    // };
 
     const handleTransientBlur = (e) => {
         const { ra, dec, ang, text } = parseAndCleanCoordinates(e.target.value);
@@ -89,6 +83,7 @@ function SearchPanel() {
         }
         setTransientName(text);
     };
+
     useEffect(() => {
         if (ra && dec && ang || (ra !== 0 && dec !== 0 && ang !== 30)) {
             const coordsString = `RA:${ra} DEC:${dec} ANG:${ang}`;
@@ -100,16 +95,19 @@ function SearchPanel() {
             cleanedTransient = cleanedTransient.replace(/^[\s,]+|[\s,]+$/g, '');
 
             const newTransient = cleanedTransient ? `${cleanedTransient}, ${coordsString}` : coordsString;
-            setTransientName(newTransient);
+            // setTransientName(newTransient);
         }
     }, [ra, dec, ang]);
 
     return (
         <div className="search-panel">
-            <TransientInput
-                onTransientChange={handleTransientChange}
-                onBlur={handleTransientBlur}
-            />
+            <div className="input-group">
+                    <TransientInput className={"transient"} placeholder={"Transient name"}/>
+
+                <CoordinatesInput className={"coords"} placeholder={"Coordinates"}/>
+                <AstromapIcon className={"astromap"} />
+            </div>
+            
             {/*<div className="input-group">*/}
             {/*    <ObjectSelect onObjectChange={handleObjectChange} />*/}
             {/*</div>*/}
