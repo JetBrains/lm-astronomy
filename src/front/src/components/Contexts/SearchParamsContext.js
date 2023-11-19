@@ -7,7 +7,7 @@ export const SearchParamsProvider = ({ children }) => {
     const [ra, setRa] = useState('');
     const [dec, setDec] = useState('');
     const [ang, setAng] = useState('');
-    const [physicalPhenomena, setPhysicalPhenomena] = useState('');
+    const [physicalObject, setPhysicalObject] = useState('');
     const [eventType, setEventType] = useState('');
     const [messengerType, setMessengerType] = useState('');
     const [page, setPage] = useState(1);
@@ -21,8 +21,8 @@ export const SearchParamsProvider = ({ children }) => {
         setDec,
         ang,
         setAng,
-        physicalPhenomena,
-        setPhysicalPhenomena,
+        physicalObject,
+        setPhysicalObject,
         eventType,
         setEventType,
         messengerType,

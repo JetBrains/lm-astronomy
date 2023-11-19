@@ -1,9 +1,9 @@
-// apiServices.js
-
 const BASE_URL = 'https://lm-astronomy.labs.jb.gg/api';
 const HEADERS = {
     'accept': 'application/json'
 };
+
+
 export const fetchPublishers = async (publisher, id) => {
     const url = `${BASE_URL}/${publisher}/${id}/message`
     const response = await fetch(url);
@@ -84,7 +84,7 @@ function mergeDataWithMessages(dataArray, messagesArray) {
     });
 }
 
-export function searchAPI(objectName, ra, dec, ang, physicalPhenomena, messengerType, page = 1) {
+export function searchAPI(objectName, ra, dec, ang, physicalPhenomena, messengerType, eventType, page = 1) {
     const ITEMS_PER_PAGE = 10;
     const coordinatesString = (ra && dec) ? `${ra} ${dec}` : '';
 

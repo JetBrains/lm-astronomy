@@ -1,5 +1,3 @@
-
-
 .input-group {
     display: flex;
     flex-direction: row;
@@ -7,13 +5,23 @@
     align-items: flex-start;
     color: #333;
     width: 100%;
-    padding: 0.8125em 0.65em;
     border-bottom: 1px solid rgba(51,51,51,1);
 }
-.input-field {
-    flex-grow: 1;
+
+.transient_input,
+.coords_input,
+.icon-container,
+#object,
+#event,
+.messengerContainer
+{
+    /*padding: 0.8125em 0.65em;*/
+    padding: 0.65em;
+}
+
+.input-group div input {
     background: transparent;
-    border: none;
+    border: solid 1px rgba(0,0,0,0);
     color: var(--highlight);
     font-size: 1.25em;
     font-family: 'JetBrains Mono', monospace;
@@ -26,18 +34,44 @@
     transition: border 0.3s ease;
 }
 
-.input-field:focus {
+.input-group div input:focus {
     outline: none;
     font-size: 1.25em;
     border: 1px solid var(--highlight);
 }
 
-.input-field::placeholder {
+.input-group div input::placeholder {
     color: rgba(255,255,255,1);
     line-height: 0.75em;
     opacity: 0.5;
 }
 
-.input-field:focus::placeholder {
+.input-group div input:focus::placeholder {
     opacity: 0;
 }
+
+.input-group div .transient_input {
+    flex-grow: 1;
+}
+
+
+.input-group .coords_input {
+    flex-grow: 2;
+    border-left: 1px solid rgba(51,51,51,1);
+}
+
+.input-group .astromap{
+    padding: 0;
+    margin: 0;
+}
+
+.input-group .icon-container {
+    padding: 0.65em 0 0;
+    margin: 0;
+}
+
+/*#object div {*/
+/*    padding: 0;*/
+/*    margin: 0;*/
+/*}*/
+

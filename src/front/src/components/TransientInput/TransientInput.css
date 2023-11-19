@@ -1,16 +1,13 @@
-.input-group {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center; /* Align items vertically */
-    padding: 0.8125em 0.65em;
-    border-bottom: 1px solid #333; /* Example color */
-}
+/*.input-group {*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    justify-content: flex-start;*/
+/*    align-items: center; !* Align items vertically *!*/
+/*    padding: 0.8125em 0.65em;*/
+/*    border-bottom: 1px solid #333; !* Example color *!*/
+/*}*/
 
-.input-field {
-    flex-grow: 1;
-}
+/*.input-field {*/
+/*    flex-grow: 1;*/
+/*}*/
 
-.icon-container {
-
-}

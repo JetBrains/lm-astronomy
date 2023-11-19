@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import './SearchPanel.css';
-import { MessageContext } from '../Contexts/MessageContext';
-import { useNavigate } from 'react-router-dom';
-import ObjectSelect from '../ObjectSelect/ObjectSelect';
+import {MessageContext} from '../Contexts/MessageContext';
+import {useNavigate} from 'react-router-dom';
+import ObjectSelect from '../PhysicalObjectSelect/PhysicalObjectSelect';
+import EventSelect from '../EventSelect/EventSelect';
 import MessengerType from '../MessengerType/MessengerType';
 import SearchButton from "../SearchButton/SearchButton";
 import {searchAPI} from "../../api/apiServices";
@@ -10,7 +11,7 @@ import TransientInput from '../TransientInput/TransientInput';
 import CoordinatesInput from '../CoordinatesInput/CoordinatesInput';
 import AstromapIcon from '../AstromapIcon/AstromapIcon';
 import SearchParamsContext from '../Contexts/SearchParamsContext';
-import { parseAndCleanCoordinates } from '../parseCoordinatesUtility';
+import {parseAndCleanCoordinates} from '../parseCoordinatesUtility';
 
 function SearchPanel() {
     const {
@@ -40,7 +41,7 @@ function SearchPanel() {
             console.log("Search not performed: all fields are empty");
             return;
         }
-        const { text, ra, dec, ang } = parseAndCleanCoordinates(transientName);
+        const {text, ra, dec, ang} = parseAndCleanCoordinates(transientName);
         setIsLoading(true);
         searchAPI(text, ra, dec, ang, selectedObject, selectedMessenger)
             .then((data) => {
@@ -69,20 +70,6 @@ function SearchPanel() {
     };
 
 
-    // const handleTransientChange = (e) => {
-    //     const inputString = e.target.value;
-    //     setTransientName(inputString);
-    // };
-
-    const handleTransientBlur = (e) => {
-        const { ra, dec, ang, text } = parseAndCleanCoordinates(e.target.value);
-        if (ra !== null && dec !== null && ang !== null) {
-            setRa(ra);
-            setDec(dec);
-            setAng(ang);
-        }
-        setTransientName(text);
-    };
 
     useEffect(() => {
         if (ra && dec && ang || (ra !== 0 && dec !== 0 && ang !== 30)) {
@@ -102,19 +89,26 @@ function SearchPanel() {
     return (
         <div className="search-panel">
             <div className="input-group">
-                    <TransientInput className={"transient"} placeholder={"Transient name"}/>
-
-                <CoordinatesInput className={"coords"} placeholder={"Coordinates"}/>
-                <AstromapIcon className={"astromap"} />
+                <div className="transient_input">
+                    <TransientInput placeholder={"Transient name"}/>
+                </div>
+                <div className="coords_input">
+                    <CoordinatesInput placeholder={"Coordinates"}/>
+                </div>
+                <div className="astromap">
+                    <AstromapIcon/>
+                </div>
             </div>
-            
-            {/*<div className="input-group">*/}
-            {/*    <ObjectSelect onObjectChange={handleObjectChange} />*/}
-            {/*</div>*/}
-            {/*<div className="input-group">*/}
-            {/*    <MessengerType onMessengerChange={handleMessengerChange} />*/}
-            {/*</div>*/}
-            {/*<SearchButton onSearch={handleSearch} isLoading={isLoading} isDisabled={isDisabled} />*/}
+            <div className="input-group">
+                <ObjectSelect placeholder={"physical object"}/>
+            </div>
+            <div className="input-group">
+                <EventSelect placeholder={"event type"}/>
+            </div>
+            <div className="input-group">
+                <MessengerType/>
+            </div>
+            <SearchButton/>
         </div>
     );
 }

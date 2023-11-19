@@ -37,13 +37,11 @@ function CoordinatesInput({ placeholder }) {
 
 
     return (
-
             <input
-                className="input-field"
+                id="coords"
                 placeholder={placeholder}
                 onChange={handleCoordinatesChange}
             />
-
     );
 }
 
