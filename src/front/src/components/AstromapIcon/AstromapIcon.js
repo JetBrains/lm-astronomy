@@ -2,7 +2,7 @@ import React from 'react';
 import {useNavigate} from 'react-router-dom';
 import './AstromapIcon.css';
 
-function AstromapIcon() {
+function AstromapIcon({className}) {
     const navigate = useNavigate();
 
 
@@ -12,7 +12,7 @@ function AstromapIcon() {
 
 
     return (
-        <div onClick={handleIconClick} className="icon-container">
+        <div onClick={handleIconClick} className={"icon-container " + className}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
                      className="bi bi-map" viewBox="0 0 16 16">
                     <path

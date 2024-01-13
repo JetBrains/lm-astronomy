@@ -88,16 +88,13 @@ function SearchPanel() {
 
     return (
         <div className="search-panel">
-            <div className="input-group">
-                <div className="transient_input">
-                    <TransientInput placeholder={"Transient name"}/>
-                </div>
-                <div className="coords_input">
+            <div className="input-group transient">
+                    <TransientInput placeholder={"Name"}/>
+            </div>
+            <div className="input-group coordinates">
                     <CoordinatesInput placeholder={"Coordinates"}/>
-                </div>
-                <div className="astromap">
-                    <AstromapIcon/>
-                </div>
+                    <AstromapIcon className={"astromap"}/>
+
             </div>
             <div className="input-group">
                 <ObjectSelect placeholder={"physical object"}/>

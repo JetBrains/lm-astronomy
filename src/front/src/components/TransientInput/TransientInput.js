@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import './TransientInput.css';
 import SearchParamsContext from '../Contexts/SearchParamsContext';
 import {parseAndCleanCoordinates} from "../parseCoordinatesUtility";
+import FlowInput from "../FlowInput/FlowInput";
 
 function TransientInput({ placeholder }) {
     const { transientName, setTransientName } = useContext(SearchParamsContext);
@@ -13,13 +14,18 @@ function TransientInput({ placeholder }) {
     };
 
     return (
-
-            <input
+        <div className="transientContainer">
+            <div className="transientLabel"> Transient: </div>
+            <FlowInput
                 id="name"
                 value={transientName || ""}
                 placeholder={placeholder}
+                minWidth={80}
+                maxWidth={700}
                 onChange={handleTransientChange}
             />
+        </div>
+
     );
 }
 

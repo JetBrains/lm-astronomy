@@ -1,17 +1,36 @@
-.astromap {
-    width: 30%;
+.coordinatesContainer {
+    display: flex;
+    justify-content: space-between;
+    /*width: 60%;*/
+}
+.coordinatesLabel {
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: right;
-}
-
-.astromap a {
-    display: block;
     color: var(--shaded_text);
+    font-size: 1.25em;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 400;
+    letter-spacing: 0.0625em;
+    text-transform: uppercase;
+
+}
+.coordinatesContainer input {
+    width:10px;
+}
+
+.coordinatesContainer input::placeholder {
+    text-align: center;
+    background: url(underline.png) no-repeat bottom center;
+}
+.hidden-span {
+    border: solid 1px rgba(0,0,0,0);
+    font-size: 1.25em;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 400;
+    letter-spacing: 0.0625em;
+    text-transform: uppercase;
+    visibility: hidden;
 
 }
 
-.astromap a:hover {
-    color: white;
-}

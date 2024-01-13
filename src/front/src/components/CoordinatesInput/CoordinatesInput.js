@@ -1,47 +1,50 @@
-import React, {useContext, useEffect} from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CoordinatesInput.css';
 import SearchParamsContext from '../Contexts/SearchParamsContext';
-
+import FlowInput from '../../components/FlowInput/FlowInput';
 function CoordinatesInput({ placeholder }) {
     const navigate = useNavigate();
     const { ra, setRa, dec, setDec, ang, setAng } = useContext(SearchParamsContext);
 
-    const handleCoordinatesChange = (event) => {
-        const coordinates = parseCoordinates(event.target.value);
-        setRa(coordinates[0]);
-        setDec(coordinates[1]);
-        setAng(coordinates[2]);
-
+    // Обработчики для изменения каждой координаты
+    const handleRaChange = (event) => {
+        setRa(event.target.value);
     };
 
-    const handleIconClick = () => {
-        navigate('/starmap');
+    const handleDecChange = (event) => {
+        setDec(event.target.value);
     };
 
-    const parseCoordinates = (inputString) => {
-        const regex = /RA:\s*(-?\d+(\.\d+)?)\s*DEC:\s*(-?\d+(\.\d+)?)\s*ANG:\s*(\d+(\.\d+)?)/g;
-        const match = regex.exec(inputString);
-
-        if (match) {
-            const ra = parseFloat(match[1]);
-            const dec = parseFloat(match[3]);
-            const ang = parseFloat(match[5]);
-
-            return [ra, dec, ang];
-        }
-
-        return [null, null, null];
+    const handleAngChange = (event) => {
+        setAng(event.target.value);
     };
-
-
 
     return (
-            <input
-                id="coords"
-                placeholder={placeholder}
-                onChange={handleCoordinatesChange}
+        <div className="coordinatesContainer">
+            <div className="coordinatesLabel"> Coordinates: </div>
+            <FlowInput
+                id="ra-input"
+                placeholder="RA"
+                value={ra || ''}
+                minWidth={50}
+                onChange={handleRaChange}
             />
+            <FlowInput
+                id="dec-input"
+                placeholder="DEC"
+                value={dec || ''}
+                minWidth={65}
+                onChange={handleDecChange}
+            />
+            <FlowInput
+                id="ang-input"
+                placeholder="ANG"
+                value={ang || ''}
+                minWidth={65}
+                onChange={handleAngChange}
+            />
+        </div>
     );
 }
 
