@@ -23,55 +23,57 @@ function SearchPanel() {
         setDec,
         ang,
         setAng,
-        selectedMessenger,
-        setSelectedMessenger,
-        selectedObject,
-        setSelectedObject,
-        setCoordinates
+        eventType,
+        setEventType,
+        physicalObject,
+        setPhysicalObject,
+        messengerType,
+        setMessengerType
+
     } = useContext(SearchParamsContext);
 
 
     // const {  } = useContext(SearchParamsContext);
     const [isLoading, setIsLoading] = useState(false);
-    const isDisabled = !transientName && !selectedObject && !selectedMessenger && (!ra && dec && ang || (ra === null && dec === null && ang === null));
+    const [isDisabled, setIsDisabled] = useState(true);
+    // console.log(!transientName && !selectedObject && !selectedMessenger && !selectedEvent && (!ra && dec && ang || (ra === null && dec === null && ang === null)));
     // const { setMessagesData } = useContext(MessageContext);
     const navigate = useNavigate();
     const handleSearch = () => {
-        if (!transientName && !selectedObject && !selectedMessenger && (!ra && dec && ang || (ra === null && dec === null && ang === null))) {
-            console.log("Search not performed: all fields are empty");
-            return;
-        }
-        const {text, ra, dec, ang} = parseAndCleanCoordinates(transientName);
         setIsLoading(true);
-        searchAPI(text, ra, dec, ang, selectedObject, selectedMessenger)
-            .then((data) => {
-                if (data) {
-                    // console.log(data.atel);
-                    // setMessagesData(data);
 
-                } else {
-                    console.log("Incorrect data format:", data);
-                }
-                navigate("/message");
-                setIsLoading(false);
+        // Вызов searchAPI с текущими параметрами поиска
+        searchAPI(transientName, ra, dec, ang, physicalObject, eventType, messengerType)
+            .then((data) => {
+                // Обработка полученных данных
+                // setMessagesData(data); // предполагается, что это функция для обновления состояния сообщений
+                navigate("/results"); // Например, перенаправление на страницу с результатами
             })
             .catch((error) => {
-                console.log(error)
-                setIsLoading(false);
+                console.error("Search failed:", error);
             })
+            .finally(() => {
+                setIsLoading(false);
+            });
     };
 
-    const handleObjectChange = (selectedObjectValue) => {
-        setSelectedObject(selectedObjectValue);
-    };
+    // const handleObjectChange = (selectedObjectValue) => {
+    //     setSelectedObject(selectedObjectValue);
+    // };
 
-    const handleMessengerChange = (selectedMessengerType) => {
-        setSelectedMessenger(selectedMessengerType);
-    };
-
-
+    // const handleMessengerChange = (selectedMessengerType) => {
+    //     setSelectedMessenger(selectedMessengerType);
+    // };
 
     useEffect(() => {
+
+         setIsDisabled(!transientName && !physicalObject && !messengerType && !eventType && !(ang && ra && dec));
+
+    })
+
+    useEffect(() => {
+
+
         if (ra && dec && ang || (ra !== 0 && dec !== 0 && ang !== 30)) {
             const coordsString = `RA:${ra} DEC:${dec} ANG:${ang}`;
 
@@ -89,12 +91,17 @@ function SearchPanel() {
     return (
         <div className="search-panel">
             <div className="input-group transient">
+                <div className="transientContainer">
+                    <div className="label"> Transient: </div>
                     <TransientInput placeholder={"Name"}/>
+                </div>
             </div>
             <div className="input-group coordinates">
-                    <CoordinatesInput placeholder={"Coordinates"}/>
+                <div className="coordinatesContainer">
+                    <div className="label">Coordinates:</div>
+                    <CoordinatesInput />
+                </div>
                     <AstromapIcon className={"astromap"}/>
-
             </div>
             <div className="input-group">
                 <ObjectSelect placeholder={"physical object"}/>
@@ -105,7 +112,7 @@ function SearchPanel() {
             <div className="input-group">
                 <MessengerType/>
             </div>
-            <SearchButton/>
+            <SearchButton onSearch={handleSearch} loading={isLoading} disabled={isDisabled} />
         </div>
     );
 }

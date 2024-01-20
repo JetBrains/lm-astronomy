@@ -14,8 +14,7 @@ function TransientInput({ placeholder }) {
     };
 
     return (
-        <div className="transientContainer">
-            <div className="transientLabel"> Transient: </div>
+
             <FlowInput
                 id="name"
                 value={transientName || ""}
@@ -24,7 +23,7 @@ function TransientInput({ placeholder }) {
                 maxWidth={700}
                 onChange={handleTransientChange}
             />
-        </div>
+
 
     );
 }

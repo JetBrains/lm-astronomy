@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './FlowInput.scss';
 
-function FlowInput({ id, placeholder, onChange, value, minWidth, maxWidth = 150 }) {
+function FlowInput({ id, placeholder, onChange, onBlur, value, minWidth, maxWidth = 210 }) {
     const [inputWidth, setInputWidth] = useState(minWidth);
     const spanRef = useRef(null);
 
@@ -20,6 +20,7 @@ function FlowInput({ id, placeholder, onChange, value, minWidth, maxWidth = 150 
                 placeholder={placeholder}
                 value={value || ''}
                 onChange={onChange}
+                onBlur={onBlur}
                 style={{ width: `${inputWidth}px`, maxWidth }}
                 className="flow-input"
             />

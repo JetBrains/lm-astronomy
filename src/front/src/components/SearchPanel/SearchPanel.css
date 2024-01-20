@@ -19,6 +19,18 @@
     padding: 0.65em;
 }
 
+.label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--shaded_text);
+    font-size: 1.25em;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 400;
+    letter-spacing: 0.0625em;
+    text-transform: uppercase;
+
+}
 .input-group input {
     width: 90%;
     background: transparent;

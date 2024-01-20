@@ -13,6 +13,7 @@ export const fetchPublishers = async (publisher, id) => {
     return data;
 }
 function constructURL(base, params) {
+    console.log(params);
     const filteredParams = Object.entries(params)
         .filter(([key, value]) => value !== null && value !== undefined && value !== '')
 
@@ -84,13 +85,14 @@ function mergeDataWithMessages(dataArray, messagesArray) {
     });
 }
 
-export function searchAPI(objectName, ra, dec, ang, physicalPhenomena, messengerType, eventType, page = 1) {
+export function searchAPI(objectName, ra, dec, ang, physicalPhenomena, eventType, messengerType,  page = 1) {
     const ITEMS_PER_PAGE = 10;
     const coordinatesString = (ra && dec) ? `${ra} ${dec}` : '';
 
     const url = constructURL( `${BASE_URL}/search/`, {
         object_name: objectName,
         object_type: physicalPhenomena,
+        event_type: eventType,
         messenger_type: messengerType,
         radius: ang,
         coordinates: coordinatesString,
