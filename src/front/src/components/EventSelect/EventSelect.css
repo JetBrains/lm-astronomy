@@ -1,9 +1,14 @@
 /* SelectStyles.css */
-
+.eventType {
+    display: flex;
+    justify-content: space-between;
+    /*width: 60%;*/
+}
 #event .reactSelect__control {
     border: 0;
     box-shadow: none;
     background-color: transparent;
+    padding-left: 0.2em;
 }
 
 #event .reactSelect__control:hover {
@@ -98,6 +103,13 @@
 
 #event .reactSelect__value-container {
     padding: 0;
+}
+
+
+#event #react-select-5-option-0 {
+    color: black;
+    text-transform: none;
+    padding: 0 0 0 10px;
 }
 
 

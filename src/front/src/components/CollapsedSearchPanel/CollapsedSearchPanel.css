@@ -20,6 +20,7 @@
     border: none;
     cursor: pointer;
     outline: none;
+    text-align: center;
     /*padding: 0 0.8em;*/
 
 }
@@ -27,6 +28,8 @@
 .search-icon {
     width: 2.5em;
     height: 2.5em;
+    margin-top: 0.6em;
+    margin-left: 0.45em;
     background-color: var(--highlight);
 }
 

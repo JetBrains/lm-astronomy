@@ -4,18 +4,7 @@
     justify-content: space-between;
     /*width: 100%;*/
 }
-.transientLabel {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--shaded_text);
-    font-size: 1.25em;
-    font-family: 'JetBrains Mono', monospace;
-    font-weight: 400;
-    letter-spacing: 0.0625em;
-    text-transform: uppercase;
 
-}
 
 .transientContainer input::placeholder {
     background: url(underline.png) no-repeat bottom left;

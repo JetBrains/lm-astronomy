@@ -4,18 +4,7 @@
     width: 65%;
 }
 
-.messengersLabel {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--shaded_text);
-    font-size: 1.25em;
-    font-family: 'JetBrains Mono', monospace;
-    font-weight: 400;
-    letter-spacing: 0.0625em;
-    text-transform: uppercase;
 
-}
 .messengerButton {
     display: flex;
     align-items: center;

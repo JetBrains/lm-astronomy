@@ -16,11 +16,10 @@ function App() {
         <SearchParamsProvider>
             <MessageProvider>
                 <Router>
-
                         <Routes>
                             <Route path="/" element={<HomePage />} />
                             <Route path="/starmap" element={<StarMapPage />} />
-                            {/*<Route path="/message" element={<MessagePage />} />*/}
+                            <Route path="/messages" element={<MessagePage />} />
                         </Routes>
                 </Router>
             </MessageProvider>

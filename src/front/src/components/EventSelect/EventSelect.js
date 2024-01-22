@@ -4,7 +4,6 @@ import './EventSelect.css';
 import SearchParamsContext from '../../components/Contexts/SearchParamsContext';
 
 const eventList = [
-    '',
     'High Energy Event',
     'Gamma-Ray Burst',
     'Tidal Disruption Event',
@@ -37,6 +36,10 @@ const options = eventList.map(item => ({
     value: item,
     label: item
 }));
+options.unshift({
+    value: '',
+    label: '---------------------- x'
+});
 
 function EventSelect(props) {
     const {eventType, setEventType} = useContext(SearchParamsContext);

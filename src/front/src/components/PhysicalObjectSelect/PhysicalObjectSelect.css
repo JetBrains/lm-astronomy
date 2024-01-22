@@ -1,9 +1,16 @@
 /* SelectStyles.css */
+.objectContainer {
+    display: flex;
+    justify-content: space-between;
+    /*width: 60%;*/
+}
+
 
 #object .reactSelect__control {
     border: 0;
     box-shadow: none;
     background-color: transparent;
+    padding-left: 0.2em;
 }
 
 #object .reactSelect__control:hover {
@@ -100,4 +107,9 @@
     padding: 0;
 }
 
+#object #react-select-3-option-0 {
+    color: black;
+    padding: 0 0 0 10px;
+    text-transform: none;
+}
 

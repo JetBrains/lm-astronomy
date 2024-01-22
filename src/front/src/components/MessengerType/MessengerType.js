@@ -25,8 +25,7 @@ function MessengerType(props) {
 
 
     return (
-        <div className="messengerContainer">
-            <div className={`messengersLabel`}> Messenger Type: </div>
+<>
             {messengers.map(messenger => (
                 <div
                     key={messenger.name}
@@ -36,7 +35,7 @@ function MessengerType(props) {
                     {messenger.label}
                 </div>
             ))}
-        </div>
+</>
     );
 }
 

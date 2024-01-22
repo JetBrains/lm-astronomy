@@ -9,10 +9,10 @@
 }
 
 .transient,
+.object,
 .coordinates,
+.event,
 .icon-container,
-#object,
-#event,
 .messengerContainer
 {
     /*padding: 0.8125em 0.65em;*/
@@ -31,6 +31,8 @@
     text-transform: uppercase;
 
 }
+
+
 .input-group input {
     width: 90%;
     background: transparent;

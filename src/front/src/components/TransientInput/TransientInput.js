@@ -16,7 +16,7 @@ function TransientInput({ placeholder }) {
     return (
 
             <FlowInput
-                id="name"
+                id="transient"
                 value={transientName || ""}
                 placeholder={placeholder}
                 minWidth={80}

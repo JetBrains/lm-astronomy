@@ -4,7 +4,6 @@ import './PhysicalObjectSelect.css';
 import SearchParamsContext from '../Contexts/SearchParamsContext';
 
 const objectList = [
-    '',
     'Accreting Object',
     'Active Galactic Nuclei',
     'Black Hole',
@@ -34,6 +33,10 @@ const options = objectList.map(item => ({
     value: item,
     label: item
 }));
+options.unshift({
+    value: '',
+    label: '---------------------- x'
+});
 function PhysicalObjectSelect(props) {
     const { physicalObject, setPhysicalObject } = useContext(SearchParamsContext);
 

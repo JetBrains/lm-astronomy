@@ -9,43 +9,27 @@ export const fetchPublishers = async (publisher, id) => {
     const response = await fetch(url);
     const data = await response.json();
     data.id = id;
-    data.provider = publisher
+    data.provider = publisher;
     return data;
 }
 function constructURL(base, params) {
-    console.log(params);
     const filteredParams = Object.entries(params)
         .filter(([key, value]) => value !== null && value !== undefined && value !== '')
 
     const queryString = new URLSearchParams(filteredParams).toString().replace(/\+/g, '%20');
     return `${base}?${queryString}`;
 }
+
+function sortByDate(dataArray) {
+    return dataArray.sort((a, b) => {
+        const dateA = new Date(a.date.replace(' UT', 'Z'));
+        const dateB = new Date(b.date.replace(' UT', 'Z'));
+        return dateA - dateB;
+    });
+}
 function arrayMixer(atel, gcn) {
-    const result = [];
-    const targetLength = 10;
-
-    // Рассчитываем количество элементов, которые мы возьмем из каждого массива
-    let countFromAtel = Math.min(atel.length, Math.ceil(targetLength / 2));
-    let countFromGcn = targetLength - countFromAtel; // Оставшееся количество добираем из gcn
-
-    // Если элементов в gcn недостаточно, чтобы добрать до 10, берем сколько есть
-    countFromGcn = Math.min(countFromGcn, gcn.length);
-
-    // Если после этого с gcn набирается меньше 5 элементов, берем больше из atel
-    if (countFromGcn < Math.ceil(targetLength / 2)) {
-        countFromAtel = targetLength - countFromGcn; // Корректируем количество из atel
-        countFromAtel = Math.min(countFromAtel, atel.length); // Не берем больше, чем есть
-    }
-
-    // Собираем результат из двух массивов
-    for (let i = 0; i < countFromAtel; i++) {
-        result.push(atel[i]);
-    }
-    for (let i = 0; i < countFromGcn; i++) {
-        result.push(gcn[i]);
-    }
-
-    return result;
+    const mixedArray = [...atel, ...gcn];
+    return sortByDate(mixedArray);
 }
 
 function formatDate(timestamp) {
@@ -86,7 +70,6 @@ function mergeDataWithMessages(dataArray, messagesArray) {
 }
 
 export function searchAPI(objectName, ra, dec, ang, physicalPhenomena, eventType, messengerType,  page = 1) {
-    const ITEMS_PER_PAGE = 10;
     const coordinatesString = (ra && dec) ? `${ra} ${dec}` : '';
 
     const url = constructURL( `${BASE_URL}/search/`, {
@@ -98,7 +81,7 @@ export function searchAPI(objectName, ra, dec, ang, physicalPhenomena, eventType
         coordinates: coordinatesString,
         page: page
     });
-    console.log(url)
+
 
     return fetch(url, { headers: HEADERS })
 
@@ -109,25 +92,16 @@ export function searchAPI(objectName, ra, dec, ang, physicalPhenomena, eventType
             return response.json();
         })
         .then(async data => {
-            console.log(data);
             console.log(Object.keys(data.atel).length + Object.keys(data.gcn).length);
 
-            const startIdx = (page - 1) * ITEMS_PER_PAGE;
-            const endIdx = startIdx + ITEMS_PER_PAGE;
+            const atelDataPromises = Object.values(data.atel || {}).map(item => fetchPublishers("atel", item.record_id));
+            const gcnDataPromises = Object.values(data.gcn || {}).map(item => fetchPublishers("gcn", item.record_id));
 
-            const atelData = Object.values(data.atel || {}).slice(startIdx, endIdx);
-            const gcnData = Object.values(data.gcn || {}).slice(startIdx, endIdx);
+            const atel = await Promise.all(atelDataPromises);
+            const gcn = await Promise.all(gcnDataPromises);
 
-            const atelDataPromises = atelData.flat().map(item => fetchPublishers("atel",item.record_id));
-            const gcnDataPromises = gcnData.flat().map(item => fetchPublishers("gcn", item.record_id));
-
-            const atel = (await Promise.all(atelDataPromises));
-            const gcn = (await Promise.all(gcnDataPromises));
-
-            const atelMessages = mergeDataWithMessages(atelData.flat(), atel);
-            const gcnMessages = mergeDataWithMessages(gcnData.flat(), gcn);
-            console.log(atelMessages);
-            // console.log(arrayMixer(atelMessages, gcnMessages));
+            const atelMessages = mergeDataWithMessages(Object.values(data.atel || {}), atel);
+            const gcnMessages = mergeDataWithMessages(Object.values(data.gcn || {}), gcn);
             return arrayMixer(atelMessages, gcnMessages);
 
 

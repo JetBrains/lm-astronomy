@@ -19,7 +19,6 @@ export const MessageProvider = ({ children }) => {
             setTotalPages,
             totalMessages,
             setTotalMessages
-
         }}>
             {children}
         </MessageContext.Provider>
