@@ -2,7 +2,7 @@
 .eventType {
     display: flex;
     justify-content: space-between;
-    /*width: 60%;*/
+    margin-left: 0.55em;
 }
 #event .reactSelect__control {
     border: 0;

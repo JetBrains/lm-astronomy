@@ -2,7 +2,7 @@
 .transientContainer {
     display: flex;
     justify-content: space-between;
-    /*width: 100%;*/
+    margin-left: 0.55em;
 }
 
 
