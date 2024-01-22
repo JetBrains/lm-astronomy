@@ -1,15 +1,23 @@
-#type .reactSelect__control {
-    /*height: 40px;*/
+/* SelectStyles.css */
+.objectContainer {
+    display: flex;
+    justify-content: space-between;
+    /*width: 60%;*/
+}
+
+
+#object .reactSelect__control {
     border: 0;
     box-shadow: none;
     background-color: transparent;
+    padding-left: 0.2em;
 }
 
-#type .reactSelect__control:hover {
-    border-color: rgba(51,51,51,1);
+#object .reactSelect__control:hover {
+    border-color: var(--highlight);
 }
 
-#type .reactSelect__placeholder {
+#object .reactSelect__placeholder {
     color: rgba(255,255,255,0.5);
     font-size: 1.25em;
     font-family: 'JetBrains Mono', monospace;
@@ -18,7 +26,7 @@
     text-transform: uppercase;
 }
 
-#type .reactSelect__single-value {
+#object .reactSelect__single-value  {
     color: var(--highlight);
     font-size: 1.25em;
     font-family: 'JetBrains Mono', monospace;
@@ -27,57 +35,56 @@
     text-transform: uppercase;
 }
 
-#type .reactSelect__menu {
+#object .reactSelect__menu {
     background-color: rgba(51,51,51,1);
     color: white;
     font-size: 1.25em;
-    width: 14.75em;
-
+    width: 15.75em;
 }
 
-#type .reactSelect__option {
+#object .reactSelect__option {
     color: white;
     background-color: transparent;
     width: 100%;
     text-transform: uppercase;
 }
 
-#type .reactSelect__option--is-selected {
+#object .reactSelect__option--is-selected {
     color: var(--shaded_text);
 }
 
-#type .reactSelect__option--is-focused {
+#object .reactSelect__option--is-focused {
     background-color: rgba(211,236,39,0.1);
 }
 
-#type .reactSelect__option:hover {
+#object .reactSelect__option:hover {
     background-color: rgba(255,255,255,0.1);
 }
 
-#type .reactSelect__multiValue {
+#object .reactSelect__multiValue {
     font-size: 1.25em;
     background-color: rgba(211,236,39,0.1);
 }
 
-#type .reactSelect__indicator-separator {
+#object .reactSelect__indicator-separator {
     display: none;
 }
-#type .reactSelect__indicator svg {
+#object .reactSelect__indicator svg {
     display: none;
 }
-#type .reactSelect__indicator::after {
-    content: "↓" ;
+#object .reactSelect__indicator::after {
+    content: "↓";
     font-size: 1.25em;
     color: rgba(255,255,255,0.5);
     font-weight: 400;
     font-family: 'JetBrains Mono', monospace;
 }
 
-#type .reactSelect__multi-value {
+#object .reactSelect__multi-value {
     background-color: rgba(255,255,255,0.2);
     color: white;
 }
-#type .reactSelect__multi-value__label {
+#object .reactSelect__multi-value__label {
     color: white;
     font-size: 1.25em;
     font-family: 'JetBrains Mono', monospace;
@@ -86,17 +93,23 @@
     text-transform: uppercase;
 }
 
-#type .reactSelect__clear-indicator {
+#object .reactSelect__clear-indicator {
     display: none;
 }
-#type .reactSelect__input-container .reactSelect__input {
+#object .reactSelect__input-container .reactSelect__input {
     font-size: 0.9375em !important;
     color: white !important;
+    /*padding-left: 0.47em !important;*/
     font-weight: 400;
 }
 
-#type .reactSelect__value-container {
+#object .reactSelect__value-container {
     padding: 0;
 }
 
+#object #react-select-3-option-0 {
+    color: black;
+    padding: 0 0 0 10px;
+    text-transform: none;
+}
 

@@ -1,0 +1,7 @@
+.icon-container {
+    color: var(--highlight);
+}
+
+.icon-container:hover {
+    color: #fff;
+}

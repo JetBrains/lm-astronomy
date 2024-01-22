@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    width: 100%;
+    /*width: 100%;*/
     padding: 0 0 0.75em 0.78em;
     border-bottom: 1px solid var(--separator);
 }
@@ -19,6 +19,14 @@
     margin-bottom: 0;
 }
 
+.title a {
+    text-decoration: none;
+    color: rgba(254,254,254,1);
+}
+
+.title a:hover {
+    color: var(--highlight);
+}
 .subtitle {
     color: rgba(255,250,250,1);
     font-size: 0.625em;

@@ -1,10 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react';
 import Select from 'react-select';
-import './ObjectSelect.css';
-import CoordinatesContext from '../../components/Contexts/CoordinatesContext';
+import './PhysicalObjectSelect.css';
+import SearchParamsContext from '../Contexts/SearchParamsContext';
 
 const objectList = [
-    '',
     'Accreting Object',
     'Active Galactic Nuclei',
     'Black Hole',
@@ -34,33 +33,34 @@ const options = objectList.map(item => ({
     value: item,
     label: item
 }));
-function ObjectSelect(props) {
-    const { selectedObject, setSelectedObject } = useContext(CoordinatesContext);
-    const [selectedOption, setSelectedOption] = useState(() => options.find(opt => opt.value === selectedObject));
+options.unshift({
+    value: '',
+    label: '---------------------- x'
+});
+function PhysicalObjectSelect(props) {
+    const { physicalObject, setPhysicalObject } = useContext(SearchParamsContext);
 
-    const handleChange = (option) => {
-        setSelectedOption(option);
-        setSelectedObject(option.value);
-        props.onObjectChange(option.value);
+    const handleChange = (selectedOption) => {
+        setPhysicalObject(selectedOption ? selectedOption.value : '');
     };
 
-    // Этот useEffect обновляет selectedOption, если selectedObject в контексте меняется
-    useEffect(() => {
-        setSelectedOption(options.find(opt => opt.value === selectedObject));
-    }, [selectedObject]);
+    const getValue = () => {
+        if (physicalObject === '') return null;
+        return options.find(option => option.value === physicalObject);
+    };
 
     return (
         <Select
             classNamePrefix="reactSelect"
             id="object"
-            value={selectedOption}
+            value={getValue()}
             onChange={handleChange}
             options={options}
-            placeholder="physical phenomena / object"
+            placeholder= {props.placeholder}
             isMulti={false}
             isSearchable={true}
         />
     );
 }
 
-export default ObjectSelect;
+export default PhysicalObjectSelect;

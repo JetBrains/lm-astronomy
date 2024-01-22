@@ -1,25 +1,23 @@
 import React, { useContext } from 'react';
 import './MessengerType.css';
-import CoordinatesContext from '../../components/Contexts/CoordinatesContext';
+import SearchParamsContext from '../Contexts/SearchParamsContext';
 
 function MessengerType(props) {
-    const { selectedMessenger, setSelectedMessenger } = useContext(CoordinatesContext);
+    const { messengerType, setMessengerType } = useContext(SearchParamsContext);
 
     const handleMessengerClick = (name) => {
-        if (selectedMessenger === name) {
-            setSelectedMessenger(null);
-            props.onMessengerChange(null);
+        if (messengerType === name) {
+            setMessengerType(null);
         } else {
-            setSelectedMessenger(name);
-            props.onMessengerChange(name); // передаем значение в родительский компонент
+            setMessengerType(name);
         }
     };
 
     const messengers = [
-        { label: 'ν', name: 'Electromagnetic Radiation' },
         { label: 'G', name: 'Gravitational Waves' },
-        { label: 'p', name: 'Neutrinos' },
-        { label: 'γ', name: 'Cosmic Rays' },
+        { label: 'γ', name: 'Electromagnetic Radiation' },
+        { label: 'p', name: 'Cosmic Rays' },
+        { label: 'v', name: 'Neutrinos' },
     ];
 
 
@@ -27,18 +25,17 @@ function MessengerType(props) {
 
 
     return (
-        <div className="messengerContainer">
-            <div className={`messengersLabel`}> Messenger Type: </div>
+<>
             {messengers.map(messenger => (
                 <div
                     key={messenger.name}
-                    className={`messengerButton ${selectedMessenger === messenger.name ? 'active' : ''}`}
+                    className={`messengerButton ${messengerType === messenger.name ? 'active' : ''}`}
                     onClick={() => handleMessengerClick(messenger.name)}
                 >
                     {messenger.label}
                 </div>
             ))}
-        </div>
+</>
     );
 }
 

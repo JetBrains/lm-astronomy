@@ -1,15 +1,60 @@
 import React, {useContext, useEffect, useState} from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {MessageContext} from '../../components/Contexts/MessageContext';
 import './MessagePage.css';
 import Header from "../../components/Header/Header";
 import CollapsedSearchPanel from '../../components/CollapsedSearchPanel/CollapsedSearchPanel';
+import SearchParamsContext from '../../components/Contexts/SearchParamsContext';
 
 function MessagePage() {
-    const {messagesData, currentPage, setCurrentPage, totalPages} = useContext(MessageContext);
+    const {
+        transientName,
+        ra,
+        dec,
+        ang,
+        eventType,
+        physicalObject,
+        messengerType,
+    } = useContext(SearchParamsContext);
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!transientName && !ra && !dec && !ang && !eventType && !physicalObject && !messengerType) {
+            navigate('/');
+        }
+    }, [transientName, ra, dec, ang, eventType, physicalObject, messengerType, navigate]);
+
+
+    const {
+        messagesData,
+        currentPage,
+        setCurrentPage,
+        totalPages
+    } = useContext(MessageContext);
+
+
+
     const [activeMessageId, setActiveMessageId] = useState(
         messagesData && messagesData.length > 0 ? messagesData[0].record_id : null
     );
+    const [loadedMessages, setLoadedMessages] = useState([]);
+    const itemsPerPage = 10;
+    useEffect(() => {
+        setLoadedMessages(messagesData.slice(0, itemsPerPage));
+    }, [messagesData]);
+
+    useEffect(() => {
+        console.log("Total messages:", messagesData.length);
+        console.log("Loaded messages:", loadedMessages.length);
+    });
+
+        const handleShowMore = () => {
+        const nextItems = messagesData.slice(loadedMessages.length, loadedMessages.length + itemsPerPage);
+        setLoadedMessages(prevMessages => [...prevMessages, ...nextItems]);
+    };
+
+
     const activeMessage = messagesData && messagesData.find(msg => msg.record_id === activeMessageId);
     const handleCardClick = (id) => {
         setActiveMessageId(id);
@@ -50,7 +95,6 @@ function MessagePage() {
         return `${day} ${month} ${year}; ${hours}:${minutes} ${timeLabel}`;
     }
     const processDescription = (description) => {
-        // Убираем многоточие, если оно есть в конце строки
         const trimmedDescription = description.endsWith('...') ? description.slice(0, -3) : description;
 
         // Возвращаем JSX с обработанным описанием и ссылкой
@@ -109,19 +153,35 @@ function MessagePage() {
         );
     }
 
+
+
     if (!messagesData) {
         return <div>Loading...</div>;
     }
+
+    const searchString = [
+        transientName && `${transientName}`,
+        ra && `RA=${ra}`,
+        dec && `DEC=${dec}`,
+        ang && `ANG=${ang}`,
+        physicalObject && `${physicalObject}`,
+        eventType && `${eventType}`,
+        messengerType && `${messengerType}`
+    ].filter(Boolean).join(', ');
+
+
+
+
 
     return (
         <div className="app-container font-base">
             <div className="container">
                 <Header/>
-                <CollapsedSearchPanel/>
+                <CollapsedSearchPanel searched={searchString}/>
                 <div className="columns">
                     <div className="sidemenu">
                         <ul className="cards-list">
-                            {messagesData && messagesData.map((msg) => (
+                            {loadedMessages && loadedMessages.map((msg) => (
                                 <li
                                     key={msg.record_id}
                                     className={`card-item ${msg.record_id === activeMessageId ? 'active-card' : ''}`}
@@ -139,13 +199,9 @@ function MessagePage() {
                                 </li>
                             ))}
                         </ul>
-                        <div className="pagination">
-                            <button onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
-                                    disabled={currentPage === 1}>prev</button>
-                            <span> {currentPage} of {totalPages} </span>
-                            <button onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
-                                    disabled={currentPage === totalPages}>next</button>
-                        </div>
+                        {loadedMessages.length < messagesData.length && (
+                            <button onClick={handleShowMore}>Show More</button>
+                        )}
                     </div>
                     <div className="main">
                         {activeMessage ? (

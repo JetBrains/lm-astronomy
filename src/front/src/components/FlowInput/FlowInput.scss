@@ -1,0 +1,36 @@
+%input-style {
+ //    font-size: 14px; // Increased font size for better readability
+ //line-height: 20px; // Adjusted line height
+ //letter-spacing: 0.6px;
+ //    font-family: 'Helvetica Neue', sans-serif;
+ //    font-weight: 400;
+ //    background-color: transparent;
+ //    border: none;
+ //    border-bottom: 2px solid green; // Thinner border for a sleeker look
+ //padding: 5px; // Padding for better text alignment
+ }
+
+.flow-input-container {
+    display: inline-block; // Container to align input and span
+
+.flow-input {
+    @extend %input-style;
+    min-width: 50px;
+    outline: none;
+
+    &:focus {
+
+    }
+}
+
+    .hidden-span {
+        @extend %input-style;
+        visibility: hidden;
+        position: absolute;
+        white-space: pre; // Preserve spaces and line breaks
+    }
+}
+
+.flow-input-container input {
+  margin: 0 0.2em;
+}

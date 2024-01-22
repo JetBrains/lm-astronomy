@@ -1,104 +1,102 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import './SearchPanel.css';
-import { MessageContext } from '../Contexts/MessageContext';
-import { useNavigate } from 'react-router-dom';
-import ObjectSelect from '../ObjectSelect/ObjectSelect';
+import {MessageContext} from '../Contexts/MessageContext';
+import {useNavigate} from 'react-router-dom';
+import ObjectSelect from '../PhysicalObjectSelect/PhysicalObjectSelect';
+import EventSelect from '../EventSelect/EventSelect';
 import MessengerType from '../MessengerType/MessengerType';
 import SearchButton from "../SearchButton/SearchButton";
 import {searchAPI} from "../../api/apiServices";
 import TransientInput from '../TransientInput/TransientInput';
-import CoordinatesContext from '../Contexts/CoordinatesContext';
-import { parseAndCleanCoordinates } from '../parseCoordinatesUtility';
+import CoordinatesInput from '../CoordinatesInput/CoordinatesInput';
+import AstromapIcon from '../AstromapIcon/AstromapIcon';
+import SearchParamsContext from '../Contexts/SearchParamsContext';
+
 
 function SearchPanel() {
     const {
-        coordinates,
-        transient,
-        setTransient,
-        selectedMessenger,
-        setSelectedMessenger,
-        selectedObject,
-        setSelectedObject,
-        setCoordinates
-    } = useContext(CoordinatesContext);
+        transientName,
+        setTransientName,
+        ra,
+        setRa,
+        dec,
+        setDec,
+        ang,
+        setAng,
+        eventType,
+        setEventType,
+        physicalObject,
+        setPhysicalObject,
+        messengerType,
+        setMessengerType
+
+    } = useContext(SearchParamsContext);
+
+
+    // const {  } = useContext(SearchParamsContext);
     const [isLoading, setIsLoading] = useState(false);
-    const isDisabled = !transient && !selectedObject && !selectedMessenger && (!coordinates || (coordinates[0] === null && coordinates[1] === null && coordinates[2] === null));
+    const [isDisabled, setIsDisabled] = useState(true);
+    // console.log(!transientName && !selectedObject && !selectedMessenger && !selectedEvent && (!ra && dec && ang || (ra === null && dec === null && ang === null)));
     const { setMessagesData } = useContext(MessageContext);
+
     const navigate = useNavigate();
     const handleSearch = () => {
-        if (!transient && !selectedObject && !selectedMessenger && (!coordinates || (coordinates[0] === null && coordinates[1] === null && coordinates[2] === null))) {
-            console.log("Search not performed: all fields are empty");
-            return;
-        }
-        const { text, ra, dec, ang } = parseAndCleanCoordinates(transient);
         setIsLoading(true);
-        searchAPI(text, ra, dec, ang, selectedObject, selectedMessenger, setMessagesData)
-            .then((data) => {
-                if (data) {
-                    // console.log(data.atel);
-                    setMessagesData(data);
 
-                } else {
-                    console.log("Incorrect data format:", data);
-                }
-                navigate("/message");
-                setIsLoading(false);
+        searchAPI(transientName, ra, dec, ang, physicalObject, eventType, messengerType)
+            .then((data) => {
+                setMessagesData(data);
+                navigate("/messages");
             })
             .catch((error) => {
-                console.log(error)
-                setIsLoading(false);
+                console.error("Search failed:", error);
             })
-    };
-
-    const handleObjectChange = (selectedObjectValue) => {
-        setSelectedObject(selectedObjectValue);
-    };
-
-    const handleMessengerChange = (selectedMessengerType) => {
-        setSelectedMessenger(selectedMessengerType);
+            .finally(() => {
+                setIsLoading(false);
+            });
     };
 
 
-    const handleTransientChange = (e) => {
-        const inputString = e.target.value;
-        setTransient(inputString);
-    };
-
-    const handleTransientBlur = (e) => {
-        const { ra, dec, ang, text } = parseAndCleanCoordinates(e.target.value);
-        if (ra !== null && dec !== null && ang !== null) {
-            setCoordinates([ra, dec, ang]);
-        }
-        setTransient(text);
-    };
     useEffect(() => {
-        if (coordinates && coordinates[0] !== 0 && coordinates[1] !== 0 && coordinates[2] !== 30) {
-            const coordsString = `RA:${coordinates[0]} DEC:${coordinates[1]} ANG:${coordinates[2]}`;
+         setIsDisabled(!transientName && !physicalObject && !messengerType && !eventType && !(ang && ra && dec));
+    })
 
-            const regex = /RA\s*[:]*\s*(-?\d+(\.\d+)?)[\s,]*|DEC\s*[:]*\s*(-?\d+(\.\d+)?)[\s,]*|ANG\s*[:]*\s*(-?\d+(\.\d+)?)[\s,]*/gi;
-            let cleanedTransient = transient.replace(regex, '').replace(/,{2,}/g, ',').trim();
 
-            // Remove trailing commas and spaces after cleaning
-            cleanedTransient = cleanedTransient.replace(/^[\s,]+|[\s,]+$/g, '');
-
-            const newTransient = cleanedTransient ? `${cleanedTransient}, ${coordsString}` : coordsString;
-            setTransient(newTransient);
-        }
-    }, [coordinates]);
 
     return (
         <div className="search-panel">
-            <TransientInput
-                onTransientChange={handleTransientChange}
-                onBlur={handleTransientBlur}
-            />
-            <div className="input-group">
-                <ObjectSelect onObjectChange={handleObjectChange} />
+            <div className="input-group transient">
+                <div className="transientContainer">
+                    <label htmlFor={"transient"} className="label"> Transient: </label>
+                    <TransientInput placeholder={"Name"}/>
+                </div>
+            </div>
+            <div className="input-group coordinates">
+                <div className="coordinatesContainer">
+                    <label htmlFor={"ra-input"} className="label">Coordinates:</label>
+                    <CoordinatesInput />
+                </div>
+                    <AstromapIcon className={"astromap"}/>
+            </div>
+            <div className="input-group object">
+                <div className="objectContainer">
+                <label htmlFor={"react-select-3-input"} className="label">Physical Object:</label>
+                <ObjectSelect placeholder={"select"}/>
+                </div>
+            </div>
+            <div className="input-group event">
+                <div className="eventType">
+                <label htmlFor={"react-select-5-input"}  className="label">Event type:</label>
+                <EventSelect placeholder={"select"}/>
+                </div>
             </div>
             <div className="input-group">
-                <MessengerType onMessengerChange={handleMessengerChange} />
+                <div className="messengerContainer">
+                    <div className={`label`}> Messenger Type: </div>
+                <MessengerType/>
+                </div>
             </div>
-            <SearchButton onSearch={handleSearch} isLoading={isLoading} isDisabled={isDisabled} />
+            <SearchButton onSearch={handleSearch} loading={isLoading} disabled={isDisabled} />
         </div>
     );
 }

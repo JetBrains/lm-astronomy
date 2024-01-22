@@ -1,53 +1,40 @@
-import React, { createContext, useState } from 'react';
-import CoordinatesContext from "./CoordinatesContext";
+import React, {useState} from 'react'
+const SearchParamsContext = React.createContext();
 
-const SearchParamsContext = createContext({
-    transientName: '',
-    setTransientName: () => {},
-    ra: '',
-    setRa: () => {},
-    dec: '',
-    setDec: () => {},
-    ang: '',
-    setAng: () => {},
-    physicalPhenomena: '',
-    setPhysicalPhenomena: () => {},
-    messengerType: '',
-    setMessengerType: () => {},
-    page: 1,
-    setPage: () => {},
-});
 
-const SearchParamsProvider = ({ children }) => {
-    // Определение индивидуальных хуков состояния для каждого параметра поиска
+export const SearchParamsProvider = ({ children }) => {
     const [transientName, setTransientName] = useState('');
     const [ra, setRa] = useState('');
     const [dec, setDec] = useState('');
     const [ang, setAng] = useState('');
-    const [physicalPhenomena, setPhysicalPhenomena] = useState('');
+    const [physicalObject, setPhysicalObject] = useState('');
+    const [eventType, setEventType] = useState('');
     const [messengerType, setMessengerType] = useState('');
     const [page, setPage] = useState(1);
 
+    const contextValue = {
+        transientName,
+        setTransientName,
+        ra,
+        setRa,
+        dec,
+        setDec,
+        ang,
+        setAng,
+        physicalObject,
+        setPhysicalObject,
+        eventType,
+        setEventType,
+        messengerType,
+        setMessengerType,
+        page,
+        setPage
+    };
+
     return (
-        <SearchParamsContext.Provider value={{
-            transientName,
-            setTransientName,
-            ra,
-            setRa,
-            dec,
-            setDec,
-            ang,
-            setAng,
-            physicalPhenomena,
-            setPhysicalPhenomena,
-            messengerType,
-            setMessengerType,
-            page,
-            setPage
-        }}>
+        <SearchParamsContext.Provider value={contextValue}>
             {children}
         </SearchParamsContext.Provider>
     );
 };
-
-export default CoordinatesContext;
+export default SearchParamsContext

@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CollapsedSearchPanel.css';
 
-function CollapsedSearchPanel() {
+function CollapsedSearchPanel(props) {
     const navigate = useNavigate();
 
 
@@ -13,7 +13,7 @@ function CollapsedSearchPanel() {
     return (
         <div className="collapsed_search_container" onClick={handleClick}>
             <div className="founded-objects">
-                4U 1323-619, Low mass X-ray binary (LMXB)
+                {props.searched}
             </div>
             <div className="back_to_search">
                 <svg className="search-icon" width="84" height="84" viewBox="0 0 84 84" fill="none" xmlns="http://www.w3.org/2000/svg">
