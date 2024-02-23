@@ -5,6 +5,7 @@ import './MessagePage.css';
 import Header from "../../components/Header/Header";
 import CollapsedSearchPanel from '../../components/CollapsedSearchPanel/CollapsedSearchPanel';
 import SearchParamsContext from '../../components/Contexts/SearchParamsContext';
+import {searchAPI} from "../../api/apiServices";
 
 function MessagePage() {
     const {
@@ -27,6 +28,7 @@ function MessagePage() {
 
 
     const {
+        setMessagesData,
         messagesData,
         currentPage,
         setCurrentPage,
@@ -41,29 +43,48 @@ function MessagePage() {
 
     const [loadedMessages, setLoadedMessages] = useState([]);
     const itemsPerPage = 10;
+
     useEffect(() => {
         setLoadedMessages(messagesData);
     }, [messagesData]);
 
-    useEffect(() => {
-        // console.log("Data:", messagesData[0]);
-        // console.log("Total messages:", totalMessages);
-        // console.log("Loaded messages:", loadedMessages.length);
-        // console.log("Active message:", activeMessageId)
-    });
+    const loadMoreData = async () => {
+        setIsLoading(true);
+        const newPage = currentPage + 1;
+        const newData = await searchAPI(transientName, ra, dec, ang, physicalObject, eventType, messengerType, newPage);
 
-        const handleShowMore = () => {
-        const nextItems = messagesData.slice(loadedMessages.length, loadedMessages.length + itemsPerPage);
-        setLoadedMessages(prevMessages => [...prevMessages, ...nextItems]);
+
+        setMessagesData([...messagesData, ...newData.records]);
+        setCurrentPage(newPage);
+        setIsLoading(false);
     };
+    const [isLoading, setIsLoading] = useState(false);
+
+
+    const handleShowMore = () => {
+        loadMoreData();
+    };
+    useEffect(() => {
+        const mainElement = document.querySelector('.main');
+        const offsetTop = mainElement.offsetTop;
+
+        const onScroll = () => {
+            if (window.scrollY > offsetTop) {
+                mainElement.classList.add('fixed');
+            } else {
+                mainElement.classList.remove('fixed');
+            }
+        };
+
+        window.addEventListener('scroll', onScroll);
+
+        return () => window.removeEventListener('scroll', onScroll);
+    }, []);
 
 
     const activeMessage = messagesData && messagesData.find(msg => msg.record_id === activeMessageId);
 
 
-    useEffect(() => {
-        // console.log(messagesData)
-    });
     const handleCardClick = (id) => {
         setActiveMessageId(id);
         // Здесь можно вызывать функцию для перезагрузки контента в main колонке, когда она будет готова
@@ -187,6 +208,7 @@ function MessagePage() {
                 <Header/>
                 <CollapsedSearchPanel searched={searchString} total={totalMessages}/>
                 <div className="columns">
+
                     <div className="sidemenu">
                         <ul className="cards-list">
                             {loadedMessages && loadedMessages.map((msg) => (
@@ -207,14 +229,18 @@ function MessagePage() {
                                 </li>
                             ))}
                         </ul>
-                        {loadedMessages.length < messagesData.length && (
-                            <button onClick={handleShowMore}>Show More</button>
+                        {loadedMessages.length < totalMessages && (
+                            <button onClick={handleShowMore} disabled={isLoading}>
+                                {isLoading ? 'Loading...' : `Show more ( ${totalMessages - loadedMessages.length} )`}
+                            </button>
+
                         )}
                     </div>
+
                     <div className="main">
                         {activeMessage ? (
                             <>
-                                <ActiveMessageTagList activeMessage={activeMessage}/>
+                            <ActiveMessageTagList activeMessage={activeMessage}/>
                                 <div className="main-card-header">
                                     <div className="main-card-date">{formatDate(activeMessage.date)}</div>
                                     <div className="main-card-id">

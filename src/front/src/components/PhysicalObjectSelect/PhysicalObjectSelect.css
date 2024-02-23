@@ -96,6 +96,7 @@
 #object .reactSelect__clear-indicator {
     display: none;
 }
+
 #object .reactSelect__input-container .reactSelect__input {
     font-size: 0.9375em !important;
     color: white !important;

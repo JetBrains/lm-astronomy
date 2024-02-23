@@ -62,22 +62,20 @@ function formatDate(timestamp) {
     // Construct the formatted string
     return `${day} ${month} ${year}; ${hours}:${minutes} UT+2`;
 }
-function mergeDataWithMessages(dataArray, messagesArray) {
-    return dataArray.map(dataItem => {
-
-        const correspondingMessage = messagesArray.find(msg => msg.identifier.replace("ATel", "") === dataItem.record_id);
-        // console.log(messagesArray[0])
-        if (correspondingMessage) {
-
-            return {
-                ...dataItem,
-                ...correspondingMessage,
-            };
-        } else {
-            return dataItem;
-        }
+function mergeDataWithMessages(nimRecords, messagesArray) {
+    return nimRecords.filter(nimItem =>
+        messagesArray.some(msg => msg.identifier.replace(/^ATel/, "") === nimItem.record_id)
+    ).map(nimItem => {
+        const correspondingMessage = messagesArray.find(msg =>
+            msg.identifier.replace(/^ATel/, "") === nimItem.record_id
+        );
+        return {
+            ...nimItem,
+            ...correspondingMessage,
+        };
     });
 }
+
 
 export function searchAPI(objectName, ra, dec, ang, physicalPhenomena, eventType, messengerType,  page) {
     const coordinatesString = (ra && dec) ? `${ra} ${dec}` : '';
@@ -110,7 +108,7 @@ export function searchAPI(objectName, ra, dec, ang, physicalPhenomena, eventType
             });
             const atelRecords = await fetchAtelRecords(nimRecords, page);
             const nimRecordsAtel = await mergeDataWithMessages(nimRecords, atelRecords.map(item => item["0"]));
-            console.log(atelRecords.map(item => item["0"]));
+            console.log(atelRecords.length);
 
             return  {
                 records: nimRecordsAtel,

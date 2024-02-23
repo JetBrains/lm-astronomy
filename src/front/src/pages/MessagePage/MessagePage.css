@@ -12,6 +12,22 @@
     font-size: 0.5em;
     font-weight: normal;
     width:35%;
+    padding-bottom: 10em;
+    max-height: 100vh;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.sidemenu::-webkit-scrollbar {
+    display: none;
+}
+
+.sidemenu button {
+    margin-left: 5em;
+    margin-top: 1em;
+    background-color: var(--highlight);
+    border: 0;
+    padding: 0.5em;
 }
 
 .main {
@@ -139,3 +155,6 @@
 .main-card-message a:hover {
     color: white;
 }
+
+
+

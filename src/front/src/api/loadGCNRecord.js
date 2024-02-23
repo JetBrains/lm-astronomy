@@ -13,7 +13,7 @@ const loadGCNRecord = async (recordId) => {
             author: responseData.submitter,
             link: url,
             title: responseData.subject,
-            date: new Date(responseData.createdOn * 1000), // Преобразование времени в JavaScript
+            date: new Date(responseData.createdOn * 1000),
             description: responseData.body,
         };
     } catch (error) {

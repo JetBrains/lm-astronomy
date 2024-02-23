@@ -16,6 +16,7 @@ body {
     --highlight: #ebc455;
     --highlight-rgb: 235, 196, 85;
     --shaded_text: #808080;
+    --flow_input: #777;
     --separator: #2a2828;
 }
 /*.font-base {*/
