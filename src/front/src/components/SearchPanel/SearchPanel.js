@@ -36,16 +36,18 @@ function SearchPanel() {
     // const {  } = useContext(SearchParamsContext);
     const [isLoading, setIsLoading] = useState(false);
     const [isDisabled, setIsDisabled] = useState(true);
+    const [page, setPage] = useState(1);
     // console.log(!transientName && !selectedObject && !selectedMessenger && !selectedEvent && (!ra && dec && ang || (ra === null && dec === null && ang === null)));
-    const { setMessagesData } = useContext(MessageContext);
+    const { setMessagesData, setTotalMessages } = useContext(MessageContext);
 
     const navigate = useNavigate();
     const handleSearch = () => {
         setIsLoading(true);
 
-        searchAPI(transientName, ra, dec, ang, physicalObject, eventType, messengerType)
+        searchAPI(transientName, ra, dec, ang, physicalObject, eventType, messengerType, page )
             .then((data) => {
-                setMessagesData(data);
+                setMessagesData(data.records);
+                setTotalMessages(data.total);
                 navigate("/messages");
             })
             .catch((error) => {

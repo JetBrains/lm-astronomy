@@ -30,7 +30,7 @@ function MessagePage() {
         messagesData,
         currentPage,
         setCurrentPage,
-        totalPages
+        totalMessages,
     } = useContext(MessageContext);
 
 
@@ -38,15 +38,18 @@ function MessagePage() {
     const [activeMessageId, setActiveMessageId] = useState(
         messagesData && messagesData.length > 0 ? messagesData[0].record_id : null
     );
+
     const [loadedMessages, setLoadedMessages] = useState([]);
     const itemsPerPage = 10;
     useEffect(() => {
-        setLoadedMessages(messagesData.slice(0, itemsPerPage));
+        setLoadedMessages(messagesData);
     }, [messagesData]);
 
     useEffect(() => {
-        console.log("Total messages:", messagesData.length);
-        console.log("Loaded messages:", loadedMessages.length);
+        // console.log("Data:", messagesData[0]);
+        // console.log("Total messages:", totalMessages);
+        // console.log("Loaded messages:", loadedMessages.length);
+        // console.log("Active message:", activeMessageId)
     });
 
         const handleShowMore = () => {
@@ -56,6 +59,11 @@ function MessagePage() {
 
 
     const activeMessage = messagesData && messagesData.find(msg => msg.record_id === activeMessageId);
+
+
+    useEffect(() => {
+        // console.log(messagesData)
+    });
     const handleCardClick = (id) => {
         setActiveMessageId(id);
         // Здесь можно вызывать функцию для перезагрузки контента в main колонке, когда она будет готова
@@ -177,7 +185,7 @@ function MessagePage() {
         <div className="app-container font-base">
             <div className="container">
                 <Header/>
-                <CollapsedSearchPanel searched={searchString}/>
+                <CollapsedSearchPanel searched={searchString} total={totalMessages}/>
                 <div className="columns">
                     <div className="sidemenu">
                         <ul className="cards-list">

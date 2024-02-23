@@ -1,3 +1,11 @@
+import {useContext} from "react";
+import loadGCNRecord from "./loadGCNRecord";
+import fetchAtelRecords from "./loadAtelRecord";
+import {MessageContext} from '../components/Contexts/MessageContext';
+
+
+
+
 const BASE_URL = 'https://lm-astronomy.labs.jb.gg/api';
 const HEADERS = {
     'accept': 'application/json'
@@ -12,6 +20,8 @@ export const fetchPublishers = async (publisher, id) => {
     data.provider = publisher;
     return data;
 }
+
+
 function constructURL(base, params) {
     const filteredParams = Object.entries(params)
         .filter(([key, value]) => value !== null && value !== undefined && value !== '')
@@ -54,24 +64,23 @@ function formatDate(timestamp) {
 }
 function mergeDataWithMessages(dataArray, messagesArray) {
     return dataArray.map(dataItem => {
-        // Find the corresponding message for this data item
-        const correspondingMessage = messagesArray.find(msg => msg.id === dataItem.record_id);
 
-        // If a corresponding message is found, merge the properties, else just return the data item
+        const correspondingMessage = messagesArray.find(msg => msg.identifier.replace("ATel", "") === dataItem.record_id);
+        // console.log(messagesArray[0])
         if (correspondingMessage) {
+
             return {
-                ...dataItem,              // properties from the atelData/gcnData
-                ...correspondingMessage,  // properties from the fetched message
+                ...dataItem,
+                ...correspondingMessage,
             };
         } else {
-            return dataItem;  // if no corresponding message was found, just return the data item
+            return dataItem;
         }
     });
 }
 
-export function searchAPI(objectName, ra, dec, ang, physicalPhenomena, eventType, messengerType,  page = 1) {
+export function searchAPI(objectName, ra, dec, ang, physicalPhenomena, eventType, messengerType,  page) {
     const coordinatesString = (ra && dec) ? `${ra} ${dec}` : '';
-
     const url = constructURL( `${BASE_URL}/search/`, {
         object_name: objectName,
         object_type: physicalPhenomena,
@@ -83,6 +92,7 @@ export function searchAPI(objectName, ra, dec, ang, physicalPhenomena, eventType
     });
 
 
+
     return fetch(url, { headers: HEADERS })
 
         .then(response => {
@@ -92,17 +102,38 @@ export function searchAPI(objectName, ra, dec, ang, physicalPhenomena, eventType
             return response.json();
         })
         .then(async data => {
-            console.log(Object.keys(data.atel).length + Object.keys(data.gcn).length);
+            // Return only record IDs instead of calling the useAtelRecord hook
+            const nimRecords = Object.values(data.atel || {}).sort((a, b) => {
+                const dateA = new Date(a.date);
+                const dateB = new Date(b.date);
+                return dateB - dateA;
+            });
+            const atelRecords = await fetchAtelRecords(nimRecords, page);
+            const nimRecordsAtel = await mergeDataWithMessages(nimRecords, atelRecords.map(item => item["0"]));
+            console.log(atelRecords.map(item => item["0"]));
 
-            const atelDataPromises = Object.values(data.atel || {}).map(item => fetchPublishers("atel", item.record_id));
-            const gcnDataPromises = Object.values(data.gcn || {}).map(item => fetchPublishers("gcn", item.record_id));
-
-            const atel = await Promise.all(atelDataPromises);
-            const gcn = await Promise.all(gcnDataPromises);
-
-            const atelMessages = mergeDataWithMessages(Object.values(data.atel || {}), atel);
-            const gcnMessages = mergeDataWithMessages(Object.values(data.gcn || {}), gcn);
-            return arrayMixer(atelMessages, gcnMessages);
+            return  {
+                records: nimRecordsAtel,
+                total: nimRecords.length
+            }
+         //
+         //  .then(async data => { })
+        //     // console.log(Object.keys(data.atel).length + Object.keys(data.gcn).length);
+        //
+        //     const atelDataPromises = Object.values(data.atel || {}).map(item => useLoadAtelRecord(item.record_id));
+        //     // const atelDataPromises = Object.values(useAtelRecord(2));
+        //
+            // console.log(atelDataPromises);
+            // // const atelDataPromises = Object.values(data.atel || {}).map(item => fetchPublishers("atel", item.record_id));
+            // // const gcnDataPromises = Object.values(data.gcn || {}).map(item => loadGCNRecord(item.record_id));
+            //
+            // const atel = await Promise.all(atelDataPromises);
+            // // const gcn = await Promise.all(gcnDataPromises);
+            //
+            // const atelMessages = mergeDataWithMessages(Object.values(data.atel || {}), atel);
+            // // const gcnMessages = mergeDataWithMessages(Object.values(data.gcn || {}), gcn);
+            // // return arrayMixer(atelMessages, gcnMessages);
+            // return atelMessages
 
 
         });

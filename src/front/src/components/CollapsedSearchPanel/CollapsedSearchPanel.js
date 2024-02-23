@@ -15,6 +15,9 @@ function CollapsedSearchPanel(props) {
             <div className="founded-objects">
                 {props.searched}
             </div>
+            <div className="totalMessages">
+                {props.total}
+            </div>
             <div className="back_to_search">
                 <svg className="search-icon" width="84" height="84" viewBox="0 0 84 84" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="42" cy="42" r="40.5" stroke="black" strokeWidth="3"/>
