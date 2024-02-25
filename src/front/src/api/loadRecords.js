@@ -40,6 +40,7 @@ const fetchRecords = async (nimRecords, pageNumber = 1, recordsPerPage = 10) => 
     const atelPromises = selectedNimRecords
         .filter(item => item.provider === 'atel')
         .map(item => fetchDataFromSource(item.record_id, true));
+
     const gcnPromises = selectedNimRecords
         .filter(item => item.provider === 'gcn')
         .map(item => fetchDataFromSource(item.record_id, false));
@@ -68,21 +69,18 @@ const mergeDataWithRecords = (nimRecords, fetchedRecords) => {
 const fetchDataFromSource = async (recordId, isAtel = true) => {
     try {
         const url = isAtel
-            // ? `https://www.astronomerstelegram.org/?rss+${recordId}`
-            ? `/atel/?rss+${recordId}`
-            // : `https://gcn.nasa.gov/circulars/${recordId.replace('neg', '-').replace('.gcn3', '')}.json`;
+            ? `https://lm-astronomy.labs.jb.gg/api/atel/${recordId}/message`
             : `https://lm-astronomy.labs.jb.gg/api/gcn/${recordId}/message`;
-
         const response = await fetch(url);
         if (response.status !== 200) {
             throw new Error('Failed to fetch data');
         }
         if (isAtel) {
-            const responseXml = await response.text();
-            const xmlDoc = new DOMParser().parseFromString(responseXml, 'text/xml');
-            const result = processXmlToJson(xmlDoc);
-
-            return result.map(record => ({...record, provider: 'atel'}));
+            const responseData = await response.json();
+            // const responseXml = await response.text();
+            // const xmlDoc = new DOMParser().parseFromString(responseXml, 'text/xml');
+            // const result = processXmlToJson(xmlDoc);
+            return [responseData].map(record => ({...record, provider: 'atel'}));
         } else {
             const responseData = await response.json();
             // const result = normalizeGCNData(responseData);
