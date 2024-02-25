@@ -75,8 +75,8 @@ const mergeDataWithRecords = (nimRecords, fetchedRecords) => {
 const fetchDataFromSource = async (recordId, isAtel = true) => {
     try {
         const url = isAtel
-            ? `https://www.astronomerstelegram.org/?rss+${recordId}`
-            : `https://gcn.nasa.gov/circulars/${recordId.replace('neg', '-').replace('.gcn3', '')}.json`;
+            ? `/atel/?rss+${recordId}`
+            : `/gcn/${recordId.replace('neg', '-').replace('.gcn3', '')}.json`;
         const response = await fetch(url);
         if (response.status !== 200) {
             throw new Error('Failed to fetch data');
