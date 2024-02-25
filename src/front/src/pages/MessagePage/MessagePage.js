@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {MessageContext} from '../../components/Contexts/MessageContext';
 import './MessagePage.css';
 import Header from "../../components/Header/Header";
@@ -9,13 +9,7 @@ import {searchAPI} from "../../api/apiServices";
 
 function MessagePage() {
     const {
-        transientName,
-        ra,
-        dec,
-        ang,
-        eventType,
-        physicalObject,
-        messengerType,
+        transientName, ra, dec, ang, eventType, physicalObject, messengerType,
     } = useContext(SearchParamsContext);
 
     const navigate = useNavigate();
@@ -28,18 +22,11 @@ function MessagePage() {
 
 
     const {
-        setMessagesData,
-        messagesData,
-        currentPage,
-        setCurrentPage,
-        totalMessages,
+        setMessagesData, messagesData, currentPage, setCurrentPage, totalMessages,
     } = useContext(MessageContext);
 
 
-
-    const [activeMessageId, setActiveMessageId] = useState(
-        messagesData && messagesData.length > 0 ? messagesData[0].record_id : null
-    );
+    const [activeMessageId, setActiveMessageId] = useState(messagesData && messagesData.length > 0 ? messagesData[0].record_id : null);
 
     const [loadedMessages, setLoadedMessages] = useState([]);
     const itemsPerPage = 10;
@@ -123,22 +110,18 @@ function MessagePage() {
 
         return `${day} ${month} ${year}; ${hours}:${minutes} ${timeLabel}`;
     }
+
     const processDescription = (description) => {
         // Проверяем, что description определен, прежде чем использовать метод endsWith
-        const trimmedDescription = description && description.endsWith('...')
-            ? description.slice(0, -3)
-            : description;
+        const trimmedDescription = description && description.endsWith('...') ? description.slice(0, -3) : description;
 
-        return (
-            <>
+        return (<>
                 {trimmedDescription}
                 {activeMessage && activeMessage.link && (
                     <a href={activeMessage.link} target="_blank" rel="noopener noreferrer">
-                         More...
-                    </a>
-                )}
-            </>
-        );
+                        More...
+                    </a>)}
+            </>);
     };
 
     function generateTagList(activeMessage) {
@@ -180,35 +163,20 @@ function MessagePage() {
         }
 
         const listItems = generateTagList(activeMessage);
-        return (
-            <ul className={"tagList"}>
+        return (<ul className={"tagList"}>
                 {listItems.length > 0 ? listItems : <li>No data available</li>}
-            </ul>
-        );
+            </ul>);
     }
-
 
 
     if (!messagesData) {
         return <div>Loading...</div>;
     }
 
-    const searchString = [
-        transientName && `${transientName}`,
-        ra && `RA=${ra}`,
-        dec && `DEC=${dec}`,
-        ang && `ANG=${ang}`,
-        physicalObject && `${physicalObject}`,
-        eventType && `${eventType}`,
-        messengerType && `${messengerType}`
-    ].filter(Boolean).join(', ');
+    const searchString = [transientName && `${transientName}`, ra && `RA=${ra}`, dec && `DEC=${dec}`, ang && `ANG=${ang}`, physicalObject && `${physicalObject}`, eventType && `${eventType}`, messengerType && `${messengerType}`].filter(Boolean).join(', ');
 
 
-
-
-
-    return (
-        <div className="app-container font-base">
+    return (<div className="app-container font-base">
             <div className="container">
                 <Header/>
                 <CollapsedSearchPanel searched={searchString} total={totalMessages}/>
@@ -216,8 +184,7 @@ function MessagePage() {
 
                     <div className="sidemenu">
                         <ul className="cards-list">
-                            {loadedMessages && loadedMessages.map((msg) => (
-                                <li
+                            {loadedMessages && loadedMessages.map((msg) => (<li
                                     key={msg.record_id}
                                     className={`card-item ${msg.record_id === activeMessageId ? 'active-card' : ''}`}
                                     onClick={() => handleCardClick(msg.record_id)}
@@ -226,13 +193,12 @@ function MessagePage() {
                                         <div className="card-date">{formatDate(msg.date)}</div>
                                         <div className="card-id">
                                             {msg.provider === "atel" ? `ATel${msg.record_id}` : null}
-                                            {msg.provider === "gcn" ? `GCN${msg.record_id.split('.')[0]}` : null}
+                                            {msg.provider === "gcn" ? `GCN${msg.record_id.replace('neg', '').split('.')[0]}` : null}
                                         </div>
 
                                     </div>
                                     <div className="card-title">{trimChannelIdFromTitle(msg.title)}</div>
-                                </li>
-                            ))}
+                                </li>))}
                         </ul>
                         {loadedMessages.length < totalMessages && (
                             <button onClick={handleShowMore} disabled={isLoading}>
@@ -243,35 +209,28 @@ function MessagePage() {
                     </div>
 
                     <div className="main">
-                        {activeMessage ? (
-                            <>
+                        {activeMessage ? (<>
                                 <ActiveMessageTagList activeMessage={activeMessage}/>
                                 <div className="main-card-header">
                                     <div className="main-card-date">{formatDate(activeMessage.date)}</div>
                                     <div className="main-card-id">
                                         {activeMessage.provider === "atel" ? `ATel${activeMessage.record_id}` : null}
-                                        {activeMessage.provider === "gcn" ? `GCN${activeMessage.record_id.split('.')[0]}` : null}
+                                        {activeMessage.provider === "gcn" ? `GCN${activeMessage.record_id.replace('neg', '').split('.')[0]}` : null}
                                     </div>
 
                                 </div>
                                 <h2 className="main-card-title">{trimChannelIdFromTitle(activeMessage.title)}</h2>
 
                                 <p className={"main-card-message"}>
-                                    {activeMessage && activeMessage.description
-                                        ? processDescription(activeMessage.description)
-                                        : "No description available."}
+                                    {activeMessage && activeMessage.description ? processDescription(activeMessage.description) : "No description available."}
                                 </p>
 
                                 <p className={"main-card-creator"}>{activeMessage.creator}</p>
-                            </>
-                        ) : (
-                            <p>No messages</p>
-                        )}
+                            </>) : (<p>No messages</p>)}
                     </div>
                 </div>
             </div>
-        </div>
-    );
+        </div>);
 }
 
 export default MessagePage;
