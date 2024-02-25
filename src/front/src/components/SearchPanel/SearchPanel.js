@@ -46,6 +46,7 @@ function SearchPanel() {
 
         searchAPI(transientName, ra, dec, ang, physicalObject, eventType, messengerType, page )
             .then((data) => {
+                // console.log(data.records);
                 setMessagesData(data.records);
                 setTotalMessages(data.total);
                 navigate("/messages");

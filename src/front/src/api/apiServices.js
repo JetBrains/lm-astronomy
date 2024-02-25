@@ -1,24 +1,24 @@
-import {useContext} from "react";
-import loadGCNRecord from "./loadGCNRecord";
-import fetchAtelRecords from "./loadAtelRecord";
-import {MessageContext} from '../components/Contexts/MessageContext';
-
-
-
+import {loadDataAndMerge} from "./loadAtelRecord";
 
 const BASE_URL = 'https://lm-astronomy.labs.jb.gg/api';
 const HEADERS = {
     'accept': 'application/json'
 };
 
-
-export const fetchPublishers = async (publisher, id) => {
-    const url = `${BASE_URL}/${publisher}/${id}/message`
-    const response = await fetch(url);
-    const data = await response.json();
-    data.id = id;
-    data.provider = publisher;
-    return data;
+function parseDateToTimestamp(dateStr, provider) {
+    if (provider === 'atel') {
+        const parts = dateStr.split(';')[0].split(' ');
+        const timePart = dateStr.split(';')[1].trim();
+        const timeParts = timePart.split(':');
+        const date = new Date(`${parts[2]}-${parts[1]}-${parts[0]}T${timeParts[0]}:${timeParts[1]}:00Z`);
+        return date.getTime();
+    } else if (provider === 'gcn') {
+        const parts = dateStr.split(' ')[0].split('/');
+        const year = parseInt(parts[0], 10) + (parts[0].length === 2 ? 1900 : 0); // Преобразование в 4-значный год
+        const date = new Date(`${year}-${parts[1]}-${parts[2]}T${dateStr.split(' ')[1]}Z`);
+        return date.getTime();
+    }
+    return null;
 }
 
 
@@ -30,51 +30,21 @@ function constructURL(base, params) {
     return `${base}?${queryString}`;
 }
 
-function sortByDate(dataArray) {
-    return dataArray.sort((a, b) => {
-        const dateA = new Date(a.date.replace(' UT', 'Z'));
-        const dateB = new Date(b.date.replace(' UT', 'Z'));
-        return dateA - dateB;
+function mergeAndSortRecords(atelArray, gcnArray) {
+    atelArray = Array.isArray(atelArray) ? atelArray : Object.values(atelArray);
+    gcnArray = Array.isArray(gcnArray) ? gcnArray : Object.values(gcnArray);
+
+    const combinedRecords = [...atelArray, ...gcnArray].map(record => {
+        const timestamp = parseDateToTimestamp(record.date, record.provider);
+        return { ...record, timestamp };
     });
+
+    combinedRecords.sort((a, b) => a.timestamp - b.timestamp);
+
+    return combinedRecords;
 }
-function arrayMixer(atel, gcn) {
-    const mixedArray = [...atel, ...gcn];
-    return sortByDate(mixedArray);
-}
 
-function formatDate(timestamp) {
-    // Create a Date object from the timestamp
-    const date = new Date(timestamp);
 
-    // Adjust for UTC+2
-    date.setHours(date.getHours() + 2);
-
-    // Define month names
-    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
-    // Extract the desired components
-    const day = date.getUTCDate();
-    const month = monthNames[date.getUTCMonth()];
-    const year = date.getUTCFullYear();
-    const hours = String(date.getUTCHours()).padStart(2, '0');
-    const minutes = String(date.getUTCMinutes()).padStart(2, '0');
-
-    // Construct the formatted string
-    return `${day} ${month} ${year}; ${hours}:${minutes} UT+2`;
-}
-function mergeDataWithMessages(nimRecords, messagesArray) {
-    return nimRecords.filter(nimItem =>
-        messagesArray.some(msg => msg.identifier.replace(/^ATel/, "") === nimItem.record_id)
-    ).map(nimItem => {
-        const correspondingMessage = messagesArray.find(msg =>
-            msg.identifier.replace(/^ATel/, "") === nimItem.record_id
-        );
-        return {
-            ...nimItem,
-            ...correspondingMessage,
-        };
-    });
-}
 
 
 export function searchAPI(objectName, ra, dec, ang, physicalPhenomena, eventType, messengerType,  page) {
@@ -97,41 +67,30 @@ export function searchAPI(objectName, ra, dec, ang, physicalPhenomena, eventType
             if (!response.ok) {
                 throw new Error("Network response was not ok");
             }
+
             return response.json();
         })
         .then(async data => {
-            // Return only record IDs instead of calling the useAtelRecord hook
-            const nimRecords = Object.values(data.atel || {}).sort((a, b) => {
-                const dateA = new Date(a.date);
-                const dateB = new Date(b.date);
-                return dateB - dateA;
-            });
-            const atelRecords = await fetchAtelRecords(nimRecords, page);
-            const nimRecordsAtel = await mergeDataWithMessages(nimRecords, atelRecords.map(item => item["0"]));
-            console.log(atelRecords.length);
+            const atelData = Object.values(data.atel || {});
+            const gcnData = Object.values(data.gcn || {});
 
+            const atelDataWithProvider = atelData.map(item => ({
+                ...item,
+                provider: 'atel'
+            }));
+
+            const gcnDataWithProvider = gcnData.map(item => ({
+                ...item,
+                provider: 'gcn'
+            }));
+            const atelDataWithProvider1 = atelDataWithProvider.slice(0, 1);
+            const nimRecords = mergeAndSortRecords(atelDataWithProvider1, gcnDataWithProvider);
+            // console.log(nimRecords);
+            const records = await loadDataAndMerge(nimRecords, page);
             return  {
-                records: nimRecordsAtel,
+                records: records,
                 total: nimRecords.length
             }
-         //
-         //  .then(async data => { })
-        //     // console.log(Object.keys(data.atel).length + Object.keys(data.gcn).length);
-        //
-        //     const atelDataPromises = Object.values(data.atel || {}).map(item => useLoadAtelRecord(item.record_id));
-        //     // const atelDataPromises = Object.values(useAtelRecord(2));
-        //
-            // console.log(atelDataPromises);
-            // // const atelDataPromises = Object.values(data.atel || {}).map(item => fetchPublishers("atel", item.record_id));
-            // // const gcnDataPromises = Object.values(data.gcn || {}).map(item => loadGCNRecord(item.record_id));
-            //
-            // const atel = await Promise.all(atelDataPromises);
-            // // const gcn = await Promise.all(gcnDataPromises);
-            //
-            // const atelMessages = mergeDataWithMessages(Object.values(data.atel || {}), atel);
-            // // const gcnMessages = mergeDataWithMessages(Object.values(data.gcn || {}), gcn);
-            // // return arrayMixer(atelMessages, gcnMessages);
-            // return atelMessages
 
 
         });

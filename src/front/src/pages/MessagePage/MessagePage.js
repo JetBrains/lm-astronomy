@@ -45,6 +45,7 @@ function MessagePage() {
     const itemsPerPage = 10;
 
     useEffect(() => {
+        // console.log(messagesData)
         setLoadedMessages(messagesData);
     }, [messagesData]);
 
@@ -124,18 +125,24 @@ function MessagePage() {
         return `${day} ${month} ${year}; ${hours}:${minutes} ${timeLabel}`;
     }
     const processDescription = (description) => {
-        const trimmedDescription = description.endsWith('...') ? description.slice(0, -3) : description;
+        // Проверяем, что description определен, прежде чем использовать метод endsWith
+        const trimmedDescription = description && description.endsWith('...')
+            ? description.slice(0, -3)
+            : description;
 
         // Возвращаем JSX с обработанным описанием и ссылкой
         return (
             <>
-                   {trimmedDescription}
+                {trimmedDescription}
+                {activeMessage && activeMessage.link && (
                     <a href={activeMessage.link} target="_blank" rel="noopener noreferrer">
                         More...
                     </a>
+                )}
             </>
         );
     };
+
     function generateTagList(activeMessage) {
         // Пустой массив для хранения элементов li
         const listItems = [];
@@ -240,7 +247,7 @@ function MessagePage() {
                     <div className="main">
                         {activeMessage ? (
                             <>
-                            <ActiveMessageTagList activeMessage={activeMessage}/>
+                                <ActiveMessageTagList activeMessage={activeMessage}/>
                                 <div className="main-card-header">
                                     <div className="main-card-date">{formatDate(activeMessage.date)}</div>
                                     <div className="main-card-id">
@@ -250,7 +257,13 @@ function MessagePage() {
 
                                 </div>
                                 <h2 className="main-card-title">{trimChannelIdFromTitle(activeMessage.title)}</h2>
-                                <p className={"main-card-message"}>{processDescription(activeMessage.description)}</p>
+
+                                <p className={"main-card-message"}>
+                                    {activeMessage && activeMessage.description
+                                        ? processDescription(activeMessage.description)
+                                        : "No description available."}
+                                </p>
+
                                 <p className={"main-card-creator"}>{activeMessage.creator}</p>
                             </>
                         ) : (

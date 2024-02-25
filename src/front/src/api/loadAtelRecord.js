@@ -1,5 +1,5 @@
 const processXmlToJson = (xmlData) => {
-    let result = {};
+    const result = [];
     const items = xmlData.getElementsByTagName('item');
     for (let i = 0; i < items.length; i++) {
         const item = items[i];
@@ -10,38 +10,93 @@ const processXmlToJson = (xmlData) => {
             let value = keys[j].textContent || keys[j].innerText;
             itemObject[key] = value;
         }
-        result[i] = itemObject;
+        result.push(itemObject);
     }
     return result;
 };
-const fetchAtelRecords = async (nimRecords, pageNumber = 1, recordsPerPage = 10) => {
+
+
+function normalizeGCNData(gcnData) {
+    if (!Array.isArray(gcnData)) {
+        gcnData = [gcnData];
+    }
+    return gcnData.map(item => ({
+        author: item.submitter,
+        creator: item.submitter,
+        creatorEmail: item.email,
+        date: item.createdOn, // convert to string
+        description: item.body,
+        identifier: `GCN${item.circularId}`,
+        link: `https://gcn.nasa.gov/circulars/${item.circularId}.json`,
+        title: item.subject
+    }));
+}
+const fetchRecords = async (nimRecords, pageNumber = 1, recordsPerPage = 10) => {
     const startIndex = (pageNumber - 1) * recordsPerPage;
     const selectedNimRecords = nimRecords.slice(startIndex, startIndex + recordsPerPage);
 
-    const recordPromises = selectedNimRecords.map(item => fetchAtelRecord(item.record_id));
-    return await Promise.all(recordPromises);
+    const atelPromises = selectedNimRecords
+        .filter(item => item.provider === 'atel')
+        .map(item => fetchDataFromSource(item.record_id, true));
+
+    const gcnPromises = selectedNimRecords
+        .filter(item => item.provider === 'gcn')
+        .map(item => fetchDataFromSource(item.record_id, false));
+    const atelRecords = await Promise.all(atelPromises);
+    const gcnRecords = await Promise.all(gcnPromises);
+    return [...atelRecords.flat(), ...gcnRecords.flat()];
 };
 
-const fetchAtelRecord = async (id) => {
-    if (!id || typeof id == 'object') {
-        console.error('Invalid id:', id);
-        return null;
-    }
+const mergeDataWithRecords = (nimRecords, fetchedRecords) => {
+    return nimRecords.map(nimItem => {
+        let correspondingRecord;
+        if (nimItem.provider === 'atel') {
+            correspondingRecord = fetchedRecords.find(record =>
+                record && record.provider === 'atel' && `ATel${nimItem.record_id}` === record.identifier
+            );
+
+        } else if (nimItem.provider === 'gcn') {
+            correspondingRecord = fetchedRecords.find(record =>
+                record && record.provider === 'gcn' && `GCN${nimItem.record_id.split(".")[0]}` === record.identifier
+            );
+            console.log(nimItem.record_id);
+        }
+        return correspondingRecord ? { ...nimItem, ...correspondingRecord } : nimItem;
+    });
+};
+
+
+
+const fetchDataFromSource = async (recordId, isAtel = true) => {
     try {
-        const url = `/atel/?rss+${id}`;
+        const url = isAtel
+            ? `/atel/?rss+${recordId}`
+            : `/gcn/${recordId.replace('neg', '-').replace('.gcn3', '')}.json`;
         const response = await fetch(url);
         if (response.status !== 200) {
             throw new Error('Failed to fetch data');
         }
-        const responseXml = await response.text();
-        const xmlDoc = new DOMParser().parseFromString(responseXml, 'text/xml');
-        const jsonData = processXmlToJson(xmlDoc);
-        return jsonData;
+        if (isAtel) {
+            const responseXml = await response.text();
+            const xmlDoc = new DOMParser().parseFromString(responseXml, 'text/xml');
+            const result = processXmlToJson(xmlDoc);
+            return result.map(record => ({ ...record, provider: 'atel' })); // Добавляем provider
+        } else {
+            const responseData = await response.json();
+            const result = normalizeGCNData(responseData);
+            return result.map(record => ({ ...record, provider: 'gcn' })); // Добавляем provider
+        }
     } catch (error) {
-        console.error('Failed to load ATel record:', error);
-        return null; // Or handle the error as needed
+        console.error('Failed to load record:', error);
+        return null; // Или обработайте ошибку как нужно
     }
 };
 
 
-export default fetchAtelRecords;
+
+export const loadDataAndMerge = async (nimRecords, page) => {
+    const fetchedRecords = await fetchRecords(nimRecords, page);
+    // console.log( mergeDataWithRecords(nimRecords, fetchedRecords))
+    return mergeDataWithRecords(nimRecords, fetchedRecords);
+};
+
