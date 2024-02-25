@@ -75,8 +75,8 @@ const mergeDataWithRecords = (nimRecords, fetchedRecords) => {
 const fetchDataFromSource = async (recordId, isAtel = true) => {
     try {
         const url = isAtel
-            ? `/atel/?rss+${recordId}`
-            : `/gcn/${recordId.replace('neg', '-').replace('.gcn3', '')}.json`;
+            ? `https://www.astronomerstelegram.org/?rss+${recordId}`
+            : `https://gcn.nasa.gov/circulars/${recordId.replace('neg', '-').replace('.gcn3', '')}.json`;
         const response = await fetch(url);
         if (response.status !== 200) {
             throw new Error('Failed to fetch data');
@@ -93,7 +93,7 @@ const fetchDataFromSource = async (recordId, isAtel = true) => {
         }
     } catch (error) {
         console.error('Failed to load record:', error);
-        return null; // Или обработайте ошибку как нужно
+        return null;
     }
 };
 
@@ -101,7 +101,6 @@ const fetchDataFromSource = async (recordId, isAtel = true) => {
 
 export const loadDataAndMerge = async (nimRecords, page) => {
     const fetchedRecords = await fetchRecords(nimRecords, page);
-    // console.log( mergeDataWithRecords(nimRecords, fetchedRecords))
     return mergeDataWithRecords(nimRecords, fetchedRecords);
 };
 

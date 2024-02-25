@@ -1,4 +1,4 @@
-import {loadDataAndMerge} from "./loadAtelRecord";
+import {loadDataAndMerge} from "./loadRecords";
 
 const BASE_URL = 'https://lm-astronomy.labs.jb.gg/api';
 const HEADERS = {
