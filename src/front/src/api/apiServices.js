@@ -24,11 +24,10 @@ function parseDateToTimestamp(dateStr, provider) {
         const correctedYear = year < 70 ? year + 2000 : year + 1900; // предполагаем, что года 00-69 соответствуют 2000-2069, а 70-99 - 1970-1999
         const paddedMonth = String(month).padStart(2, '0');
         const paddedDay = String(day).padStart(2, '0');
-        const time = timePart.split(' GMT')[0]; // удаляем " GMT" из строки времени
+        const time = timePart.split(' GMT')[0];
 
         const dateISO = `${correctedYear}-${paddedMonth}-${paddedDay}T${time}Z`; // Заменяем GMT на Z, так как GMT эквивалентно UTC
         const date = new Date(dateISO);
-        console.log(date.getTime());
         return date.getTime();
     }
     return null;
@@ -99,7 +98,6 @@ export function searchAPI(objectName, ra, dec, ang, physicalPhenomena, eventType
             }));
             // const atelDataWithProvider1 = atelDataWithProvider.slice(0, 1);
             const nimRecords = mergeAndSortRecords(atelDataWithProvider, gcnDataWithProvider);
-            // console.log(nimRecords);
             const records = await loadDataAndMerge(nimRecords, page);
             return  {
                 records: records,

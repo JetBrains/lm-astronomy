@@ -45,7 +45,6 @@ function MessagePage() {
     const itemsPerPage = 10;
 
     useEffect(() => {
-        console.log(messagesData)
         setLoadedMessages(messagesData);
     }, [messagesData]);
 
@@ -130,13 +129,12 @@ function MessagePage() {
             ? description.slice(0, -3)
             : description;
 
-        // Возвращаем JSX с обработанным описанием и ссылкой
         return (
             <>
                 {trimmedDescription}
                 {activeMessage && activeMessage.link && (
                     <a href={activeMessage.link} target="_blank" rel="noopener noreferrer">
-                        More...
+                         More...
                     </a>
                 )}
             </>
