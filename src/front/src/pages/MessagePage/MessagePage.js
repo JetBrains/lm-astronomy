@@ -45,7 +45,7 @@ function MessagePage() {
     const itemsPerPage = 10;
 
     useEffect(() => {
-        // console.log(messagesData)
+        console.log(messagesData)
         setLoadedMessages(messagesData);
     }, [messagesData]);
 

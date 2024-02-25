@@ -48,22 +48,27 @@ const fetchRecords = async (nimRecords, pageNumber = 1, recordsPerPage = 10) => 
 };
 
 const mergeDataWithRecords = (nimRecords, fetchedRecords) => {
-    return nimRecords.map(nimItem => {
-        let correspondingRecord;
+    return nimRecords.filter(nimItem => {
         if (nimItem.provider === 'atel') {
-            correspondingRecord = fetchedRecords.find(record =>
+            return fetchedRecords.some(record =>
                 record && record.provider === 'atel' && `ATel${nimItem.record_id}` === record.identifier
             );
-
         } else if (nimItem.provider === 'gcn') {
-            correspondingRecord = fetchedRecords.find(record =>
+            return fetchedRecords.some(record =>
                 record && record.provider === 'gcn' && `GCN${nimItem.record_id.split(".")[0]}` === record.identifier
             );
-            console.log(nimItem.record_id);
         }
-        return correspondingRecord ? { ...nimItem, ...correspondingRecord } : nimItem;
-    });
+        return false;
+    })
+        .map(nimItem => {
+            const correspondingRecord = fetchedRecords.find(record =>
+                (nimItem.provider === 'atel' && `ATel${nimItem.record_id}` === record.identifier) ||
+                (nimItem.provider === 'gcn' && `GCN${nimItem.record_id.split(".")[0]}` === record.identifier)
+            );
+            return { ...nimItem, ...correspondingRecord };
+        });
 };
+
 
 
 
