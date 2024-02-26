@@ -1,7 +1,7 @@
 @font-face {
     font-family: 'JetBrains Mono';
     src: local('JetBrains Mono'), url('./JetBrainsMono-Regular.ttf') format('truetype');
-    font-weight: 400; /* or other weight */
+    font-weight: 400;
     font-style: normal;
 }
 
@@ -19,14 +19,3 @@ body {
     --flow_input: #777;
     --separator: #2a2828;
 }
-/*.font-base {*/
-/*    font-family: 'JetBrains Mono', monospace;*/
-/*    font-weight: 400;*/
-/*    letter-spacing: 2px;*/
-/*    text-transform: uppercase;*/
-/*}*/
-
-/*code {*/
-/*  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',*/
-/*    monospace;*/
-/*}*/

@@ -26,15 +26,17 @@ function MessengerType(props) {
 
     return (
 <>
-            {messengers.map(messenger => (
-                <div
-                    key={messenger.name}
-                    className={`messengerButton ${messengerType === messenger.name ? 'active' : ''}`}
-                    onClick={() => handleMessengerClick(messenger.name)}
-                >
-                    {messenger.label}
-                </div>
-            ))}
+    {messengers.map(messenger => (
+        <div
+            key={messenger.name}
+            className={`messengerButton ${messengerType === messenger.name ? 'active' : ''}`}
+            onClick={() => handleMessengerClick(messenger.name)}
+        >
+            {messenger.label}
+            <span className="tooltip">{messenger.name}</span>
+        </div>
+    ))}
+
 </>
     );
 }

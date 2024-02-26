@@ -10,6 +10,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
     width: 2em;
     height: 2em;
     border-radius: 50%;
@@ -25,4 +26,26 @@
     background-color: var(--highlight);
     color: black;
     border-color: var(--highlight);
+}
+.tooltip {
+    visibility: hidden;
+    width: 120px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: var(--flow_input);
+    font-family: 'JetBrains Mono', sans-serif;
+    font-size: 0.4em;
+    text-align: center;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 105%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.messengerButton:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
 }

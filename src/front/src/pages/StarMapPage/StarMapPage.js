@@ -23,8 +23,6 @@ function StarMap() {
 
     };
 
-
-
     const handleCircleWidthChange = (e) => {
         const value = e.target.value;
         setCircleWidth(Math.round(Math.pow(10, value)));
@@ -123,6 +121,37 @@ function StarMap() {
         };
 
     }, [circleWidth, selectedCoords]);
+
+    const { ra, dec, ang } = useContext(SearchParamsContext);
+
+    useEffect(() => {
+        celestialRef.current = d3Celestial.Celestial();
+        celestialRef.current.display(celestialConfig);
+
+
+        if (ra && dec) {
+            const jsonCircle = {
+                "type": "FeatureCollection",
+                "features": [{
+                    "type": "Feature",
+                    "id": "",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [ra, dec]
+                    }
+                }]
+            };
+            celestialRef.current.add({
+                type: "raw",
+                callback: () => {},
+                redraw: function() {
+                    celestialRef.current.container.selectAll(".circle").remove();
+                },
+                data: jsonCircle
+            });
+            celestialRef.current.redraw();
+        }
+    }, [celestialRef.current, setRa, setDec, setAng]);
 
     return (
         <div>

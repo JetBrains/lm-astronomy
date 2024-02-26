@@ -116,12 +116,12 @@ function MessagePage() {
         const trimmedDescription = description && description.endsWith('...') ? description.slice(0, -3) : description;
 
         return (<>
-                {trimmedDescription}
-                {activeMessage && activeMessage.link && (
-                    <a href={activeMessage.link} target="_blank" rel="noopener noreferrer">
-                        More...
-                    </a>)}
-            </>);
+            {trimmedDescription}
+            {activeMessage && activeMessage.link && (
+                <a href={activeMessage.link} target="_blank" rel="noopener noreferrer">
+                    More...
+                </a>)}
+        </>);
     };
 
     function generateTagList(activeMessage) {
@@ -164,8 +164,8 @@ function MessagePage() {
 
         const listItems = generateTagList(activeMessage);
         return (<ul className={"tagList"}>
-                {listItems.length > 0 ? listItems : <li>No data available</li>}
-            </ul>);
+            {listItems.length > 0 ? listItems : <li>No data available</li>}
+        </ul>);
     }
 
 
@@ -177,60 +177,59 @@ function MessagePage() {
 
 
     return (<div className="app-container font-base">
-            <div className="container">
-                <Header/>
-                <CollapsedSearchPanel searched={searchString} total={totalMessages}/>
-                <div className="columns">
+        <div className="container">
+            <Header/>
+            <CollapsedSearchPanel searched={searchString} total={totalMessages}/>
+            <div className="columns">
 
-                    <div className="sidemenu">
-                        <ul className="cards-list">
-                            {loadedMessages && loadedMessages.map((msg) => (<li
-                                    key={msg.record_id}
-                                    className={`card-item ${msg.record_id === activeMessageId ? 'active-card' : ''}`}
-                                    onClick={() => handleCardClick(msg.record_id)}
-                                >
-                                    <div className="card-header">
-                                        <div className="card-date">{formatDate(msg.date)}</div>
-                                        <div className="card-id">
-                                            {msg.provider === "atel" ? `ATel${msg.record_id}` : null}
-                                            {msg.provider === "gcn" ? `GCN${msg.record_id.replace('neg', '').split('.')[0]}` : null}
-                                        </div>
-
-                                    </div>
-                                    <div className="card-title">{trimChannelIdFromTitle(msg.title)}</div>
-                                </li>))}
-                        </ul>
-                        {loadedMessages.length < totalMessages && (
-                            <button onClick={handleShowMore} disabled={isLoading}>
-                                {isLoading ? 'Loading...' : `Show more ( ${totalMessages - loadedMessages.length} )`}
-                            </button>
-
-                        )}
-                    </div>
-
-                    <div className="main">
-                        {activeMessage ? (<>
-                                <ActiveMessageTagList activeMessage={activeMessage}/>
-                                <div className="main-card-header">
-                                    <div className="main-card-date">{formatDate(activeMessage.date)}</div>
-                                    <div className="main-card-id">
-                                        {activeMessage.provider === "atel" ? `ATel${activeMessage.record_id}` : null}
-                                        {activeMessage.provider === "gcn" ? `GCN${activeMessage.record_id.replace('neg', '').split('.')[0]}` : null}
-                                    </div>
-
+                <div className="sidemenu">
+                    <ul className="cards-list">
+                        {loadedMessages && loadedMessages.map((msg) => (<li
+                            key={msg.record_id}
+                            className={`card-item ${msg.record_id === activeMessageId ? 'active-card' : ''}`}
+                            onClick={() => handleCardClick(msg.record_id)}
+                        >
+                            <div className="card-header">
+                                <div className="card-date">{formatDate(msg.date)}</div>
+                                <div className="card-id">
+                                    {msg.provider === "atel" ? `ATel${msg.record_id}` : null}
+                                    {msg.provider === "gcn" ? `GCN${msg.record_id.replace('neg', '').split('.')[0]}` : null}
                                 </div>
-                                <h2 className="main-card-title">{trimChannelIdFromTitle(activeMessage.title)}</h2>
 
-                                <p className={"main-card-message"}>
-                                    {activeMessage && activeMessage.description ? processDescription(activeMessage.description) : "No description available."}
-                                </p>
+                            </div>
+                            <div className="card-title">{trimChannelIdFromTitle(msg.title)}</div>
+                        </li>))}
+                    </ul>
+                    {loadedMessages.length < totalMessages && (<button onClick={handleShowMore} disabled={isLoading}>
+                            {isLoading ? 'Loading...' : `Show more ( ${totalMessages - loadedMessages.length} )`}
+                        </button>
 
-                                <p className={"main-card-creator"}>{activeMessage.creator}</p>
-                            </>) : (<p>No messages</p>)}
-                    </div>
+                    )}
+                </div>
+
+                <div className="main">
+                    {activeMessage ? (<>
+                        <ActiveMessageTagList activeMessage={activeMessage}/>
+                        <div className="main-card-header">
+                            <div className="main-card-date">{formatDate(activeMessage.date)}</div>
+                            <div className="main-card-id">
+                                {activeMessage.provider === "atel" ? `ATel${activeMessage.record_id}` : null}
+                                {activeMessage.provider === "gcn" ? `GCN${activeMessage.record_id.replace('neg', '').split('.')[0]}` : null}
+                            </div>
+
+                        </div>
+                        <h2 className="main-card-title">{trimChannelIdFromTitle(activeMessage.title)}</h2>
+
+                        <p className={"main-card-message"}>
+                            {activeMessage && activeMessage.description ? processDescription(activeMessage.description) : "No description available."}
+                        </p>
+
+                        <p className={"main-card-creator"}>{activeMessage.creator}</p>
+                    </>) : (<p>No messages</p>)}
                 </div>
             </div>
-        </div>);
+        </div>
+    </div>);
 }
 
 export default MessagePage;

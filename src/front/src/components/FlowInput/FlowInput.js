@@ -6,7 +6,6 @@ function FlowInput({ id, placeholder, onChange, onBlur, value, minWidth, maxWidt
     const spanRef = useRef(null);
 
     useEffect(() => {
-        // Update width based on the span width
         const spanWidth = spanRef.current.offsetWidth;
         const newWidth = Math.max(spanWidth, minWidth);
         setInputWidth(newWidth);

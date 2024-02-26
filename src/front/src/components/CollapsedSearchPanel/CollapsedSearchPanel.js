@@ -14,7 +14,7 @@ function CollapsedSearchPanel(props) {
         <div className="collapsed_search_container" onClick={handleClick}>
             <div className="founded-objects">
                 {props.searched}
-                <span className={"totalMessages"}> | {props.total} records found</span>
+                <span className={"totalMessages"}> | {props.total} messages found</span>
             </div>
 
             <div className="back_to_search">

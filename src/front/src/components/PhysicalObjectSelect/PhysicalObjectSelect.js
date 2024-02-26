@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import Select from 'react-select';
 import './PhysicalObjectSelect.css';
 import SearchParamsContext from '../Contexts/SearchParamsContext';
