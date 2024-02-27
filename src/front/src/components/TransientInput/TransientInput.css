@@ -7,7 +7,7 @@
 
 
 .transientContainer input::placeholder {
-    background: url(underline.png) no-repeat bottom left;
+    background: url(underline.png) repeat-x bottom left;
     color: var(--flow_input);
 }
 

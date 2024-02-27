@@ -14,8 +14,8 @@
     width: 2em;
     height: 2em;
     border-radius: 50%;
-    border: 1px solid var(--shaded_text);
-    color: var(--shaded_text);
+    border: 2px solid #3c3c3c;;
+    color: #3c3c3c;
     cursor: pointer;
     font-family: serif;
     font-size: 1.25em;
