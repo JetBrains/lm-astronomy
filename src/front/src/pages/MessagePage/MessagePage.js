@@ -12,6 +12,10 @@ function MessagePage() {
         transientName, ra, dec, ang, eventType, physicalObject, messengerType,
     } = useContext(SearchParamsContext);
 
+    const {
+        setMessagesData, messagesData, currentPage, setCurrentPage, totalMessages,
+    } = useContext(MessageContext);
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -21,9 +25,6 @@ function MessagePage() {
     }, [transientName, ra, dec, ang, eventType, physicalObject, messengerType, navigate]);
 
 
-    const {
-        setMessagesData, messagesData, currentPage, setCurrentPage, totalMessages,
-    } = useContext(MessageContext);
 
 
     const [activeMessageId, setActiveMessageId] = useState(messagesData && messagesData.length > 0 ? messagesData[0].record_id : null);

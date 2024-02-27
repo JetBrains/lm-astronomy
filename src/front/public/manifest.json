@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Nimbus",
+  "name": "Neural Interface For Multimessenger Bulletin Understanding And Searching",
   "icons": [
     {
       "src": "favicon.ico",

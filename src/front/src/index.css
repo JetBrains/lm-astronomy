@@ -9,7 +9,7 @@ body {
     margin: 0;
     font-family: 'JetBrains Mono', sans-serif;
     font-size: 25px;
-    background-color: black;
+    background-color: #030303;
 }
 
 :root {
@@ -17,5 +17,5 @@ body {
     --highlight-rgb: 235, 196, 85;
     --shaded_text: #808080;
     --flow_input: #777;
-    --separator: #2a2828;
+    --separator: #111;
 }

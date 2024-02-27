@@ -154,13 +154,16 @@ function StarMap() {
     }, [celestialRef.current, setRa, setDec, setAng]);
 
     return (
-        <div>
-            <button className={'getCoords'} onClick={handleBackClick}>← <span>Get</span></button>
+        <div className={"starmap_container"}>
+            <div className={"sidebar"}>
+            <button className={'getCoords'} onClick={handleBackClick}>← <span>Get coordinates <br/> &nbsp; &nbsp; &nbsp;  & back to search </span>
+            </button>
             <div className={"coords_selected"}>Selected Coords: <br/> RA {selectedCoords[0].toFixed(2)}, DEC: {selectedCoords[1].toFixed(2)}</div>
             <div className={"coords_flow"}>Current Coords: <br/> RA {cursorCoords[0].toFixed(2)}, DEC: {cursorCoords[1].toFixed(2)}</div>
             <input className={"angular_slider"} type="range" min="0" max="2.255" step="0.001" value={sliderValue} onChange={handleCircleWidthChange} />
             <span className={"angular"}>Angular size: <input className={"angular_input"} type="text" value={circleWidth} onChange={handleTextInputChange} />°</span>
             <div className={"info"}> Double click on map to selecting coordinates.</div>
+            </div>
             <div style={{ overflow: 'hidden', margin: '0 auto', width: '800px' }}>
                 <div id="celestial-map" ref={mapRef}></div>
             </div>

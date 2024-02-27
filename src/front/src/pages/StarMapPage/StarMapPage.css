@@ -2,58 +2,74 @@ p {
     color: #fff;
 }
 
+.starmap_container {
+    display: flex;
+}
+
+.sidebar {
+    margin-top: 1em;
+    margin-left: 1em;
+    padding: 0.5em;
+    background-color: black;
+    width: 180px;
+    border: 2px solid var(--separator);
+}
+
 .getCoords {
     background-color: var(--highlight);
-    width: 80px;
-    height: 80px;
-    border:0;
+    width: 180px;
+    height: 70px;
+    border: 0;
     font-size: 1em;
-    position: absolute;
-    left: 40px;
-    top: 5%;
+    /*position: absolute;*/
+    /*left: 40px;*/
+    /*top: 1%;*/
+    line-height: 0.5em;
+}
+
+.getCoords:hover {
+    filter: brightness(110%);
+    cursor: pointer;
+
 }
 
 .getCoords span {
     font-size: 0.6em;
+    text-align: left;
 }
 
 .coords, .coords_flow,
 .coords_selected,
 .angular,
 .angular_slider,
-.info
-{
+.info {
     display: block;
     color: var(--shaded_text);
-    position: absolute;
-    left: 40px;
     font-size: 0.5em;
 }
 
+.coords_selected
+, .coords_flow
+, .angular_slider {
+    margin-top: 1em;
 
-
-.coords_selected {top: 125px;}
-.coords_flow {top: 170px;}
-
-.angular_slider {
-    top: 220px;
 }
-.angular { top: 250px;}
 
 
 .info {
-    top: 300px;
-    width: 200px;
-    height: 300px;
+    /*height: 300px;*/
     overflow: scroll;
     font-size: 0.5em;
+    padding-top: 1em;
 }
+
 .angular_input {
     background-color: black;
     border: 0;
     text-decoration: underline;
     color: var(--highlight);
     width: 2em;
+    padding-top: 1em;
 }
 
 .angular_input:focus {
@@ -62,6 +78,7 @@ p {
     color: black;
     text-decoration: none;
 }
+
 #celestial-map {
     /*width: 90%;*/
     /*height: 90%;*/
