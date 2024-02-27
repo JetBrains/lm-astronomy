@@ -171,5 +171,8 @@ difference between indices in the `data/{dataset_name}/dataset.json` and `data/{
 
 ## References
 
-1. Sotnikov, V.; Chaikova, A. Language Models for Multimessenger Astronomy. Galaxies 2023, 11,
-    63. [https://doi.org/10.3390/galaxies11030063](https://doi.org/10.3390/galaxies11030063).
+1. Sotnikov, V.; Chaikova, A. Language Models for Multimessenger Astronomy. Galaxies 2023, 11, 63. 
+   [https://doi.org/10.3390/galaxies11030063](https://doi.org/10.3390/galaxies11030063).
+2. [Nimbus: Online demo-version](https://lm-astronomy.labs.jb.gg/) 
+3. [FastAPI](https://lm-astronomy.labs.jb.gg/docs)
+4. [Astroparticle Physics Lab at JetBrains Research](https://lp.jetbrains.com/research/astroparticle-physics/)
