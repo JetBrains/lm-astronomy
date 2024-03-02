@@ -30,7 +30,7 @@ The following are examples of how to make requests to the API endpoints:
 
 ```
 curl -X 'GET' \
-  'https://lm-astronomy.labs.jb.gg/api/search/?radius=3&event_type=High%20Energy%20Event&object_type=Supernova' \
+  'https://lm-astronomy.labs.jb.gg/api/search/?event_type=High%20Energy%20Event&object_type=Supernova' \
   -H 'accept: application/json'
 ```
 
