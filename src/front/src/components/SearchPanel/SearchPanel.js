@@ -9,6 +9,7 @@ import SearchButton from "../SearchButton/SearchButton";
 import {searchAPI} from "../../api/apiServices";
 import TransientInput from '../TransientInput/TransientInput';
 import CoordinatesInput from '../CoordinatesInput/CoordinatesInput';
+import RadiusInput from '../Radius/Radius';
 import AstromapIcon from '../AstromapIcon/AstromapIcon';
 import SearchParamsContext from '../Contexts/SearchParamsContext';
 
@@ -48,39 +49,43 @@ function SearchPanel() {
 
 
     return (<div className="search-panel">
-            <div className="input-group transient">
-                <div className="transientContainer">
-                    {/*<label htmlFor={"transient"} className="label"> Transient: </label>*/}
-                    <TransientInput placeholder={"Transient Name"}/>
-                </div>
+        <div className="input-group transient">
+            <div className="transientContainer">
+                <TransientInput placeholder={"Transient Name"}/>
             </div>
-            <div className="input-group coordinates">
-                <div className="coordinatesContainer">
-                    <label htmlFor={"ra-input"} className="label">Coord: </label>
-                    <CoordinatesInput/>
-                </div>
-                <AstromapIcon className={"astromap"}/>
+        </div>
+        <div className="input-group radius">
+            <div className="radiusContainer">
+                <RadiusInput placeholder={"Radius"}/>
             </div>
-            <div className="input-group object">
-                <div className="objectContainer">
-                    {/*<label htmlFor={"react-select-3-input"} className="label">Physical Object:</label>*/}
-                    <ObjectSelect placeholder={"Physical Object"}/>
-                </div>
+        </div>
+        <div className="input-group coordinates">
+            <div className="coordinatesContainer">
+                <label htmlFor={"ra-input"} className="label">Coordinates| </label>
+                <CoordinatesInput/>
             </div>
-            <div className="input-group event">
-                <div className="eventType">
-                    {/*<label htmlFor={"react-select-5-input"} className="label">Event type:</label>*/}
-                    <EventSelect placeholder={"Event type"}/>
-                </div>
+            <AstromapIcon className={"astromap"}/>
+        </div>
+        <div className="input-group object">
+            <div className="objectContainer">
+                {/*<label htmlFor={"react-select-3-input"} className="label">Physical Object:</label>*/}
+                <ObjectSelect placeholder={"Physical Object"}/>
             </div>
-            <div className="input-group messenger">
-                <div className="messengerType">
-                    {/*<div className={`label`}> Messenger:</div>*/}
-                    <MessengerType placeholder={"Messenger Type"}/>
-                </div>
+        </div>
+        <div className="input-group event">
+            <div className="eventType">
+                {/*<label htmlFor={"react-select-5-input"} className="label">Event type:</label>*/}
+                <EventSelect placeholder={"Event type"}/>
             </div>
-            <SearchButton onSearch={handleSearch} loading={isLoading} disabled={isDisabled}/>
-        </div>);
+        </div>
+        <div className="input-group messenger">
+            <div className="messengerType">
+                {/*<div className={`label`}> Messenger:</div>*/}
+                <MessengerType placeholder={"Messenger Type"}/>
+            </div>
+        </div>
+        <SearchButton onSearch={handleSearch} loading={isLoading} disabled={isDisabled}/>
+    </div>);
 }
 
 export default SearchPanel;

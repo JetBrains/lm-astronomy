@@ -18,6 +18,7 @@
 .event,
 .icon-container,
 .messenger,
+.radius,
 .messengerContainer
 {
     padding: 28px 0 28px 0;
@@ -32,6 +33,7 @@
     font-family: 'JetBrains Mono', monospace;
     font-weight: 400;
     letter-spacing: 0.0625em;
+    padding-right: 10px;
     text-transform: uppercase;
 }
 
@@ -99,11 +101,11 @@
     margin: 0;
 }
 
-.object {
+.object, .transient {
     width: 50%;
 }
 
-.event {
+.event, .radius {
     flex: 1;
     width: 50%;
     border-left: 1px solid var(--separator);

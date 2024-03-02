@@ -1,4 +1,4 @@
-.coordinatesContainer {
+.radiusContainer {
     display: flex;
     /*justify-content: space-between;*/
     margin-left: 28px;
@@ -8,7 +8,7 @@
 /*    width:10px;*/
 /*}*/
 
-.coordinatesContainer input::placeholder {
+.radiusContainer input::placeholder {
     text-align: left;
     /*background: url(underline.png) no-repeat bottom center;*/
     color: var(--shaded_text);
@@ -23,9 +23,5 @@
     text-transform: uppercase;
     visibility: hidden;
 
-}
-
-#dec-input {
-    margin-left: 10px;
 }
 
