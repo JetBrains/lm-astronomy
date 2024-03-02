@@ -50,33 +50,33 @@ function SearchPanel() {
     return (<div className="search-panel">
             <div className="input-group transient">
                 <div className="transientContainer">
-                    <label htmlFor={"transient"} className="label"> Transient: </label>
-                    <TransientInput placeholder={"Name"}/>
+                    {/*<label htmlFor={"transient"} className="label"> Transient: </label>*/}
+                    <TransientInput placeholder={"Transient Name"}/>
                 </div>
             </div>
             <div className="input-group coordinates">
                 <div className="coordinatesContainer">
-                    <label htmlFor={"ra-input"} className="label">Coordinates:</label>
+                    <label htmlFor={"ra-input"} className="label">Coord: </label>
                     <CoordinatesInput/>
                 </div>
                 <AstromapIcon className={"astromap"}/>
             </div>
             <div className="input-group object">
                 <div className="objectContainer">
-                    <label htmlFor={"react-select-3-input"} className="label">Physical Object:</label>
-                    <ObjectSelect placeholder={"select"}/>
+                    {/*<label htmlFor={"react-select-3-input"} className="label">Physical Object:</label>*/}
+                    <ObjectSelect placeholder={"Physical Object"}/>
                 </div>
             </div>
             <div className="input-group event">
                 <div className="eventType">
-                    <label htmlFor={"react-select-5-input"} className="label">Event type:</label>
-                    <EventSelect placeholder={"select"}/>
+                    {/*<label htmlFor={"react-select-5-input"} className="label">Event type:</label>*/}
+                    <EventSelect placeholder={"Event type"}/>
                 </div>
             </div>
-            <div className="input-group">
-                <div className="messengerContainer">
-                    <div className={`label`}> Messenger Type:</div>
-                    <MessengerType/>
+            <div className="input-group messenger">
+                <div className="messengerType">
+                    {/*<div className={`label`}> Messenger:</div>*/}
+                    <MessengerType placeholder={"Messenger Type"}/>
                 </div>
             </div>
             <SearchButton onSearch={handleSearch} loading={isLoading} disabled={isDisabled}/>

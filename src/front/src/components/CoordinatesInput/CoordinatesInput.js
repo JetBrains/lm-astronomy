@@ -33,25 +33,25 @@ function CoordinatesInput() {
 <>
             <FlowInput
                 id="ra-input"
-                placeholder="RA"
+                placeholder="RA,"
                 value={tempRa}
-                minWidth={50}
+                minWidth={80}
                 onChange={(e) => setTempRa(e.target.value)}
-                onBlur={() => handleBlur(tempRa, setRa, setTempRa, "RA")}
+                onBlur={() => handleBlur(tempRa, setRa, setTempRa, "RA,")}
             />
             <FlowInput
                 id="dec-input"
-                placeholder="DEC"
+                placeholder="DEC,"
                 value={tempDec}
-                minWidth={65}
+                minWidth={105}
                 onChange={(e) => setTempDec(e.target.value)}
-                onBlur={() => handleBlur(tempDec, setDec, setTempDec, "DEC")}
+                onBlur={() => handleBlur(tempDec, setDec, setTempDec, "DEC,")}
             />
             <FlowInput
                 id="ang-input"
                 placeholder="ANG"
                 value={tempAng}
-                minWidth={65}
+                minWidth={105}
                 onChange={(e) => setTempAng(e.target.value)}
                 onBlur={() => handleBlur(tempAng, setAng, setTempAng, "ANG")}
             />

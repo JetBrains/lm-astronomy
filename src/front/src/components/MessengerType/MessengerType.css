@@ -1,51 +1,136 @@
-.messengerContainer {
+/* SelectStyles.css */
+.messengerType {
     display: flex;
     justify-content: space-between;
-    width: 65%;
-    margin-left: 0.55em;
+    margin-left: 28px;
 }
 
-
-.messengerButton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    width: 2em;
-    height: 2em;
-    border-radius: 50%;
-    border: 2px solid #3c3c3c;;
-    color: #3c3c3c;
-    cursor: pointer;
-    font-family: serif;
-    font-size: 1.25em;
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+#messenger .reactSelect__control {
+    border: 0;
+    box-shadow: none;
+    background-color: transparent;
+    /*padding-left: 0.2em;*/
 }
 
-.messengerButton.active {
-    background-color: var(--highlight);
-    color: black;
+#messenger .reactSelect__control:hover {
     border-color: var(--highlight);
 }
-.tooltip {
-    visibility: hidden;
-    width: 120px;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: var(--flow_input);
-    font-family: 'JetBrains Mono', sans-serif;
-    font-size: 0.4em;
-    text-align: center;
-    padding: 5px 0;
-    position: absolute;
-    z-index: 1;
-    bottom: 105%;
-    left: 50%;
-    margin-left: -60px;
-    opacity: 0;
-    transition: opacity 0.3s;
+
+#messenger .reactSelect__placeholder {
+    color:var(--shaded_text);
+    font-size: 40px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 400;
+    letter-spacing: 0.0625em;
+    text-transform: uppercase;
+    opacity: unset;
 }
 
-.messengerButton:hover .tooltip {
-    visibility: visible;
-    opacity: 1;
+#messenger .reactSelect__single-value  {
+    color: var(--highlight);
+    font-size: 40px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 400;
+    letter-spacing: 0.0625em;
+    /*text-transform: uppercase;*/
+}
+
+#messenger .reactSelect__menu {
+    background-color: rgba(51,51,51,1);
+    color: white;
+    font-size: 40px;
+    width: 15.75em;
+}
+
+#messenger .reactSelect__option {
+    color: white;
+    background-color: transparent;
+    width: 100%;
+    /*text-transform: uppercase;*/
+    font-family: 'JetBrains Mono', monospace;
+}
+
+#messenger .reactSelect__option--is-selected {
+    color: var(--shaded_text);
+}
+
+#messenger .reactSelect__value-container--has-value div::after {
+    content: "↓";
+    font-size: 40px;
+    color: var(--highlight);
+    font-weight: 400;
+    font-family: 'JetBrains Mono', monospace;
+    padding-left: 10px;
+}
+
+#messenger .reactSelect__value-container--has-value + .reactSelect__indicators {
+    display: none;
+}
+
+#messenger .reactSelect__option--is-focused {
+    background-color: rgba(211,236,39,0.1);
+}
+
+#messenger .reactSelect__option:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+#messenger .reactSelect__multiValue {
+    font-size: 40px;
+    background-color: rgba(211,236,39,0.1);
+}
+
+#messenger .reactSelect__indicator-separator {
+    display: none;
+}
+#messenger .reactSelect__indicator svg {
+    display: none;
+}
+#messenger .reactSelect__indicator::after {
+    content: "↓";
+    font-size: 40px;
+    color: var(--shaded_text);
+    font-weight: 400;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+
+
+#messenger .reactSelect__multi-value {
+    background-color: rgba(255,255,255,0.2);
+    color: white;
+}
+#messenger .reactSelect__multi-value__label {
+    color: white;
+    font-size: 40px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 400;
+    letter-spacing: 2px;
+    /*text-transform: uppercase;*/
+}
+
+#messenger .reactSelect__clear-indicator {
+    display: none;
+}
+#messenger .reactSelect__input-container .reactSelect__input {
+    font-size: 0.9375em !important;
+    color: white !important;
+    /*padding-left: 0.47em !important;*/
+    font-weight: 400;
+}
+
+#messenger .reactSelect__value-container {
+    padding: 0;
+}
+
+
+#messenger #react-select-7-option-0 {
+    color: black;
+    text-transform: none;
+    padding: 0 0 0 10px;
+}
+
+#react-select-7-listbox {
+    margin-top: -170px;
+    margin-left: 428px;
 }

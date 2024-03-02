@@ -13,18 +13,20 @@ function TransientInput({placeholder}) {
     };
 
     return (
+        <div className='flow-input-container'>
+            <input
+                id="transient"
+                type="text"
+                placeholder={placeholder}
+                onChange={handleTransientChange}
+            />
 
-        <FlowInput
-            id="transient"
-            value={transientName || ""}
-            placeholder={placeholder}
-            minWidth={80}
-            maxWidth={700}
-            onChange={handleTransientChange}
-        />
+        </div>
 
 
-    );
+
+)
+    ;
 }
 
 

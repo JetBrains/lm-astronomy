@@ -7,13 +7,15 @@
     width: 100%;
 }
 .sidemenu {
-    flex: 1;
+    /*flex: 1;*/
     margin-right: 20px;
-    font-size: 0.5em;
-    font-weight: normal;
-    width:35%;
+    font-size: 20px;
+    font-weight: 500;
+    /*width:35%;*/
+    width: 410px;
     padding-bottom: 10em;
     max-height: 100vh;
+    line-height: 32px;
     overflow-y: auto;
     scrollbar-width: none;
 }
@@ -40,7 +42,7 @@
     list-style-type: none;
     padding: 0;
     margin: 0;
-    border-right: 2px solid var(--separator);
+    border-right: 1px solid var(--separator);
 }
 
 .card-item {
@@ -48,7 +50,7 @@
     padding: 15px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    border-bottom: 2px solid var(--separator);
+    border-bottom: 1px solid var(--separator);
 }
 .card-header {
     display: flex;
@@ -82,25 +84,21 @@
 .card-date {
     flex: 2;
 }
-.card-id {
-    font-weight: bold;
-    text-align: right;
-    flex: 1;
-}
-.card-date, .card-id {
-    font-size: 0.8em;
-}
 
+.card-date, .card-id {
+    font-size: 15px;
+}
+.card-title {
+    padding-right: 50px;
+}
 .card-date {
     flex: 2;
 }
 .card-id {
-    font-weight: bold;
+    font-weight: 400;
     text-align: right;
     flex: 1;
-}
-.card-date, .card-id {
-    font-size: 0.8em;
+    font-size: 14px;
 }
 
 .main-card-header {
@@ -110,28 +108,41 @@
 }
 
 .main-card-title {
-    font-size: 1em;
+    font-size: 35px;
+    margin: 0;
+    margin-top: 15px;
     margin-bottom: 10px;
-    padding-right: 1em;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 48px; /* 150% */
+    letter-spacing: 0.5px;
 }
 
 .main-card-message {
-    font-size: 0.6em;
-    font-weight: lighter;
+    font-size: 20px;
     padding-right: 1em;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 32px; /* 160% */
+    letter-spacing: 0.5px;
 }
 
 
 .main-card-creator {
-    font-size: 0.6em;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 32px; /* 160% */
+    letter-spacing: 0.5px;
 }
 .main-card-id {
-    font-weight: bold;
     text-align: right;
     flex: 1;
 }
 .main-card-date, .main-card-id {
-    font-size: 0.5em;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 32px;
 }
 
 .tagList {

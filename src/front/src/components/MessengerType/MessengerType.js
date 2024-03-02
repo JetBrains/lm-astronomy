@@ -1,43 +1,51 @@
 import React, { useContext } from 'react';
 import './MessengerType.css';
 import SearchParamsContext from '../Contexts/SearchParamsContext';
+import Select from "react-select";
+const messengerType = [
+    'Gravitational Waves',
+    'Electromagnetic Radiation',
+    'Cosmic Rays',
+    'Neutrinos'
+];
+
+const options = messengerType.map(item => ({
+    // value: item.toLowerCase().replace(/\s+/g, '-'),
+    value: item,
+    label: item
+}));
+
+options.unshift({
+    value: '',
+    label: '------------------------x'
+});
 
 function MessengerType(props) {
     const { messengerType, setMessengerType } = useContext(SearchParamsContext);
 
-    const handleMessengerClick = (name) => {
-        if (messengerType === name) {
-            setMessengerType(null);
-        } else {
-            setMessengerType(name);
-        }
+    const handleChange = (selectedOption) => {
+        setMessengerType(selectedOption ? selectedOption.value : '');
+
     };
 
-    const messengers = [
-        { label: 'G', name: 'Gravitational Waves' },
-        { label: 'γ', name: 'Electromagnetic Radiation' },
-        { label: 'p', name: 'Cosmic Rays' },
-        { label: 'v', name: 'Neutrinos' },
-    ];
-
-
-
+    const getValue = () => {
+        if (messengerType === '') return null;
+        return options.find(option => option.value === messengerType);
+    };
 
 
     return (
-<>
-    {messengers.map(messenger => (
-        <div
-            key={messenger.name}
-            className={`messengerButton ${messengerType === messenger.name ? 'active' : ''}`}
-            onClick={() => handleMessengerClick(messenger.name)}
-        >
-            {messenger.label}
-            <span className="tooltip">{messenger.name}</span>
-        </div>
-    ))}
+    <Select
+        classNamePrefix="reactSelect"
+        id="messenger"
+        value={getValue()}
+        onChange={handleChange}
+        options={options}
+        placeholder={props.placeholder}
+        isMulti={false}
+        isSearchable={true}
+    />
 
-</>
     );
 }
 

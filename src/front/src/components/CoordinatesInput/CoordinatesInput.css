@@ -1,21 +1,22 @@
 .coordinatesContainer {
     display: flex;
-    justify-content: space-between;
-    margin-left: 0.55em;
+    /*justify-content: space-between;*/
+    margin-left: 28px;
 }
 
-.coordinatesContainer input {
-    width:10px;
-}
+/*.coordinatesContainer input {*/
+/*    width:10px;*/
+/*}*/
 
 .coordinatesContainer input::placeholder {
-    text-align: center;
-    background: url(underline.png) no-repeat bottom center;
-    color: var(--flow_input);
+    text-align: left;
+    /*background: url(underline.png) no-repeat bottom center;*/
+    color: var(--shaded_text);
+    opacity: unset;
 }
 .hidden-span {
     border: solid 1px rgba(0,0,0,0);
-    font-size: 1.25em;
+    font-size: 40px;
     font-family: 'JetBrains Mono', monospace;
     font-weight: 400;
     letter-spacing: 0.0625em;

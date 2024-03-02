@@ -7,15 +7,15 @@
 
 body {
     margin: 0;
-    font-family: 'JetBrains Mono', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 25px;
     background-color: #030303;
 }
 
 :root {
-    --highlight: #ebc455;
-    --highlight-rgb: 235, 196, 85;
-    --shaded_text: #808080;
+    --highlight: #D3EC27;
+    --highlight-rgb: 211, 236, 39;
+    --shaded_text: #4d4d4d;
     --flow_input: #777;
-    --separator: #111;
+    --separator: #333333;
 }

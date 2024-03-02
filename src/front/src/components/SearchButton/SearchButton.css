@@ -27,13 +27,13 @@
 
 .search-text {
     color: rgba(0,0,0,1);
-    font-size: 1.5em;
+    font-size: 40px;
     line-height: 0.75em;
     font-family: 'JetBrains Mono', monospace;
     font-weight: 400;
     letter-spacing: 1em;
     text-transform: uppercase;
-    padding-left: 0.45em;
+    padding-left: 28px;
 }
 
 .search-icon {

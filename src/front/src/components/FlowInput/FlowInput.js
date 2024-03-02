@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './FlowInput.scss';
 
-function FlowInput({ id, placeholder, onChange, onBlur, value, minWidth, maxWidth = 210 }) {
+function FlowInput({ id, placeholder, onChange, onBlur, value, minWidth, maxWidth = 310 }) {
     const [inputWidth, setInputWidth] = useState(minWidth);
     const spanRef = useRef(null);
 

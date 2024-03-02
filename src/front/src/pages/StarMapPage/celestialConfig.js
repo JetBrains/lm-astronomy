@@ -6,8 +6,8 @@ const celestialConfig = {
     width: 800,
     disableAnimations: true,
     background: {
-        fill: "#ebc455",
-        stroke: "#000",
+        fill: "#111",
+        stroke: "#D3EC27",
         opacity: 1,
         width: 1
     },
@@ -15,25 +15,26 @@ const celestialConfig = {
         names: true,
         namesType: "iau",
         nameStyle: {
-            fill: "#000",
+            fill: "#D3EC27",
+            opacity: 0.5,
             align: "center",
             baseline: "middle",
         },
         lines: true,
-        lineStyle: { stroke: "#000", width: 1, opacity: 0.3 }
+        lineStyle: { stroke: "#D3EC27", width: 1, opacity: 0.3 }
     },
     lines: {
         graticule: {
-            show: true, stroke: "#000", width: 0.6, opacity: 0.8, step: [15, 15],
-            // lon: {pos: ["center"], fill: "#000", font: "10px Helvetica, Arial, sans-serif"},
-            lat: {pos: ["center"], fill: "#000", font: "10px Helvetica, Arial, sans-serif"},
+            show: true, stroke: "#D3EC27", width: 0.6, opacity: 0.8, step: [15, 15],
+            lon: {pos: ["center"], fill: "#D3EC27", font: "10px Helvetica, Arial, sans-serif"},
+            lat: {pos: ["center"], fill: "#D3EC27", font: "10px Helvetica, Arial, sans-serif"},
         }
     },
     datapath: "https://ofrohn.github.io/data/",
     stars: {
         colors: false,
         names: false,
-        style: {fill: "#000", opacity: 1},
+        style: {fill: "#D3EC27", opacity: 1},
         limit: 6,
         size: 5
     },
@@ -48,7 +49,7 @@ const celestialConfig = {
     dsos: {show: false},
     mw: {
         show: true,
-        style: {fill: "#ffe492", opacity: 0.5}
+        style: {fill: "#D3EC27", opacity: 0.1}
     },
 };
 

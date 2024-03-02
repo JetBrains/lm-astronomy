@@ -44,8 +44,8 @@ function StarMap() {
 
     useEffect(() => {
         const lineStyle = {
-            stroke: "rgba(100, 255, 100, 0.3)",
-            fill: "rgba(100, 255, 100, 0.5)",
+            stroke: "rgba(216, 235, 85, 0.4)",
+            fill: "rgba(216, 216, 85, 0.9)",
             width: circleWidth * 4.3
         };
 

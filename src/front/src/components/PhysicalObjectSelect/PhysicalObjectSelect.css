@@ -2,7 +2,7 @@
 .objectContainer {
     display: flex;
     justify-content: space-between;
-    margin-left: 0.55em;
+    margin-left: 28px;
 }
 
 
@@ -10,7 +10,7 @@
     border: 0;
     box-shadow: none;
     background-color: transparent;
-    padding-left: 0.2em;
+    /*padding-left: 0.2em;*/
 }
 
 #object .reactSelect__control:hover {
@@ -18,8 +18,8 @@
 }
 
 #object .reactSelect__placeholder {
-    color: rgba(255,255,255,0.23);
-    font-size: 1.25em;
+    color: var(--shaded_text);
+    font-size: 40px;
     font-family: 'JetBrains Mono', monospace;
     font-weight: 400;
     letter-spacing: 0.0625em;
@@ -28,17 +28,17 @@
 
 #object .reactSelect__single-value  {
     color: var(--highlight);
-    font-size: 1.25em;
+    font-size: 40px;
     font-family: 'JetBrains Mono', monospace;
     font-weight: 400;
     letter-spacing: 0.0625em;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
 }
 
 #object .reactSelect__menu {
     background-color: rgba(51,51,51,1);
     color: white;
-    font-size: 1.25em;
+    font-size: 40px;
     width: 15.75em;
 }
 
@@ -46,11 +46,13 @@
     color: white;
     background-color: transparent;
     width: 100%;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
+    font-family: 'JetBrains Mono', monospace;
 }
 
 #object .reactSelect__option--is-selected {
     color: var(--shaded_text);
+    text-transform: none;
 }
 
 #object .reactSelect__option--is-focused {
@@ -72,12 +74,25 @@
 #object .reactSelect__indicator svg {
     display: none;
 }
-#object .reactSelect__indicator::after {
+
+#object .reactSelect__value-container--has-value div::after {
     content: "↓";
-    font-size: 1.25em;
-    color: rgba(255,255,255,0.23);
+    font-size: 40px;
+    color: var(--highlight);
     font-weight: 400;
     font-family: 'JetBrains Mono', monospace;
+    padding-left: 10px;
+}
+#object .reactSelect__indicator::after {
+    content: "↓";
+    color: var(--shaded_text);
+    font-size: 40px;
+    font-weight: 400;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+#object .reactSelect__value-container--has-value + .reactSelect__indicators {
+    display: none;
 }
 
 #object .reactSelect__multi-value {
@@ -90,7 +105,7 @@
     font-family: 'JetBrains Mono', monospace;
     font-weight: 400;
     letter-spacing: 2px;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
 }
 
 #object .reactSelect__clear-indicator {
