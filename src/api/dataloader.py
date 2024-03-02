@@ -81,7 +81,7 @@ class RecordMetadata(BaseModel):
 
 class FilterParameters(BaseModel):
     object_name: Optional[str]
-    radius: int = 3
+    radius: Optional[int] = 3
     event_type: Optional[EventType]
     object_type: Optional[ObjectType]
     messenger_type: Optional[MessengerType]
@@ -156,7 +156,7 @@ def _get_coordinates_list(dataset: dict[str, RecordMetadata]):
 
 def _search_by_coordinates(tree, dataset_coords: dict, sky_coord: SkyCoord, angle: int, dataset: dict):
     result_keys = _get_coordinates_within_radius(tree, dataset_coords, sky_coord, angle)
-    result = {key: dataset[key] for key in result_keys}
+    result = {key: dataset[key] for key in result_keys if key in dataset}
     return result
 
 
