@@ -35,7 +35,7 @@ const options = objectList.map(item => ({
 }));
 options.unshift({
     value: '',
-    label: '------------------------x'
+    label: '------------------------------------------------ x'
 });
 function PhysicalObjectSelect(props) {
     const { physicalObject, setPhysicalObject } = useContext(SearchParamsContext);

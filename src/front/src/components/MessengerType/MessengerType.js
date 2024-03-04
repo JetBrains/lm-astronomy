@@ -17,7 +17,7 @@ const options = messengerType.map(item => ({
 
 options.unshift({
     value: '',
-    label: '------------------------x'
+    label: '------------------------------------------------ x'
 });
 
 function MessengerType(props) {

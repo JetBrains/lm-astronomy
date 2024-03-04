@@ -38,7 +38,7 @@ const options = eventList.map(item => ({
 }));
 options.unshift({
     value: '',
-    label: '------------------------x'
+    label: '------------------------------------------------ x'
 });
 
 function EventSelect(props) {
