@@ -180,9 +180,8 @@ function StarMap() {
         </div>
 
 
-        <div style={{overflow: 'hidden', margin: '0 auto', width: '800px'}}>
-            <div id="celestial-map" ref={mapRef}></div>
-        </div>
+        <div id="celestial-map" ref={mapRef}></div>
+
         <div id="celestial-form"></div>
     </div>);
 }

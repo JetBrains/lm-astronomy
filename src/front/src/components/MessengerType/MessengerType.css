@@ -124,10 +124,20 @@
 }
 
 
-#messenger #react-select-7-option-0 {
-    color: black;
+#messenger #react-select-7-option-0,
+#messenger  #react-select-2-option-0,
+#messenger  #react-select-3-option-0,
+#messenger  #react-select-4-option-0,
+#messenger  #react-select-5-option-0
+
+{
+    color: white;
     text-transform: none;
-    padding: 0 0 0 10px;
+    padding: 0 20px 0 10px;
+    height: 25px;
+    font-size: 20px;
+    text-align: right;
+    font-weight: normal;
 }
 
 /*#react-select-7-listbox {*/

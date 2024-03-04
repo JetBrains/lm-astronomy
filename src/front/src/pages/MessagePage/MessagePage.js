@@ -174,7 +174,7 @@ function MessagePage() {
         return <div>Loading...</div>;
     }
 
-    const searchString = [transientName && `${transientName}`, ra && `RA=${ra}`, dec && `DEC=${dec}`, ang && `ANG=${ang}`, physicalObject && `${physicalObject}`, eventType && `${eventType}`, messengerType && `${messengerType}`].filter(Boolean).join(', ');
+    const searchString = [transientName && `${transientName}`, ra && `RA=${ra}`, dec && `DEC=${dec}`, ang && `RAD=${ang}`, physicalObject && `${physicalObject}`, eventType && `${eventType}`, messengerType && `${messengerType}`].filter(Boolean).join(', ');
 
 
     return (<div className="app-container font-base">

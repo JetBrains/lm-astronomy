@@ -19,6 +19,7 @@ function SearchPanel() {
         transientName, ra, dec, ang, eventType, physicalObject, messengerType
     } = useContext(SearchParamsContext);
 
+    const [windowHeightClass, setWindowHeightClass] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [isDisabled, setIsDisabled] = useState(false);
     const [page, setPage] = useState(1);
@@ -46,9 +47,27 @@ function SearchPanel() {
     //     setIsDisabled(!transientName && !physicalObject && !messengerType && !eventType && !(ang && ra && dec));
     // })
 
+    const handleResize = () => {
+        if (window.innerHeight > 1200) {
+            setWindowHeightClass('extra-large-window');
+        } else if (window.innerHeight > 900) {
+            setWindowHeightClass('large-window');
+        } else {
+            setWindowHeightClass('');
+        }
+    };
 
-    return (<div className="search-panel">
-        <div className="input-group transient">
+    useEffect(() => {
+        window.addEventListener('resize', handleResize);
+        handleResize(); // Инициализируем при монтировании
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    return (
+
+        <div className={`search-panel ${windowHeightClass}`}>
+
+            <div className="input-group transient">
             <div className="transientContainer">
                 <TransientInput placeholder={"Transient Name"}/>
             </div>

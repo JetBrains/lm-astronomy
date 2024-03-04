@@ -12,7 +12,7 @@ p {
     /*padding: 0.5em;*/
     background-color: black;
     width: 280px;
-    margin-right: -280px;
+    /*margin-right: -280px;*/
     /*border: 2px solid var(--separator);*/
 }
 
@@ -29,10 +29,6 @@ p {
     border: 0;
     font-size: 20px;
     text-align: center;
-    /*position: absolute;*/
-    /*left: 40px;*/
-    /*top: 1%;*/
-    /*line-height: 0.5em;*/
 }
 
 .getCoords:hover {
@@ -110,10 +106,5 @@ p {
     text-decoration: none;
 }
 
-#celestial-map {
-    /*width: 90%;*/
-    /*height: 90%;*/
-    margin: 0 auto;
 
-}
 

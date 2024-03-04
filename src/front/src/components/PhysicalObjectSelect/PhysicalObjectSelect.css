@@ -123,9 +123,18 @@
     padding: 0;
 }
 
-#object #react-select-3-option-0 {
-    color: black;
-    padding: 0 0 0 10px;
+#object #react-select-2-option-0,
+#object #react-select-3-option-0,
+#object #react-select-4-option-0,
+#object #react-select-5-option-0
+{
+    color: white;
     text-transform: none;
+    padding: 0 20px 0 10px;
+    height: 25px;
+    font-size: 20px;
+    text-align: right;
+    font-weight: normal;
 }
+
 
