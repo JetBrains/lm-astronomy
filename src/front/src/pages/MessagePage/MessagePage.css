@@ -14,7 +14,7 @@
     /*width:35%;*/
     width: 410px;
     padding-bottom: 10em;
-    max-height: 100vh;
+    /*max-height: 100vh;*/
     line-height: 32px;
     overflow-y: auto;
     scrollbar-width: none;
@@ -25,7 +25,7 @@
 }
 
 .sidemenu button {
-    margin-left: 5em;
+    margin-left: 9em;
     margin-top: 1em;
     background-color: var(--highlight);
     border: 0;

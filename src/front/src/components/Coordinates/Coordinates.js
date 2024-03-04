@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext, useCallback } from 'react';
-import './Radius.css';
+import './Coordinates.css';
 import SearchParamsContext from '../Contexts/SearchParamsContext';
 import FlowInput from '../../components/FlowInput/FlowInput';
 
 const formatValueForInput = (label, value) => `${label}=${value}`;
 
-function RadiusInput() {
+function CoordinatesInput(props) {
     const { ra, setRa, dec, setDec, ang, setAng } = useContext(SearchParamsContext);
     const [tempAng, setTempAng] = useState('');
 
@@ -27,13 +27,14 @@ function RadiusInput() {
     return (
             <FlowInput
                 id="ang-input"
-                placeholder="Radius&deg;"
+                placeholder={props.placeholder}
                 value={tempAng}
-                minWidth={405}
+                minWidth={500}
+                maxWidth={600}
                 onChange={(e) => setTempAng(e.target.value)}
                 onBlur={() => handleBlur(tempAng, setAng, setTempAng, "ANG")}
             />
     );
 }
 
-export default RadiusInput;
+export default CoordinatesInput;

@@ -14,7 +14,7 @@
 
 .transientContainer,
 .flow-input-container{
-    width: 100%;
+    /*width: 100%;*/
 }
 .transientContainer input {
     margin: 0 0.2em;

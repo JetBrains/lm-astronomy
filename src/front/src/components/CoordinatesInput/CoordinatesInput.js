@@ -3,7 +3,7 @@ import './CoordinatesInput.css';
 import SearchParamsContext from '../Contexts/SearchParamsContext';
 import FlowInput from '../../components/FlowInput/FlowInput';
 
-const formatValueForInput = (label, value) => `${label}=${value}`;
+const formatValueForInput = (label, value) => `${label}=${value},`;
 
 function CoordinatesInput() {
     const { ra, setRa, dec, setDec, ang, setAng } = useContext(SearchParamsContext);
@@ -15,7 +15,7 @@ function CoordinatesInput() {
     useEffect(() => {
         setTempRa(ra ? formatValueForInput("RA", ra) : '');
         setTempDec(dec ? formatValueForInput("DEC", dec) : '');
-        setTempAng(ang ? formatValueForInput("ANG", ang) : '');
+        setTempAng(ang ? formatValueForInput("RAD", ang) : '');
     }, [ra, dec, ang]);
 
     const extractNumericValue = useCallback((value) => {
@@ -45,16 +45,16 @@ function CoordinatesInput() {
                 value={tempDec}
                 minWidth={105}
                 onChange={(e) => setTempDec(e.target.value)}
-                onBlur={() => handleBlur(tempDec, setDec, setTempDec, "DEC")}
+                onBlur={() => handleBlur(tempDec, setDec, setTempDec, "DEC,")}
             />
-            {/*<FlowInput*/}
-            {/*    id="ang-input"*/}
-            {/*    placeholder="ANG"*/}
-            {/*    value={tempAng}*/}
-            {/*    minWidth={105}*/}
-            {/*    onChange={(e) => setTempAng(e.target.value)}*/}
-            {/*    onBlur={() => handleBlur(tempAng, setAng, setTempAng, "ANG")}*/}
-            {/*/>*/}
+            <FlowInput
+                id="ang-input"
+                placeholder="& RADIUS"
+                value={tempAng}
+                minWidth={230}
+                onChange={(e) => setTempAng(e.target.value)}
+                onBlur={() => handleBlur(tempAng, setAng, setTempAng, "RADIUS")}
+            />
         </>
     );
 }

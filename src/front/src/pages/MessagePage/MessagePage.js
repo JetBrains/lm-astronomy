@@ -18,11 +18,11 @@ function MessagePage() {
 
     const navigate = useNavigate();
 
-    useEffect(() => {
-        if (!transientName && !ra && !dec && !ang && !eventType && !physicalObject && !messengerType) {
-            navigate('/');
-        }
-    }, [transientName, ra, dec, ang, eventType, physicalObject, messengerType, navigate]);
+    // useEffect(() => {
+    //     if (!transientName && !ra && !dec && !ang && !eventType && !physicalObject && !messengerType) {
+    //         navigate('/');
+    //     }
+    // }, [transientName, ra, dec, ang, eventType, physicalObject, messengerType, navigate]);
 
 
 

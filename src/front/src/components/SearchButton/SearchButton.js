@@ -8,7 +8,7 @@ function SearchButton({onSearch, loading, disabled}) {
         <div className={`search-button ${loading ? 'loading' : ''} ${disabled ? 'disabled' : ''}`} onClick={onSearch}>
             <span className="search-text">SEARCH</span>
             <div className="icons-container">
-                <svg width="90" height="70" viewBox="0 0 108 84" fill="none"
+                <svg width="130" height="84" viewBox="0 0 108 84" fill="none"
                      xmlns="http://www.w3.org/2000/svg">
                     <circle cx="54" cy="42" r="40.5" stroke="black" strokeWidth="3"/>
                     <path
@@ -17,6 +17,7 @@ function SearchButton({onSearch, loading, disabled}) {
                     <circle className={`pupil ${loading ? "pupil-spinning" : ""}`} cx="32.0001" cy="36.0006" r="8.78571"
                             stroke="black" strokeWidth="3"/>
                 </svg>
+
 
             </div>
         </div>);

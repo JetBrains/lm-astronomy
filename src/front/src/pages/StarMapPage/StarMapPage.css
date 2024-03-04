@@ -11,20 +11,28 @@ p {
     /*margin-left: 1em;*/
     /*padding: 0.5em;*/
     background-color: black;
-    width: 180px;
+    width: 280px;
+    margin-right: -280px;
     /*border: 2px solid var(--separator);*/
 }
 
+.sidebar div {
+    margin-bottom: 5px;
+}
+
 .getCoords {
+
+    margin-left:28px;
     background-color: var(--highlight);
-    width: 180px;
-    height: 70px;
+    width: 155px;
+    height: 155px;
     border: 0;
-    font-size: 1em;
+    font-size: 20px;
+    text-align: center;
     /*position: absolute;*/
     /*left: 40px;*/
     /*top: 1%;*/
-    line-height: 0.5em;
+    /*line-height: 0.5em;*/
 }
 
 .getCoords:hover {
@@ -34,7 +42,7 @@ p {
 }
 
 .getCoords span {
-    font-size: 0.6em;
+    /*font-size: 0.6em;*/
     text-align: left;
 }
 
@@ -45,38 +53,55 @@ p {
 .info {
     display: block;
     color: #fff;
-    font-size: 0.5em;
+    font-size: 20px;
 }
 
-.coords_selected
-, .coords_flow
-, .angular_slider {
+.coords_selected, .coords_flow, .info{
     margin-top: 1em;
-    margin-left: 2em;
-
+    padding-left: 28px;
+    /*margin-left: 2em;*/
+}
+.angular_container {
+    padding-left: 28px;
+}
+.angular_slider {
+    margin-top: 10px;
+    width: 200px;
 }
 
+.coords_selected{
+    padding-bottom: 20px;
+    /*border-bottom: 1px solid var(--separator);*/
+}
 
 .info {
     /*height: 300px;*/
     overflow: scroll;
-    font-size: 0.5em;
-    padding-top: 1em;
-    margin-left: 2em;
+    font-size: 20px;
+    color: var(--shaded_text);
+    padding-top: 20px;
+    /*border-top: 1px solid var(--separator);*/
 }
-
+.coords_flow {
+    padding-top: 20px;
+    /*border-top: 1px solid var(--separator);*/
+    color: var(--shaded_text);
+}
 .angular_input {
     background-color: black;
     border: 0;
     text-decoration: underline;
     color: var(--highlight);
     width: 2em;
-    padding-top: 1em;
+    /*padding-top: 1em;*/
+    font-size: 20px;
+
 }
 
-.angular {
-    margin-left: 2em;
+.selected_ra_input {
+    color: var(--highlight);
 }
+
 
 .angular_input:focus {
     outline: none;
