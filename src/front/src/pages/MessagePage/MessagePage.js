@@ -1,5 +1,4 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
 import {MessageContext} from '../../components/Contexts/MessageContext';
 import './MessagePage.css';
 import Header from "../../components/Header/Header";
@@ -8,30 +7,54 @@ import SearchParamsContext from '../../components/Contexts/SearchParamsContext';
 import {searchAPI} from "../../api/apiServices";
 
 function MessagePage() {
-    const {
-        transientName, ra, dec, ang, eventType, physicalObject, messengerType,
-    } = useContext(SearchParamsContext);
+
+    const SearchParamsFromContext = useContext(SearchParamsContext);
 
     const {
-        setMessagesData, messagesData, currentPage, setCurrentPage, totalMessages,
+        setMessagesData, messagesData, currentPage, setCurrentPage, totalMessages, setTotalMessages
     } = useContext(MessageContext);
 
-    const navigate = useNavigate();
-
-    // useEffect(() => {
-    //     if (!transientName && !ra && !dec && !ang && !eventType && !physicalObject && !messengerType) {
-    //         navigate('/');
-    //     }
-    // }, [transientName, ra, dec, ang, eventType, physicalObject, messengerType, navigate]);
-
-
-
-
     const [activeMessageId, setActiveMessageId] = useState(messagesData && messagesData.length > 0 ? messagesData[0].record_id : null);
+    const [searchParams, setSearchParams] = useState(SearchParamsFromContext);
+
+    const {
+        transientName, ra, dec, ang, eventType, physicalObject, messengerType,
+    } = searchParams;
+
 
     const [loadedMessages, setLoadedMessages] = useState([]);
     const itemsPerPage = 10;
+    const saveToLocalStorage = (key, value) => {
+        localStorage.setItem(key, JSON.stringify(value));
+    };
 
+    const readFromLocalStorage = (key) => {
+        const item = localStorage.getItem(key);
+        return item ? JSON.parse(item) : null;
+    };
+
+    useEffect(() => {
+        if (messagesData.length > 0) {
+            saveToLocalStorage('messagesData', messagesData);
+            saveToLocalStorage('activeMessageId', activeMessageId);
+            saveToLocalStorage('totalMessages', totalMessages);
+            saveToLocalStorage('searchParams', searchParams);
+        }
+    }, [messagesData, activeMessageId, totalMessages, searchParams]);
+
+    useEffect(() => {
+        const savedMessages = readFromLocalStorage('messagesData');
+        const loadedActiveMessageId = readFromLocalStorage('activeMessageId');
+        const loadedTotalMessages = readFromLocalStorage('totalMessages');
+        const loadedSearchParams = readFromLocalStorage('searchParams');
+
+        if (savedMessages && savedMessages.length > 0) {
+            setMessagesData(savedMessages);
+            setActiveMessageId(loadedActiveMessageId);
+            setTotalMessages(loadedTotalMessages);
+            setSearchParams(loadedSearchParams);
+        }
+    }, []);
     useEffect(() => {
         setLoadedMessages(messagesData);
     }, [messagesData]);
@@ -52,6 +75,7 @@ function MessagePage() {
     const handleShowMore = () => {
         loadMoreData();
     };
+
     useEffect(() => {
         const mainElement = document.querySelector('.main');
         const offsetTop = mainElement.offsetTop;
@@ -75,7 +99,6 @@ function MessagePage() {
 
     const handleCardClick = (id) => {
         setActiveMessageId(id);
-        // Здесь можно вызывать функцию для перезагрузки контента в main колонке, когда она будет готова
     };
 
     function trimChannelIdFromTitle(title = '') {
@@ -93,9 +116,8 @@ function MessagePage() {
         const hours = String(date.getUTCHours()).padStart(2, '0');
         const minutes = String(date.getUTCMinutes()).padStart(2, '0');
 
-        // Получаем смещение времени в минутах
         const offset = date.getTimezoneOffset();
-        // Преобразуем смещение в формат ±hh:mm
+
         const offsetSign = offset > 0 ? '-' : '+';
         const offsetHours = Math.floor(Math.abs(offset) / 60);
         const offsetMinutes = Math.abs(offset) % 60;
@@ -113,7 +135,6 @@ function MessagePage() {
     }
 
     const processDescription = (description) => {
-        // Проверяем, что description определен, прежде чем использовать метод endsWith
         const trimmedDescription = description && description.endsWith('...') ? description.slice(0, -3) : description;
 
         return (<>
@@ -126,9 +147,7 @@ function MessagePage() {
     };
 
     function generateTagList(activeMessage) {
-        // Пустой массив для хранения элементов li
         const listItems = [];
-
 
         const addItem = (item) => {
             if (Array.isArray(item) && item.length > 0) {
@@ -158,7 +177,6 @@ function MessagePage() {
     }
 
     function ActiveMessageTagList({activeMessage}) {
-        // Проверка, что activeMessage не undefined или null
         if (!activeMessage) {
             return null;
         }

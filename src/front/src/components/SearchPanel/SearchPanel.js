@@ -43,9 +43,7 @@ function SearchPanel() {
             });
     };
 
-    // useEffect(() => {
-    //     setIsDisabled(!transientName && !physicalObject && !messengerType && !eventType && !(ang && ra && dec));
-    // })
+
 
     const handleResize = () => {
         if (window.innerHeight > 1200) {
@@ -62,6 +60,10 @@ function SearchPanel() {
         handleResize(); // Инициализируем при монтировании
         return () => window.removeEventListener('resize', handleResize);
     }, []);
+
+    useEffect(() => {
+        localStorage.clear();
+         })
 
     return (
 
