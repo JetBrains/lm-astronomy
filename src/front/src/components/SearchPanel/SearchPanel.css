@@ -85,7 +85,7 @@
     width: 10%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    /*justify-content: center;*/
     text-align: right;
 }
 
@@ -100,7 +100,7 @@
 }
 
 .input-group .icon-container {
-    /*padding: 0.2em 0 0;*/
+    padding: 0.2em 0 0 10px;
     margin: 0;
 }
 
@@ -123,15 +123,6 @@
 
 }
 
-/*.coordinatesContainer {*/
-/*    display: flex;*/
-/*    !*justify-content: space-between;*!*/
-/*    margin-left: 28px;*/
-/*}*/
-
-/*.coordinatesContainer input {*/
-/*    width:10px;*/
-/*}*/
 
 .coordinatesContainer input::placeholder {
     text-align: left;
