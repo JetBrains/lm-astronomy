@@ -4,7 +4,9 @@ import astropy.units as u
 from astropy.coordinates import SkyCoord
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
+from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from api.atel import ATelRecord, load_record
 from api.dataloader import RecordMetadata, FilterParameters, get_atel_dataset, get_gcn_dataset, match_object_name, \
@@ -109,6 +111,14 @@ def get_filtered_records(params: FilterParameters = Depends()):
 @app.get('/api/health_check')
 def health_check():
     return 'OK'
+
+
+@app.exception_handler(StarletteHTTPException)
+async def custom_http_exception_handler(request, exc):
+    if exc.status_code == 404:
+        return FileResponse('static/index.html')
+    else:
+        return await exc(request)
 
 
 app.mount("/", StaticFiles(directory="static", html=True), name="static")
